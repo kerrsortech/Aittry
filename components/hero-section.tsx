@@ -7,6 +7,8 @@ import { Avatar } from "@/components/ui/avatar"
 import { Progress } from "@/components/ui/progress"
 import { Send, ShoppingBag, Glasses, Watch, Shirt, Crown, Footprints, Check, Briefcase, Sparkles } from "lucide-react"
 import { useEffect, useState } from "react"
+import { ContactModal } from "@/components/contact-modal"
+import { DemoModal } from "@/components/demo-modal"
 
 const productCategories = [
   { icon: ShoppingBag, label: "Handbags", id: "handbag" },
@@ -29,6 +31,8 @@ const categoryVisuals = [
 export function HeroSection() {
   const [selectedCategory, setSelectedCategory] = useState(1)
   const [showMessages, setShowMessages] = useState<number[]>([])
+  const [contactModalOpen, setContactModalOpen] = useState(false)
+  const [demoModalOpen, setDemoModalOpen] = useState(false)
 
   // Rotate through categories
   useEffect(() => {
@@ -47,7 +51,7 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative min-h-[90vh] w-full overflow-hidden bg-background py-20">
+    <section className="relative min-h-[90vh] w-full overflow-hidden bg-background py-12 md:py-16">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute left-[10%] top-[20%] h-64 w-64 animate-float rounded-full bg-primary/5 blur-3xl" />
@@ -61,19 +65,38 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="container relative z-10 mx-auto max-w-7xl px-4">
+      <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hero Heading */}
-        <div className="mb-12 text-center">
-          <h1 className="mb-4 text-balance text-5xl font-bold tracking-tight text-foreground lg:text-6xl">
-            Turn Shoppers into Buyers<br>
+        <div className="mb-8 md:mb-12 text-center">
+          <h1 className="mb-4 text-balance text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
+            Turn Shoppers into Buyers<br />
           </h1>
-          <p className="mx-auto max-w-2xl text-balance text-lg text-muted-foreground">
+          <p className="mx-auto max-w-2xl text-balance text-base sm:text-lg text-muted-foreground">
             Let customers see themselves in your products with studio-quality virtual try-on, plus an AI shopping assistant that recommends the perfect match.
           </p>
+          
+          {/* CTA Buttons */}
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Button
+              size="lg"
+              onClick={() => setDemoModalOpen(true)}
+              className="h-12 min-w-[160px] bg-primary text-primary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-md active:translate-y-0"
+            >
+              Request Demo
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => setContactModalOpen(true)}
+              className="h-12 min-w-[160px] border-border/50 bg-transparent transition-all hover:-translate-y-0.5 hover:border-primary hover:bg-muted/50 active:translate-y-0"
+            >
+              Contact
+            </Button>
+          </div>
         </div>
 
         {/* Split Panel Container */}
-        <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
+        <div className="grid gap-4 md:gap-6 lg:grid-cols-[1.2fr_1fr]">
           {/* LEFT PANEL: Virtual Try-On */}
           <div className="space-y-3">
             <div className="flex items-center gap-2">
@@ -347,6 +370,10 @@ export function HeroSection() {
           animation: float 25s ease-in-out infinite;
         }
       `}</style>
+
+      {/* Modals */}
+      <ContactModal open={contactModalOpen} onOpenChange={setContactModalOpen} />
+      <DemoModal open={demoModalOpen} onOpenChange={setDemoModalOpen} />
     </section>
   )
 }

@@ -41,32 +41,32 @@ export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section id="faq" className="relative py-32">
-      <div className="container mx-auto max-w-4xl px-4">
+    <section id="faq" className="relative py-12 md:py-16">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-3xl font-semibold text-foreground">Frequently Asked Questions</h2>
-          <p className="text-lg text-muted-foreground">Everything you need to know</p>
+        <div className="mb-8 md:mb-12 text-center">
+          <h2 className="mb-4 text-2xl font-semibold text-foreground sm:text-3xl">Frequently Asked Questions</h2>
+          <p className="text-base sm:text-lg text-muted-foreground">Everything you need to know</p>
         </div>
 
         {/* FAQ Accordion */}
-        <div className="space-y-2">
+        <div className="space-y-2 max-w-4xl mx-auto">
           {faqs.map((faq, index) => (
-            <Card key={index} className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-xl transition-all">
+            <Card key={index} className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-xl transition-all p-0 gap-0">
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="flex w-full items-center justify-between px-4 py-3 text-left transition-colors hover:bg-muted/20"
+                className="flex w-full items-center justify-between px-4 py-2.5 text-left transition-colors hover:bg-muted/20"
               >
-                <span className="pr-4 text-sm font-medium text-foreground">{faq.question}</span>
+                <span className="pr-4 text-sm font-medium text-foreground flex-1 text-left">{faq.question}</span>
                 <ChevronDown
-                  className={`h-5 w-5 flex-shrink-0 text-primary transition-transform ${
+                  className={`h-4 w-4 flex-shrink-0 text-primary transition-transform ${
                     openIndex === index ? "rotate-180" : ""
                   }`}
                 />
               </button>
-              <div className={`overflow-hidden transition-all ${openIndex === index ? "max-h-96" : "max-h-0"}`}>
-                <div className="border-t border-border/30 px-4 pb-3 pt-2">
-                  <p className="text-sm leading-relaxed text-muted-foreground">{faq.answer}</p>
+              <div className={`overflow-hidden transition-all ${openIndex === index ? "max-h-64" : "max-h-0"}`}>
+                <div className="border-t border-border/30 px-4 py-2.5">
+                  <p className="text-sm leading-relaxed text-muted-foreground text-left">{faq.answer}</p>
                 </div>
               </div>
             </Card>

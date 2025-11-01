@@ -26,17 +26,17 @@ import {
 
 export function FeaturesGrid() {
   return (
-    <section id="features" className="relative py-32">
-      <div className="container mx-auto px-4">
+    <section id="features" className="relative py-12 md:py-16">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-3xl font-semibold text-foreground lg:text-4xl">Platform Features</h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+        <div className="mb-8 md:mb-12 text-center">
+          <h2 className="mb-4 text-2xl font-semibold text-foreground sm:text-3xl lg:text-4xl">Platform Features</h2>
+          <p className="mx-auto max-w-2xl text-base sm:text-lg text-muted-foreground">
             Everything you need to transform your online shopping experience
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {/* Feature 1: Virtual Try-On Engine */}
           <Card className="relative overflow-hidden bg-card/50 backdrop-blur-xl border-border/50 p-8 group hover:border-primary/50 transition-all duration-300 h-[600px] flex flex-col">
             <div className="flex flex-col h-full">

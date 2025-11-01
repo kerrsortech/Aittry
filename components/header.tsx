@@ -3,10 +3,14 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Sparkles, Menu, X } from "lucide-react"
+import { ContactModal } from "@/components/contact-modal"
+import { DemoModal } from "@/components/demo-modal"
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [contactModalOpen, setContactModalOpen] = useState(false)
+  const [demoModalOpen, setDemoModalOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +42,7 @@ export function Header() {
         isScrolled ? "border-b border-border/50 bg-background/80 backdrop-blur-xl" : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto max-w-7xl px-4">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 transition-opacity hover:opacity-80">
@@ -63,10 +67,19 @@ export function Header() {
 
           {/* CTA Button */}
           <div className="hidden items-center gap-3 md:flex">
-            <Button variant="outline" size="sm" className="border-border/50 bg-transparent">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="border-border/50 bg-transparent"
+              onClick={() => setContactModalOpen(true)}
+            >
               Contact Sales
             </Button>
-            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
+            <Button 
+              size="sm" 
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              onClick={() => setDemoModalOpen(true)}
+            >
               Request Demo
             </Button>
           </div>
@@ -95,16 +108,35 @@ export function Header() {
               ))}
             </nav>
             <div className="mt-4 flex flex-col gap-2 px-4">
-              <Button variant="outline" size="sm" className="w-full border-border/50 bg-transparent">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="w-full border-border/50 bg-transparent"
+                onClick={() => {
+                  setContactModalOpen(true)
+                  setIsMobileMenuOpen(false)
+                }}
+              >
                 Contact Sales
               </Button>
-              <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+              <Button 
+                size="sm" 
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                onClick={() => {
+                  setDemoModalOpen(true)
+                  setIsMobileMenuOpen(false)
+                }}
+              >
                 Request Demo
               </Button>
             </div>
           </div>
         )}
       </div>
+
+      {/* Modals */}
+      <ContactModal open={contactModalOpen} onOpenChange={setContactModalOpen} />
+      <DemoModal open={demoModalOpen} onOpenChange={setDemoModalOpen} />
     </header>
   )
 }

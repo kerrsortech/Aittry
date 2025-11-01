@@ -5,16 +5,16 @@ import { Check, Code2, ShoppingBag } from "lucide-react"
 
 export function IntegrationSection() {
   return (
-    <section id="integration" className="relative py-32">
-      <div className="container mx-auto max-w-4xl px-4">
+    <section id="integration" className="relative py-12 md:py-16">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-24 text-center">
-          <h2 className="mb-4 text-3xl font-semibold text-foreground">Easy Integration</h2>
-          <p className="text-lg text-muted-foreground">Choose what works for your store</p>
+        <div className="mb-8 md:mb-12 text-center">
+          <h2 className="mb-4 text-2xl font-semibold text-foreground sm:text-3xl">Easy Integration</h2>
+          <p className="text-base sm:text-lg text-muted-foreground">Choose what works for your store</p>
         </div>
 
         {/* Integration Cards */}
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 max-w-4xl mx-auto">
           {/* Custom SDK Card */}
           <Card className="group relative h-full overflow-hidden border-l-[3px] border-l-primary border-border/50 bg-card/50 p-5 backdrop-blur-xl transition-all">
             <div className="flex h-full flex-col">
@@ -85,9 +85,9 @@ export function IntegrationSection() {
         </div>
 
         {/* Bottom Callout */}
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-center max-w-4xl mx-auto">
           <div className="inline-block rounded-lg border border-border/50 bg-card/30 px-3 py-3 backdrop-blur-sm">
-            <p className="text-sm text-muted-foreground">Our team provides full onboarding support for both options</p>
+            <p className="text-xs sm:text-sm text-muted-foreground">Our team provides full onboarding support for both options</p>
           </div>
         </div>
       </div>
