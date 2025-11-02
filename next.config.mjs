@@ -22,12 +22,8 @@ const nextConfig = {
   outputFileTracingRoot: __dirname,
   // Compression
   compress: true,
-  // Optimize production builds
-  swcMinify: true,
   // Enable React strict mode for better development experience
   reactStrictMode: true,
-  // Optimize fonts
-  optimizeFonts: true,
 }
 
 export default nextConfig
