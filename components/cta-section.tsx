@@ -11,8 +11,8 @@ export function CtaSection() {
   const [demoModalOpen, setDemoModalOpen] = useState(false)
 
   return (
-    <section className="relative py-12 md:py-16">
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="relative py-12 md:py-16 overflow-hidden">
+      <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Card className="relative overflow-hidden border-border/50 bg-card/50 p-6 backdrop-blur-xl md:p-8 lg:p-12 max-w-4xl mx-auto">
           {/* Background Decoration - Blurred Circles */}
           <div className="pointer-events-none absolute inset-0 z-0">

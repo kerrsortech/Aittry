@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -54,19 +55,33 @@ export function FeaturesGrid() {
               {/* Illustration */}
               <div className="flex-1 grid grid-cols-2 gap-3 min-h-0">
                 {/* Upload Zone */}
-                <div className="relative bg-secondary/50 backdrop-blur-sm rounded-lg border-2 border-dashed border-border/50 p-4 flex flex-col items-center justify-center group-hover:border-primary/30 transition-all">
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-2">
-                    <Upload className="w-7 h-7 text-primary" />
+                <div className="relative bg-secondary/50 backdrop-blur-sm rounded-lg border-2 border-dashed border-border/50 p-2 flex flex-col items-center justify-center group-hover:border-primary/30 transition-all overflow-hidden">
+                  <div className="relative w-full h-full flex-1 flex items-center justify-center mb-1">
+                    <Image
+                      src="/Product_images/Clothing user.png"
+                      alt="User photo"
+                      fill
+                      className="object-cover rounded-md"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-md" />
+                    <div className="absolute top-2 left-2 w-7 h-7 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30 flex items-center justify-center z-10">
+                      <Upload className="w-3.5 h-3.5 text-primary" />
+                    </div>
                   </div>
-                  <p className="text-xs text-muted-foreground text-center">Upload Photo</p>
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-lg" />
+                  <p className="text-[10px] text-muted-foreground text-center relative z-10">Upload Photo</p>
                 </div>
 
                 {/* Preview Panel */}
                 <div className="relative bg-gradient-to-br from-secondary/80 to-secondary/40 backdrop-blur-sm rounded-lg border border-border/50 p-3 flex flex-col">
                   <div className="flex-1 bg-muted/30 rounded-md mb-2 flex items-center justify-center relative overflow-hidden">
+                    <Image
+                      src="/Product_images/Clothing after.jpg"
+                      alt="Try-on result"
+                      width={200}
+                      height={200}
+                      className="w-full h-full object-cover rounded-md"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-chart-2/20" />
-                    <Award className="w-14 h-14 text-primary/40" />
                     <Badge className="absolute top-2 right-2 bg-primary text-primary-foreground text-[10px]">
                       Studio Quality
                     </Badge>
@@ -85,18 +100,26 @@ export function FeaturesGrid() {
 
                 {/* Product Cards */}
                 <div className="col-span-2 grid grid-cols-3 gap-2">
-                  {["Shirt", "Jacket", "Pants"].map((item) => (
+                  {[
+                    { name: "Shirt", image: "/Product_images/blue shirt.jpg" },
+                    { name: "Jacket", image: "/Product_images/Clothing before.jpg" },
+                    { name: "Pants", image: "/Product_images/pants.jpg" },
+                  ].map((item) => (
                     <div
-                      key={item}
-                      className="bg-secondary/50 backdrop-blur-sm rounded-md border border-border/50 p-2 hover:border-primary/50 transition-all"
+                      key={item.name}
+                      className={`bg-secondary/50 backdrop-blur-sm rounded-md border p-2 transition-all ${
+                        item.name === "Jacket" ? "border-primary/50" : "border-border/50 hover:border-primary/50"
+                      }`}
                     >
-                      <div className="aspect-square bg-muted/30 rounded mb-1.5 flex items-center justify-center">
-                        <ShoppingBag className="w-7 h-7 text-muted-foreground/50" />
+                      <div className="aspect-square bg-muted/30 rounded mb-1.5 flex items-center justify-center relative overflow-hidden">
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className="object-cover rounded"
+                        />
                       </div>
-                      <p className="text-[10px] text-center mb-1.5">{item}</p>
-                      <Button size="sm" className="w-full bg-primary hover:bg-primary/90 h-7 text-xs">
-                        Try On
-                      </Button>
+                      <p className="text-[10px] text-center">{item.name}</p>
                     </div>
                   ))}
                 </div>
@@ -104,7 +127,8 @@ export function FeaturesGrid() {
             </div>
           </Card>
 
-          {/* Feature 2: AI Shopping Assistant */}
+          {/* Feature 2: AI Shopping Assistant - COMMENTED OUT */}
+          {false && (
           <Card className="relative overflow-hidden bg-card/50 backdrop-blur-xl border-border/50 p-8 group hover:border-primary/50 transition-all duration-300 h-[600px] flex flex-col">
             <div className="flex flex-col h-full">
               <div className="mb-4">
@@ -119,7 +143,6 @@ export function FeaturesGrid() {
               </div>
 
               <div className="flex-1 flex flex-col gap-2 min-h-0">
-                {/* User Question */}
                 <div className="flex gap-2 justify-end">
                   <div className="bg-primary/20 backdrop-blur-sm rounded-lg rounded-tr-none border border-primary/30 p-2 max-w-[75%]">
                     <p className="text-xs text-foreground/90">
@@ -131,7 +154,6 @@ export function FeaturesGrid() {
                   </div>
                 </div>
 
-                {/* Bot Answer with Product Cards */}
                 <div className="flex gap-2 flex-1 min-h-0">
                   <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
                     <Sparkles className="w-4 h-4 text-primary" />
@@ -141,7 +163,6 @@ export function FeaturesGrid() {
                       Perfect! Our linen collection is ideal for summer. Here are my top picks:
                     </p>
 
-                    {/* Product Recommendation Cards */}
                     <div className="grid grid-cols-3 gap-2 flex-1">
                       {[
                         { name: "Linen Shirt", price: 32, color: "Sky Blue" },
@@ -165,7 +186,6 @@ export function FeaturesGrid() {
                   </div>
                 </div>
 
-                {/* Input Bar */}
                 <div className="bg-secondary/50 backdrop-blur-sm rounded-lg border border-border/50 p-2 flex items-center gap-2">
                   <MessageSquare className="w-3.5 h-3.5 text-muted-foreground" />
                   <span className="text-xs text-muted-foreground flex-1">Ask anything...</span>
@@ -174,8 +194,10 @@ export function FeaturesGrid() {
               </div>
             </div>
           </Card>
+          )}
 
-          {/* Feature 3: Smart Recommendations Engine */}
+          {/* Feature 3: Smart Recommendations Engine - COMMENTED OUT */}
+          {false && (
           <Card className="relative overflow-hidden bg-card/50 backdrop-blur-xl border-border/50 p-8 group hover:border-primary/50 transition-all duration-300 h-[600px] flex flex-col">
             <div className="flex flex-col h-full">
               <div className="mb-4">
@@ -190,7 +212,6 @@ export function FeaturesGrid() {
               </div>
 
               <div className="flex-1 flex flex-col gap-2 min-h-0">
-                {/* User Question */}
                 <div className="flex gap-2 justify-end">
                   <div className="bg-primary/20 backdrop-blur-sm rounded-lg rounded-tr-none border border-primary/30 p-2 max-w-[75%]">
                     <p className="text-xs text-foreground/90">What goes well with this blue dress shirt?</p>
@@ -200,7 +221,6 @@ export function FeaturesGrid() {
                   </div>
                 </div>
 
-                {/* Bot Answer with Pairing Cards */}
                 <div className="flex gap-2 flex-1 min-h-0">
                   <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
                     <Sparkles className="w-4 h-4 text-primary" />
@@ -210,7 +230,6 @@ export function FeaturesGrid() {
                       Great choice! Here are perfect pairings based on color harmony and style:
                     </p>
 
-                    {/* Pairing Product Cards */}
                     <div className="space-y-2 flex-1 overflow-auto">
                       {[
                         { name: "Grey Chinos", price: 54, match: 95, tag: "Color Harmony" },
@@ -243,7 +262,6 @@ export function FeaturesGrid() {
                   </div>
                 </div>
 
-                {/* Input Bar */}
                 <div className="bg-secondary/50 backdrop-blur-sm rounded-lg border border-border/50 p-2 flex items-center gap-2">
                   <MessageSquare className="w-3.5 h-3.5 text-muted-foreground" />
                   <span className="text-xs text-muted-foreground flex-1">Ask for more pairings...</span>
@@ -252,6 +270,7 @@ export function FeaturesGrid() {
               </div>
             </div>
           </Card>
+          )}
 
           {/* Feature 4: Personal Stylist & Budget-Aware */}
           <Card className="relative overflow-hidden bg-card/50 backdrop-blur-xl border-border/50 p-8 group hover:border-primary/50 transition-all duration-300 h-[600px] flex flex-col">
@@ -263,7 +282,7 @@ export function FeaturesGrid() {
                 </Badge>
                 <h3 className="text-xl font-semibold mb-1 text-balance">Your Personal Shopping Assistant</h3>
                 <p className="text-xs text-muted-foreground text-balance">
-                  Ask complex questions. Get complete, budget-aware outfit solutions.
+                  Ask complex questions. Get complete, budget-aware outfit solutions with complementary pairings & fit guidance powered by your catalog data.
                 </p>
               </div>
 
@@ -294,18 +313,23 @@ export function FeaturesGrid() {
                     {/* Outfit Product Grid */}
                     <div className="grid grid-cols-4 gap-2 mb-3">
                       {[
-                        { name: "Navy Blazer", price: 89 },
-                        { name: "Blue Shirt", price: 32 },
-                        { name: "Grey Pants", price: 45 },
-                        { name: "Oxfords", price: 34 },
+                        { name: "Navy Blazer", price: 89, image: "/Product_images/navy blazer.jpg" },
+                        { name: "Blue Shirt", price: 32, image: "/Product_images/blue shirt.jpg" },
+                        { name: "Grey Pants", price: 45, image: "/Product_images/grey apnts.jpg" },
+                        { name: "Tie", price: 34, image: "/Product_images/tie.jpg" },
                       ].map((item) => (
                         <div
                           key={item.name}
                           className="bg-background/50 backdrop-blur-sm rounded-lg border border-border/40 p-1.5 hover:border-primary/50 transition-all hover:scale-105 flex flex-col"
                         >
                           <div className="aspect-square bg-muted/40 rounded-md mb-1.5 flex items-center justify-center relative overflow-hidden">
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              fill
+                              className="object-cover rounded-md"
+                            />
                             <div className="absolute inset-0 bg-gradient-to-br from-chart-4/10 to-primary/10" />
-                            <ShoppingBag className="w-5 h-5 text-muted-foreground/50 relative z-10" />
                           </div>
                           <p className="text-[10px] font-semibold mb-0.5 truncate">{item.name}</p>
                           <p className="text-xs text-primary font-bold">£{item.price}</p>

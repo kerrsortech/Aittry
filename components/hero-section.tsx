@@ -9,30 +9,77 @@ import { Send, ShoppingBag, Glasses, Watch, Shirt, Crown, Footprints, Check, Bri
 import { useEffect, useState } from "react"
 import { ContactModal } from "@/components/contact-modal"
 import { DemoModal } from "@/components/demo-modal"
+import Image from "next/image"
 
 const productCategories = [
-  { icon: ShoppingBag, label: "Handbags", id: "handbag" },
   { icon: Glasses, label: "Eyewear", id: "eyewear" },
-  { icon: Watch, label: "Jewelry", id: "jewelry" },
   { icon: Shirt, label: "Clothing", id: "clothing" },
+  { icon: ShoppingBag, label: "Handbags", id: "handbag" },
   { icon: Crown, label: "Hats", id: "hats" },
+  { icon: Watch, label: "Jewelry", id: "jewelry" },
   { icon: Footprints, label: "Shoes", id: "shoes" },
 ]
 
+// Mapping of category + type to exact file names in Product_images folder
+const imageFileMap: Record<string, string> = {
+  // Handbag
+  "handbag_before": "Handbag before 1.png",
+  "handbag_after": "Handbag after.png",
+  "handbag_user": "Handbag user.jpg",
+  // Eyewear (Glasses)
+  "eyewear_before": "Glasses before.png",
+  "eyewear_after": "Glasses after.png",
+  "eyewear_user": "Glasses user.webp",
+  // Jewelry (Chain)
+  "jewelry_before": "Chain before.webp",
+  "jewelry_after": "Chain after.png",
+  "jewelry_user": "chain user.png", // Note: lowercase 'chain'
+  // Clothing
+  "clothing_before": "Clothing before.jpg",
+  "clothing_after": "Clothing after.jpg",
+  "clothing_user": "Clothing user.png",
+  // Hats
+  "hats_before": "Hat before.jpg",
+  "hats_after": "Hat after.png",
+  "hats_user": "Hat user.webp",
+  // Shoes
+  "shoes_before": "Shoes before.png",
+  "shoes_after": "Shoes after.png",
+  "shoes_user": "Shoes user.png",
+}
+
+// Helper function to get image path
+// Images are in /Product_images/ folder with exact file names
+// Next.js Image component handles URL encoding automatically, but we ensure proper format
+const getImagePath = (category: string, type: "before" | "after" | "user"): string => {
+  const key = `${category}_${type}`
+  const fileName = imageFileMap[key]
+  
+  if (!fileName) {
+    // Fallback if mapping is missing
+    const categoryName = category.charAt(0).toUpperCase() + category.slice(1)
+    return `/Product_images/${categoryName} ${type}.png`
+  }
+  
+  // Return path with proper encoding - Next.js Image will handle spaces in URLs
+  return `/Product_images/${fileName}`
+}
+
 const categoryVisuals = [
-  { product: "Designer Handbag", overlay: "bottom-[40%] left-[20%] h-12 w-16 rounded-lg" },
   { product: "Sunglasses", overlay: "top-[25%] left-1/2 -translate-x-1/2 h-6 w-16 rounded-full" },
-  { product: "Gold Watch", overlay: "top-[45%] left-[15%] h-8 w-10 rounded-md" },
   { product: "Blue Shirt", overlay: "top-[35%] left-1/2 -translate-x-1/2 h-20 w-20 rounded-lg" },
+  { product: "Designer Handbag", overlay: "bottom-[40%] left-[20%] h-12 w-16 rounded-lg" },
   { product: "Fedora Hat", overlay: "top-[15%] left-1/2 -translate-x-1/2 h-10 w-16 rounded-t-full" },
+  { product: "Gold Watch", overlay: "top-[45%] left-[15%] h-8 w-10 rounded-md" },
   { product: "Sneakers", overlay: "bottom-[20%] left-[25%] h-10 w-14 rounded-md" },
 ]
 
 export function HeroSection() {
-  const [selectedCategory, setSelectedCategory] = useState(1)
+  const [selectedCategory, setSelectedCategory] = useState(0)
   const [showMessages, setShowMessages] = useState<number[]>([])
   const [contactModalOpen, setContactModalOpen] = useState(false)
   const [demoModalOpen, setDemoModalOpen] = useState(false)
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
 
   // Rotate through categories
   useEffect(() => {
@@ -41,6 +88,11 @@ export function HeroSection() {
     }, 3000)
     return () => clearInterval(interval)
   }, [])
+
+  // Reset image errors when category changes
+  useEffect(() => {
+    setImageErrors({})
+  }, [selectedCategory])
 
   // Stagger chat messages
   useEffect(() => {
@@ -51,27 +103,14 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative min-h-[90vh] w-full overflow-hidden bg-background py-12 md:py-16">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-[10%] top-[20%] h-64 w-64 animate-float rounded-full bg-primary/5 blur-3xl" />
-        <div
-          className="absolute right-[15%] top-[40%] h-80 w-80 animate-float-delayed rounded-full bg-chart-2/5 blur-3xl"
-          style={{ animationDelay: "2s" }}
-        />
-        <div
-          className="absolute bottom-[20%] left-[30%] h-72 w-72 animate-float rounded-full bg-chart-4/5 blur-3xl"
-          style={{ animationDelay: "4s" }}
-        />
-      </div>
-
+    <section className="relative min-h-[90vh] w-full overflow-hidden py-12 md:py-16">
       <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hero Heading */}
         <div className="mb-8 md:mb-12 text-center">
           <h1 className="mb-4 text-balance text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
             Turn Shoppers into Buyers<br />
           </h1>
-          <p className="mx-auto max-w-2xl text-balance text-base sm:text-lg text-muted-foreground">
+          <p className="mx-auto max-w-2xl text-balance text-base sm:text-lg text-white">
             Let customers see themselves in your products with studio-quality virtual try-on, plus an AI shopping assistant that recommends the perfect match.
           </p>
           
@@ -111,12 +150,12 @@ export function HeroSection() {
                 {/* Product Category Selector */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-medium text-muted-foreground">Select Category</h3>
+                    <h3 className="text-sm font-semibold text-foreground">Select Category</h3>
                     <Badge variant="secondary" className="bg-primary/10 text-primary">
                       15+ Categories
                     </Badge>
                   </div>
-                  <div className="grid grid-cols-6 gap-3">
+                  <div className="grid grid-cols-6 gap-2">
                     {productCategories.map((category, index) => {
                       const Icon = category.icon
                       const isSelected = index === selectedCategory
@@ -124,73 +163,136 @@ export function HeroSection() {
                         <button
                           key={category.id}
                           onClick={() => setSelectedCategory(index)}
-                          className={`group/cat flex flex-col items-center gap-2 rounded-lg border p-3 transition-all ${
+                          className={`group/cat flex flex-col items-center gap-2 rounded-lg border p-2.5 transition-all ${
                             isSelected
-                              ? "border-primary bg-primary/10 shadow-lg shadow-primary/20"
+                              ? "border-primary bg-primary/10 shadow-md shadow-primary/20"
                               : "border-border/50 bg-card/30 hover:border-primary/50 hover:bg-card/50"
                           }`}
                         >
                           <div
-                            className={`rounded-full p-2 transition-colors ${
+                            className={`rounded-full p-1.5 transition-colors ${
                               isSelected ? "bg-primary/20" : "bg-muted/50 group-hover/cat:bg-muted"
                             }`}
                           >
-                            <Icon className={`h-4 w-4 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />
+                            <Icon className={`h-3.5 w-3.5 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />
                           </div>
-                          <span className="text-[10px] font-medium text-foreground/80">{category.label}</span>
+                          <span className="text-[9px] font-medium text-foreground/80">{category.label}</span>
                         </button>
                       )
                     })}
                   </div>
                 </div>
 
-                <div className="relative flex-1 overflow-hidden rounded-xl border border-border/50 bg-muted/20">
+                <div className="relative flex-1 overflow-hidden rounded-xl border border-border/50 bg-gradient-to-br from-card/40 to-card/20">
                   <div className="relative grid h-full grid-cols-2 gap-0">
                     {/* Product Image */}
-                    <div className="relative flex flex-col items-center justify-end border-r border-dashed border-primary/30 bg-card/30 p-4 pb-6 lg:p-6 lg:pb-8">
-                      <div className="mb-auto flex flex-1 items-center justify-center">
-                        <div className="relative flex h-28 w-28 items-center justify-center rounded-xl border-2 border-primary/40 bg-gradient-to-br from-primary/10 to-chart-2/10 lg:h-36 lg:w-36">
-                          {/* Product placeholder */}
-                          <div className="h-16 w-16 rounded-lg bg-primary/20 lg:h-24 lg:w-24" />
-                        </div>
+                    <div className="relative flex flex-col items-center justify-center border-r border-primary/20 bg-gradient-to-br from-card/40 to-card/10 overflow-hidden" style={{ aspectRatio: "1/1" }}>
+                      <div className="relative w-full h-full">
+                        {imageErrors[`${productCategories[selectedCategory].id}_before`] ? (
+                          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 to-chart-2/10">
+                            <div className="text-center">
+                              <div className="mx-auto mb-2 h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center">
+                                <ShoppingBag className="h-6 w-6 text-primary/50" />
+                              </div>
+                              <p className="text-xs text-muted-foreground">Product Image</p>
+                            </div>
+                          </div>
+                        ) : (
+                          <Image
+                            src={getImagePath(productCategories[selectedCategory].id, "before")}
+                            alt={`${productCategories[selectedCategory].label} product`}
+                            fill
+                            sizes="(max-width: 768px) 50vw, 50vw"
+                            className="object-cover transition-opacity duration-500"
+                            priority={selectedCategory === 0}
+                            loading={selectedCategory === 0 ? "eager" : "lazy"}
+                            quality={85}
+                            onError={() => {
+                              setImageErrors(prev => ({
+                                ...prev,
+                                [`${productCategories[selectedCategory].id}_before`]: true
+                              }))
+                            }}
+                          />
+                        )}
                       </div>
-                      <Badge variant="secondary" className="bg-muted/80 text-xs font-medium">
-                        Product
+                      <Badge variant="secondary" className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-background/95 backdrop-blur-sm text-[10px] font-semibold border border-border/30">
+                        Product Image
                       </Badge>
                     </div>
 
-                    {/* Result with User */}
-                    <div className="relative flex flex-col items-center justify-end bg-gradient-to-br from-primary/5 to-chart-2/5 p-4 pb-6 lg:p-6 lg:pb-8">
-                      <div className="mb-auto flex flex-1 items-center justify-center">
-                        <div className="relative">
-                          {/* User silhouette */}
-                          <div className="h-28 w-20 rounded-lg border-2 border-dashed border-primary/40 bg-card/20 lg:h-36 lg:w-28" />
-
-                          {/* Product overlay - positioned based on category */}
-                          <div
-                            className={`absolute border-2 border-primary bg-primary/30 shadow-lg shadow-primary/30 transition-all duration-500 ${categoryVisuals[selectedCategory].overlay}`}
+                    {/* Result with User - Generated Image */}
+                    <div className="relative flex flex-col items-center justify-center bg-gradient-to-br from-primary/10 to-chart-2/10 overflow-hidden" style={{ aspectRatio: "1/1" }}>
+                      <div className="relative w-full h-full">
+                        {imageErrors[`${productCategories[selectedCategory].id}_after`] ? (
+                          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 to-chart-2/10">
+                            <div className="text-center">
+                              <div className="mx-auto mb-2 h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center">
+                                <Sparkles className="h-6 w-6 text-primary/50" />
+                              </div>
+                              <p className="text-xs text-muted-foreground">Generated Image</p>
+                            </div>
+                          </div>
+                        ) : (
+                          <Image
+                            src={getImagePath(productCategories[selectedCategory].id, "after")}
+                            alt={`${productCategories[selectedCategory].label} generated result`}
+                            fill
+                            sizes="(max-width: 768px) 50vw, 50vw"
+                            className="object-cover transition-opacity duration-500"
+                            priority={selectedCategory === 0}
+                            loading={selectedCategory === 0 ? "eager" : "lazy"}
+                            quality={85}
+                            onError={() => {
+                              setImageErrors(prev => ({
+                                ...prev,
+                                [`${productCategories[selectedCategory].id}_after`]: true
+                              }))
+                            }}
                           />
-
-                          {/* Alignment guides */}
-                          <div className="absolute left-0 top-[25%] h-px w-full border-t border-dashed border-primary/20" />
-                          <div className="absolute left-1/2 top-0 h-full w-px border-l border-dashed border-primary/20" />
-                        </div>
+                        )}
                       </div>
-                      <Badge className="gap-1 bg-primary/20 text-primary">
-                        <Sparkles className="h-3 w-3 lg:h-3.5 lg:w-3.5" />
-                        <span className="text-xs">Generated Image</span>
+                      <Badge className="absolute bottom-3 left-1/2 -translate-x-1/2 gap-1 bg-primary/25 backdrop-blur-sm text-primary border border-primary/30 text-[10px] font-semibold">
+                        <Sparkles className="h-2.5 w-2.5" />
+                        <span>AI Generated</span>
                       </Badge>
                     </div>
 
                     {/* Center User Image Card */}
-                    <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
+                    <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
                       <div className="flex flex-col items-center gap-1">
-                        <div className="rounded-lg bg-card/80 p-1.5 shadow-sm backdrop-blur-sm">
-                          <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-md bg-gradient-to-br from-muted to-muted/50 lg:h-12 lg:w-12">
-                            {/* User image placeholder */}
-                            <div className="h-7 w-7 rounded-full bg-primary/20 lg:h-8 lg:w-8" />
+                        <div className="rounded-lg bg-background/95 p-1 shadow-xl backdrop-blur-md border border-border/50 ring-2 ring-primary/10 flex flex-col items-center">
+                          <div className="relative h-16 w-16 overflow-hidden rounded-md lg:h-20 lg:w-20">
+                            {imageErrors[`${productCategories[selectedCategory].id}_user`] ? (
+                              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-muted to-muted/50">
+                                <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center">
+                                  <Avatar className="h-6 w-6">
+                                    <div className="flex h-full w-full items-center justify-center bg-primary/20">
+                                      <span className="text-xs text-primary/50">U</span>
+                                    </div>
+                                  </Avatar>
+                                </div>
+                              </div>
+                            ) : (
+                              <Image
+                                src={getImagePath(productCategories[selectedCategory].id, "user")}
+                                alt="User"
+                                fill
+                                sizes="(max-width: 768px) 64px, 80px"
+                                className="object-cover transition-opacity duration-500 rounded-md"
+                                priority={selectedCategory === 0}
+                                loading={selectedCategory === 0 ? "eager" : "lazy"}
+                                quality={85}
+                                onError={() => {
+                                  setImageErrors(prev => ({
+                                    ...prev,
+                                    [`${productCategories[selectedCategory].id}_user`]: true
+                                  }))
+                                }}
+                              />
+                            )}
                           </div>
-                          <p className="mt-1 text-center text-[8px] font-medium text-muted-foreground">User</p>
+                          <p className="mt-1 text-center text-[9px] font-semibold text-foreground">User's Photo</p>
                         </div>
                       </div>
                     </div>
@@ -263,10 +365,10 @@ export function HeroSection() {
                       <div className="relative h-32 rounded-xl border border-border/50 bg-card/30 p-3">
                         {/* Stacked cards effect */}
                         {[
-                          { name: "Navy Blazer", price: "$89", offset: "left-0" },
-                          { name: "Blue Shirt", price: "$32", offset: "left-16" },
-                          { name: "Grey Trousers", price: "$45", offset: "left-32" },
-                          { name: "Black Shoes", price: "$34", offset: "left-48" },
+                          { name: "Navy Blazer", price: "$89", offset: "left-0", image: "/Product_images/navy blazer.jpg" },
+                          { name: "Blue Shirt", price: "$32", offset: "left-16", image: "/Product_images/blue shirt.jpg" },
+                          { name: "Grey Trousers", price: "$45", offset: "left-32", image: "/Product_images/grey apnts.jpg" },
+                          { name: "Black Shoes", price: "$34", offset: "left-48", image: "/Product_images/shoes.jpg" },
                         ].map((product, i) => (
                           <div
                             key={i}
@@ -275,7 +377,17 @@ export function HeroSection() {
                               transform: `translateX(${i * 4}px) rotate(${i * 2 - 3}deg)`,
                             }}
                           >
-                            <div className="mb-1 aspect-square rounded-md bg-gradient-to-br from-muted/50 to-muted/20" />
+                            <div className="mb-1 aspect-square rounded-md relative overflow-hidden bg-gradient-to-br from-muted/50 to-muted/20">
+                              <Image
+                                src={product.image}
+                                alt={product.name}
+                                fill
+                                sizes="80px"
+                                className="object-cover rounded-md"
+                                loading="lazy"
+                                quality={80}
+                              />
+                            </div>
                             <p className="mb-0.5 truncate text-[9px] font-medium text-foreground">{product.name}</p>
                             <div className="flex items-center justify-between">
                               <span className="text-[9px] font-semibold text-primary">{product.price}</span>
@@ -319,14 +431,6 @@ export function HeroSection() {
 
                 {/* Input Bar */}
                 <div className="mt-3 space-y-2 border-t border-border/50 pt-3">
-                  <div className="flex gap-1.5">
-                    <Badge variant="outline" className="cursor-pointer text-[10px] hover:bg-primary/10">
-                      Summer outfits
-                    </Badge>
-                    <Badge variant="outline" className="cursor-pointer text-[10px] hover:bg-primary/10">
-                      Trending
-                    </Badge>
-                  </div>
                   <div className="flex gap-2">
                     <input
                       type="text"

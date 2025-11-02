@@ -31,8 +31,8 @@ export function ComparisonSection() {
     {
       attribute: "Pricing Transparency",
       others: "Complex pricing, hidden fees",
-      yours: "Simple usage-based: $0.45/image",
-      highlight: "Simple usage-based",
+      yours: "Predictable pricing. Choose from diverse plans",
+      highlight: "Predictable pricing",
     },
     {
       attribute: "Platform Support",

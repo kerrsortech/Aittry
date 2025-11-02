@@ -3,6 +3,7 @@
 import { Card } from "@/components/ui/card"
 import { ChevronDown } from "lucide-react"
 import { useState } from "react"
+import Script from "next/script"
 
 const faqs = [
   {
@@ -56,6 +57,8 @@ export function FaqSection() {
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="flex w-full items-center justify-between px-4 py-2.5 text-left transition-colors hover:bg-muted/20"
+                aria-expanded={openIndex === index}
+                aria-controls={`faq-answer-${index}`}
               >
                 <span className="pr-4 text-sm font-medium text-foreground flex-1 text-left">{faq.question}</span>
                 <ChevronDown
@@ -64,7 +67,11 @@ export function FaqSection() {
                   }`}
                 />
               </button>
-              <div className={`overflow-hidden transition-all ${openIndex === index ? "max-h-64" : "max-h-0"}`}>
+              <div 
+                id={`faq-answer-${index}`}
+                className={`overflow-hidden transition-all ${openIndex === index ? "max-h-64" : "max-h-0"}`}
+                aria-hidden={openIndex !== index}
+              >
                 <div className="border-t border-border/30 px-4 py-2.5">
                   <p className="text-sm leading-relaxed text-muted-foreground text-left">{faq.answer}</p>
                 </div>
@@ -73,6 +80,26 @@ export function FaqSection() {
           ))}
         </div>
       </div>
+
+      {/* FAQ Structured Data */}
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqs.map((faq) => ({
+              "@type": "Question",
+              "name": faq.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+              }
+            }))
+          }),
+        }}
+      />
     </section>
   )
 }

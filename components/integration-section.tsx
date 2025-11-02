@@ -1,6 +1,7 @@
 "use client"
 
 import { Card } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { Check, Code2, ShoppingBag } from "lucide-react"
 
 export function IntegrationSection() {
@@ -21,6 +22,11 @@ export function IntegrationSection() {
               {/* Icon */}
               <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                 <Code2 className="h-6 w-6 text-primary" />
+              </div>
+
+              {/* Beta Badge - Absolute positioned */}
+              <div className="absolute top-3 right-3">
+                <Badge className="bg-orange-500/20 text-orange-600 border-orange-500/30 dark:text-orange-400">Beta</Badge>
               </div>
 
               {/* Title */}

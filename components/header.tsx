@@ -45,8 +45,8 @@ export function Header() {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 transition-opacity hover:opacity-80">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-chart-2">
+          <a href="#" className="flex items-center gap-2 transition-opacity hover:opacity-80" aria-label="Closelook Home">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-chart-2" aria-hidden="true">
               <Sparkles className="h-5 w-5 text-primary-foreground" />
             </div>
             <span className="text-lg font-bold text-foreground">Closelook</span>
@@ -88,6 +88,9 @@ export function Header() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/50 bg-card/50 text-foreground transition-colors hover:bg-muted/50 md:hidden"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -95,7 +98,7 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="border-t border-border/50 bg-background/95 py-4 backdrop-blur-xl md:hidden">
+          <div id="mobile-menu" className="border-t border-border/50 bg-background/95 py-4 backdrop-blur-xl md:hidden" role="navigation" aria-label="Mobile navigation">
             <nav className="flex flex-col gap-1">
               {navItems.map((item) => (
                 <button
