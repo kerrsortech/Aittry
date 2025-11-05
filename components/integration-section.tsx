@@ -11,7 +11,7 @@ export function IntegrationSection() {
         {/* Section Header */}
         <div className="mb-8 md:mb-12 text-center">
           <h2 className="mb-4 text-2xl font-semibold text-foreground sm:text-3xl">Easy Integration</h2>
-          <p className="text-base sm:text-lg text-muted-foreground">Choose what works for your store</p>
+          <p className="text-base sm:text-lg text-white">Choose what works for your store</p>
         </div>
 
         {/* Integration Cards */}

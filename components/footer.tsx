@@ -1,6 +1,6 @@
 "use client"
 
-import { Sparkles, MapPin } from "lucide-react"
+import { MapPin } from "lucide-react"
 
 export function Footer() {
   const navItems = [
@@ -27,10 +27,16 @@ export function Footer() {
           <div className="flex flex-col gap-4">
             {/* Logo */}
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-chart-2">
-                <Sparkles className="h-4 w-4 text-primary-foreground" />
+              <div className="flex h-8 w-8 items-center justify-center">
+                <img 
+                  src="/stylr icon.svg" 
+                  alt="Stylr Logo" 
+                  width={32} 
+                  height={32}
+                  className="h-8 w-8 object-contain"
+                />
               </div>
-              <span className="text-base font-bold text-foreground">Closelook</span>
+              <span className="text-3xl font-bold text-foreground">Stylr</span>
             </div>
             
             {/* Locations */}
@@ -47,8 +53,8 @@ export function Footer() {
 
             {/* Contact */}
             <div className="text-sm text-muted-foreground">
-              <a href="mailto:hello@closelook.ai" className="hover:text-foreground transition-colors">
-                hello@closelook.ai
+              <a href="mailto:hello@stylr.ai" className="hover:text-foreground transition-colors">
+                hello@stylr.ai
               </a>
             </div>
           </div>
@@ -72,7 +78,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="border-t border-border/30 pt-6 text-center">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Closelook. All rights reserved.
+            © {new Date().getFullYear()} Stylr. All rights reserved.
           </p>
         </div>
       </div>

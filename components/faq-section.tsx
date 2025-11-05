@@ -47,7 +47,7 @@ export function FaqSection() {
         {/* Section Header */}
         <div className="mb-8 md:mb-12 text-center">
           <h2 className="mb-4 text-2xl font-semibold text-foreground sm:text-3xl">Frequently Asked Questions</h2>
-          <p className="text-base sm:text-lg text-muted-foreground">Everything you need to know</p>
+          <p className="text-base sm:text-lg text-white">Everything you need to know</p>
         </div>
 
         {/* FAQ Accordion */}

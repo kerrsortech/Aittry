@@ -22,7 +22,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
     name: "",
     email: "",
     company: "",
-    message: "",
+    category: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -54,7 +54,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
       // Reset form after showing success message
       setTimeout(() => {
         setSubmitted(false)
-        setFormData({ name: "", email: "", company: "", message: "" })
+        setFormData({ name: "", email: "", company: "", category: "" })
         onOpenChange(false)
       }, 2000)
     } catch (err) {
@@ -64,7 +64,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
   }
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -76,16 +76,21 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Contact Us</DialogTitle>
+          <DialogTitle>Join the Waiting List</DialogTitle>
           <DialogDescription>
-            Fill out the form below and we'll get back to you as soon as possible.
+            Be one of the first people to receive our product during public launch.
           </DialogDescription>
         </DialogHeader>
+        <div className="mt-3 rounded-md border border-border/50 bg-muted/30 p-3 text-left">
+          <p className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Note:</span> Currently, all of our limited onboarding seats are complete. Please complete the form below to request access once we launch publicly.
+          </p>
+        </div>
 
         {submitted ? (
           <Card className="border-primary/50 bg-primary/10 p-6 text-center">
             <p className="text-sm font-medium text-primary">
-              Thank you! We'll be in touch soon.
+              Thank you for joining! We'll notify you when we launch publicly.
             </p>
           </Card>
         ) : (
@@ -153,21 +158,29 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
 
             <div className="space-y-2">
               <label
-                htmlFor="message"
+                htmlFor="category"
                 className="text-sm font-medium text-foreground"
               >
-                Message *
+                Category
               </label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                value={formData.message}
+              <select
+                id="category"
+                name="category"
+                value={formData.category}
                 onChange={handleChange}
-                rows={4}
-                className="flex min-h-[80px] w-full rounded-md border border-border/50 bg-background px-3 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-                placeholder="How can we help you?"
-              />
+                className="flex h-9 w-full rounded-md border border-border/50 bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <option value="">Choose your category</option>
+                <option value="clothing">Clothing</option>
+                <option value="fashion-accessories">Fashion Accessories</option>
+                <option value="shoes">Shoes</option>
+                <option value="jewelry">Jewelry</option>
+                <option value="bags">Bags & Handbags</option>
+                <option value="eyewear">Eyewear</option>
+                <option value="watches">Watches</option>
+                <option value="cosmetics">Cosmetics & Beauty</option>
+                <option value="other">Other</option>
+              </select>
             </div>
 
             <DialogFooter className="gap-2 sm:gap-0">
@@ -179,7 +192,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
                 Cancel
               </Button>
               <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Sending..." : "Send Message"}
+                {isSubmitting ? "Submitting..." : "Join Waiting List"}
               </Button>
             </DialogFooter>
           </form>

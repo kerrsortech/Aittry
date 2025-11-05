@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Sparkles, Menu, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { ContactModal } from "@/components/contact-modal"
 import { DemoModal } from "@/components/demo-modal"
 
@@ -45,11 +45,17 @@ export function Header() {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 transition-opacity hover:opacity-80" aria-label="Closelook Home">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-chart-2" aria-hidden="true">
-              <Sparkles className="h-5 w-5 text-primary-foreground" />
+          <a href="#" className="flex items-center gap-2 transition-opacity hover:opacity-80" aria-label="Stylr Home">
+            <div className="flex h-9 w-9 items-center justify-center" aria-hidden="true">
+              <img 
+                src="/stylr icon.svg" 
+                alt="Stylr Logo" 
+                width={36} 
+                height={36}
+                className="h-9 w-9 object-contain"
+              />
             </div>
-            <span className="text-lg font-bold text-foreground">Closelook</span>
+            <span className="text-3xl font-bold text-foreground">Stylr</span>
           </a>
 
           {/* Desktop Navigation */}
@@ -68,20 +74,19 @@ export function Header() {
           {/* CTA Button */}
           <div className="hidden items-center gap-3 md:flex">
             <Button 
-              variant="outline" 
               size="sm" 
-              className="border-border/50 bg-transparent"
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
               onClick={() => setContactModalOpen(true)}
             >
-              Contact Sales
+              Join the waiting list
             </Button>
-            <Button 
+            {/* <Button 
               size="sm" 
               className="bg-primary text-primary-foreground hover:bg-primary/90"
               onClick={() => setDemoModalOpen(true)}
             >
               Request Demo
-            </Button>
+            </Button> */}
           </div>
 
           {/* Mobile Menu Button */}
@@ -112,17 +117,16 @@ export function Header() {
             </nav>
             <div className="mt-4 flex flex-col gap-2 px-4">
               <Button 
-                variant="outline" 
                 size="sm" 
-                className="w-full border-border/50 bg-transparent"
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                 onClick={() => {
                   setContactModalOpen(true)
                   setIsMobileMenuOpen(false)
                 }}
               >
-                Contact Sales
+                Join the waiting list
               </Button>
-              <Button 
+              {/* <Button 
                 size="sm" 
                 className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                 onClick={() => {
@@ -131,7 +135,7 @@ export function Header() {
                 }}
               >
                 Request Demo
-              </Button>
+              </Button> */}
             </div>
           </div>
         )}

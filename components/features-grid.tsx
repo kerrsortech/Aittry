@@ -32,7 +32,7 @@ export function FeaturesGrid() {
         {/* Section Header */}
         <div className="mb-8 md:mb-12 text-center">
           <h2 className="mb-4 text-2xl font-semibold text-foreground sm:text-3xl lg:text-4xl">Platform Features</h2>
-          <p className="mx-auto max-w-2xl text-base sm:text-lg text-muted-foreground">
+          <p className="mx-auto max-w-2xl text-base sm:text-lg text-white">
             Everything you need to transform your online shopping experience
           </p>
         </div>

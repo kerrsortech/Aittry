@@ -107,29 +107,28 @@ export function HeroSection() {
       <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hero Heading */}
         <div className="mb-8 md:mb-12 text-center">
-          <h1 className="mb-4 text-balance text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
-            Turn Shoppers into Buyers<br />
+          <h1 className="mb-4 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
+            Turn Visitors Into Shoppers with AI Shopping Assistant<br />
           </h1>
-          <p className="mx-auto max-w-2xl text-balance text-base sm:text-lg text-white">
-            Let customers see themselves in your products with studio-quality virtual try-on, plus an AI shopping assistant that recommends the perfect match.
+          <p className="mx-auto max-w-3xl text-balance text-base sm:text-lg text-white">
+            Studio-quality virtual try-on experiences so customers instantly picture themselves in your products plus an intelligent assistant that guides, recommends, and boosts sales.
           </p>
           
           {/* CTA Buttons */}
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Button
+            {/* <Button
               size="lg"
               onClick={() => setDemoModalOpen(true)}
               className="h-12 min-w-[160px] bg-primary text-primary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-md active:translate-y-0"
             >
               Request Demo
-            </Button>
+            </Button> */}
             <Button
               size="lg"
-              variant="outline"
               onClick={() => setContactModalOpen(true)}
-              className="h-12 min-w-[160px] border-border/50 bg-transparent transition-all hover:-translate-y-0.5 hover:border-primary hover:bg-muted/50 active:translate-y-0"
+              className="h-12 min-w-[160px] bg-primary text-primary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-md active:translate-y-0"
             >
-              Contact
+              Join the waiting list
             </Button>
           </div>
         </div>
@@ -318,13 +317,19 @@ export function HeroSection() {
                 {/* Chat Header */}
                 <div className="mb-3 flex items-center gap-3 border-b border-border/50 pb-3">
                   <Avatar className="h-9 w-9">
-                    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary to-chart-2">
-                      <Sparkles className="h-4 w-4 text-primary-foreground" />
+                    <div className="flex h-full w-full items-center justify-center bg-background">
+                      <img 
+                        src="/stylr icon.svg" 
+                        alt="Stylr" 
+                        width={36} 
+                        height={36}
+                        className="h-full w-full object-contain"
+                      />
                     </div>
                   </Avatar>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <h3 className="text-sm font-semibold text-foreground">StyleBot AI</h3>
+                      <h3 className="text-sm font-semibold text-foreground">Stylr</h3>
                       <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
                     </div>
                     <div className="flex gap-1.5">

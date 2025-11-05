@@ -29,27 +29,26 @@ export function CtaSection() {
             </h2>
 
             {/* Subheadline */}
-            <p className="mb-8 max-w-[600px] text-balance text-base sm:text-lg leading-relaxed text-muted-foreground">
+            <p className="mb-8 max-w-[600px] text-balance text-base sm:text-lg leading-relaxed text-white">
               See how leading retailers use AI-powered virtual try-on and smart assistance to create better shopping
               experiences
             </p>
 
             {/* Button Group */}
             <div className="flex flex-wrap justify-center gap-3">
-              <Button
+              {/* <Button
                 size="lg"
                 onClick={() => setDemoModalOpen(true)}
                 className="h-12 min-w-[160px] bg-primary text-primary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-md active:translate-y-0"
               >
                 Request Demo
-              </Button>
+              </Button> */}
               <Button
                 size="lg"
-                variant="outline"
                 onClick={() => setContactModalOpen(true)}
-                className="h-12 min-w-[160px] border-border/50 bg-transparent transition-all hover:-translate-y-0.5 hover:border-primary hover:bg-muted/50 active:translate-y-0"
+                className="h-12 min-w-[160px] bg-primary text-primary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-md active:translate-y-0"
               >
-                Contact Sales
+                Join the waiting list
               </Button>
             </div>
           </div>

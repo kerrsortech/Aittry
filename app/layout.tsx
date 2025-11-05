@@ -1,34 +1,21 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
 import "./globals.css"
 
-const _geist = Geist({ 
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-  variable: "--font-geist",
-})
-const _geistMono = Geist_Mono({ 
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-geist-mono",
-})
-
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://closelook.ai'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://stylr.ai'),
   title: {
-    default: "Closelook - AI-Powered Virtual Try-On & Shopping Assistant",
-    template: "%s | Closelook"
+    default: "Stylr - AI-Powered Virtual Try-On & Shopping Assistant",
+    template: "%s | Stylr"
   },
   description: "Transform your online store with studio-quality virtual try-on and an AI shopping assistant. Reduce returns by 30%, boost conversions by 30%, and provide personalized product recommendations.",
   keywords: ["virtual try-on", "AI shopping assistant", "e-commerce", "fashion technology", "virtual fitting room", "online shopping", "AR shopping", "product visualization", "fashion AI", "clothing try-on"],
-  authors: [{ name: "Closelook" }],
-  creator: "Closelook",
-  publisher: "Closelook",
+  authors: [{ name: "Stylr" }],
+  creator: "Stylr",
+  publisher: "Stylr",
   robots: {
     index: true,
     follow: true,
@@ -43,36 +30,36 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://closelook.ai',
-    siteName: "Closelook",
-    title: "Closelook - AI-Powered Virtual Try-On & Shopping Assistant",
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://stylr.ai',
+    siteName: "Stylr",
+    title: "Stylr - AI-Powered Virtual Try-On & Shopping Assistant",
     description: "Transform your online store with studio-quality virtual try-on and an AI shopping assistant. Reduce returns by 30%, boost conversions by 30%.",
     images: [
       {
-        url: "/placeholder-logo.png",
-        width: 1200,
-        height: 630,
-        alt: "Closelook - Virtual Try-On Platform",
+        url: "/stylr%20icon.svg",
+        width: 216,
+        height: 215,
+        alt: "Stylr - Virtual Try-On Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Closelook - AI-Powered Virtual Try-On & Shopping Assistant",
+    title: "Stylr - AI-Powered Virtual Try-On & Shopping Assistant",
     description: "Transform your online store with studio-quality virtual try-on and an AI shopping assistant.",
-    images: ["/placeholder-logo.png"],
-    creator: "@closelook",
+    images: ["/stylr%20icon.svg"],
+    creator: "@stylr",
   },
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://closelook.ai',
+    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://stylr.ai',
   },
   category: "E-commerce Technology",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
-      { url: "/placeholder-logo.svg", type: "image/svg+xml" },
+      { url: "/stylr%20icon.svg", type: "image/svg+xml" },
     ],
-    apple: "/placeholder-logo.png",
+    apple: "/stylr%20icon.svg",
   },
   manifest: "/manifest.json",
 }
@@ -85,12 +72,12 @@ export default function RootLayout({
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Closelook",
-    "url": process.env.NEXT_PUBLIC_SITE_URL || "https://closelook.ai",
-    "logo": `${process.env.NEXT_PUBLIC_SITE_URL || "https://closelook.ai"}/placeholder-logo.png`,
+    "name": "Stylr",
+    "url": process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai",
+    "logo": `${process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai"}/stylr%20icon.svg`,
     "contactPoint": {
       "@type": "ContactPoint",
-      "email": "hello@closelook.ai",
+      "email": "hello@stylr.ai",
       "contactType": "Customer Service"
     },
     "sameAs": [],
@@ -112,7 +99,7 @@ export default function RootLayout({
   const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Closelook Virtual Try-On",
+    "name": "Stylr Virtual Try-On",
     "applicationCategory": "E-commerce Software",
     "operatingSystem": "Web",
     "offers": {
@@ -129,7 +116,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="dark">
-      <body className={`${_geist.variable} ${_geistMono.variable} font-sans antialiased`}>
+      <body className="font-sans antialiased">
         <Script
           id="organization-schema"
           type="application/ld+json"

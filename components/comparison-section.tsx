@@ -48,7 +48,7 @@ export function ComparisonSection() {
         {/* Section Header */}
         <div className="mb-8 md:mb-12 text-center">
           <h2 className="mb-3 text-2xl font-semibold text-foreground sm:text-3xl">Why Choose Us?</h2>
-          <p className="text-sm sm:text-base text-muted-foreground">Real differences that impact your bottom line</p>
+          <p className="text-sm sm:text-base text-white">Real differences that impact your bottom line</p>
         </div>
 
         {/* Comparison Table */}
@@ -59,7 +59,7 @@ export function ComparisonSection() {
                 <tr className="border-b-2 border-border/50 bg-muted/20">
                   <th className="px-3 py-3 text-left text-xs sm:text-sm font-semibold text-foreground sm:px-5 sm:py-4">Attribute</th>
                   <th className="px-3 py-3 text-left text-xs sm:text-base font-medium text-muted-foreground sm:px-5 sm:py-4">Others</th>
-                  <th className="px-3 py-3 text-left text-xs sm:text-base font-semibold text-foreground sm:px-5 sm:py-4">Closelook</th>
+                  <th className="px-3 py-3 text-left text-xs sm:text-base font-semibold text-foreground sm:px-5 sm:py-4">Stylr</th>
                 </tr>
               </thead>
               <tbody>
