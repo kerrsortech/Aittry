@@ -77,7 +77,7 @@ export default function RootLayout({
     "logo": `${process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai"}/stylr%20icon.svg`,
     "contactPoint": {
       "@type": "ContactPoint",
-      "email": "hello@stylr.ai",
+      "email": "hello@stylr.tech",
       "contactType": "Customer Service"
     },
     "sameAs": [],

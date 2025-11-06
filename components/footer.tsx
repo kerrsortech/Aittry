@@ -6,9 +6,8 @@ export function Footer() {
   const navItems = [
     { label: "Features", href: "#features" },
     { label: "Integration", href: "#integration" },
-    { label: "Impact", href: "#impact" },
     { label: "Why Us", href: "#why-us" },
-    { label: "FAQ", href: "#faq" },
+    { label: "Pricing", href: "#pricing" },
   ]
 
   const scrollToSection = (href: string) => {
@@ -53,8 +52,8 @@ export function Footer() {
 
             {/* Contact */}
             <div className="text-sm text-muted-foreground">
-              <a href="mailto:hello@stylr.ai" className="hover:text-foreground transition-colors">
-                hello@stylr.ai
+              <a href="mailto:hello@stylr.tech" className="hover:text-foreground transition-colors">
+                hello@stylr.tech
               </a>
             </div>
           </div>

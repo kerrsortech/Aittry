@@ -29,9 +29,8 @@ export function CtaSection() {
             </h2>
 
             {/* Subheadline */}
-            <p className="mb-8 max-w-[600px] text-balance text-base sm:text-lg leading-relaxed text-white">
-              See how leading retailers use AI-powered virtual try-on and smart assistance to create better shopping
-              experiences
+            <p className="mb-8 max-w-[800px] text-balance text-base sm:text-lg leading-relaxed text-gray-300">
+              Bring the next generation of shopping to your store—see how AI-powered virtual try-on and smart assistance can transform your customer experience.
             </p>
 
             {/* Button Group */}

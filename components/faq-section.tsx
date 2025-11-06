@@ -7,34 +7,34 @@ import Script from "next/script"
 
 const faqs = [
   {
-    question: "How does virtual try-on work?",
+    question: "How does it work?",
     answer:
-      "Our AI-powered virtual try-on uses advanced computer vision to accurately position products on user-uploaded images. It works across 15+ categories including eyewear, clothing, accessories, and more.",
+      "We use AI to create a realistic image of your chosen product on your photo, plus a chatbot trained to answer your customers' questions in your style.",
   },
   {
-    question: "What's the integration timeline?",
+    question: "Can the chatbot answer complex questions?",
     answer:
-      "Custom SDK integration typically takes 1-2 weeks with our support. Shopify app installation is instant with guided setup completed in under an hour.",
+      "Yes! It can handle budgets, specific events, styles, and suggest full outfits or individual items.",
   },
   {
-    question: "How is pricing structured?",
+    question: "Can I integrate this on my custom website?",
     answer:
-      "We offer flexible pricing based on your monthly active users and feature requirements. Contact us for a custom quote tailored to your store's needs.",
+      "Yes—choose our SDK for custom sites or our Shopify app, and our team will get you live in 7 days.",
   },
   {
-    question: "Can the chatbot understand complex queries?",
+    question: "What categories do you support?",
     answer:
-      "Yes, our AI shopping assistant is trained on your product catalog and can handle budget constraints, style preferences, occasion-based recommendations, and multi-product outfit building.",
+      "Clothing, eyewear, handbags, footwear, jewelry, and more—over 15 categories, with new ones added all the time.",
   },
   {
-    question: "What kind of analytics do you provide?",
+    question: "Do I need to upload all my products manually?",
     answer:
-      "Our dashboard tracks try-on engagement, conversion rates, product performance, customer satisfaction scores, and support cost reduction metrics in real-time.",
+      "No, your product catalog syncs automatically. No manual uploading is required.",
   },
   {
-    question: "Do you support mobile devices?",
+    question: "How long does custom plugin integration take?",
     answer:
-      "Absolutely. Both virtual try-on and the AI chatbot are fully responsive and optimized for mobile, tablet, and desktop experiences.",
+      "Up to 7 days, depending on your requirements. Our team makes sure it's seamless and fully tailored for your brand.",
   },
 ]
 

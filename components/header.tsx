@@ -23,9 +23,8 @@ export function Header() {
   const navItems = [
     { label: "Features", href: "#features" },
     { label: "Integration", href: "#integration" },
-    { label: "Impact", href: "#impact" },
     { label: "Why Us", href: "#why-us" },
-    { label: "FAQ", href: "#faq" },
+    { label: "Pricing", href: "#pricing" },
   ]
 
   const scrollToSection = (href: string) => {

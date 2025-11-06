@@ -11,6 +11,12 @@ export function ComparisonSection() {
       highlight: "Photoreal outputs",
     },
     {
+      attribute: "Catalog Support",
+      others: "Supports mostly garments and a few accessories such as shoes and watch",
+      yours: "15+ categories diverse category catalog across a lot of fashion with garments and accessories",
+      highlight: "15+ categories",
+    },
+    {
       attribute: "Performance & Reliability",
       others: "Device-dependent AR, inconsistent results",
       yours: "Fast & consistent, works on any device",
@@ -37,7 +43,7 @@ export function ComparisonSection() {
     {
       attribute: "Platform Support",
       others: "Limited integrations, single-platform only",
-      yours: "Works everywhere: Shopify, WooCommerce, custom",
+      yours: "Works everywhere: Shopify, custom",
       highlight: "Works everywhere",
     },
   ]

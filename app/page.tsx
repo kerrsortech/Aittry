@@ -3,6 +3,7 @@ import { FeaturesGrid } from "@/components/features-grid"
 import { HeroSection } from "@/components/hero-section"
 import { IntegrationSection } from "@/components/integration-section"
 import { MetricsSection } from "@/components/metrics-section"
+import { PricingSection } from "@/components/pricing-section"
 import { ComparisonSection } from "@/components/comparison-section"
 import { FaqSection } from "@/components/faq-section"
 import { CtaSection } from "@/components/cta-section"
@@ -71,6 +72,7 @@ export default function Home() {
         <FeaturesGrid />
         <IntegrationSection />
         <MetricsSection />
+        <PricingSection />
         <ComparisonSection />
         <FaqSection />
         <CtaSection />

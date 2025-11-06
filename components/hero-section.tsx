@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Avatar } from "@/components/ui/avatar"
 import { Progress } from "@/components/ui/progress"
-import { Send, ShoppingBag, Glasses, Watch, Shirt, Crown, Footprints, Check, Briefcase, Sparkles } from "lucide-react"
+import { Send, ShoppingBag, Glasses, Watch, Shirt, Crown, Footprints, Check, Briefcase, Sparkles, Users, ShoppingCart, ArrowRight, Zap } from "lucide-react"
 import { useEffect, useState } from "react"
 import { ContactModal } from "@/components/contact-modal"
 import { DemoModal } from "@/components/demo-modal"
@@ -107,8 +107,28 @@ export function HeroSection() {
       <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hero Heading */}
         <div className="mb-8 md:mb-12 text-center">
-          <h1 className="mb-4 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
-            Turn Visitors Into Shoppers with AI Shopping Assistant<br />
+          <h1 className="mb-8 md:mb-10 text-balance text-3xl font-semibold leading-none tracking-normal text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">Turn</span>{' '}
+            <span className="inline-flex items-center gap-2 relative group">
+              <Users className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 lg:h-9 lg:w-9 text-primary transition-all duration-500 group-hover:scale-110 group-hover:rotate-3" style={{ 
+                animation: 'gentle-float 4s ease-in-out infinite',
+                filter: 'drop-shadow(0 0 6px hsl(var(--primary) / 0.4))'
+              }} />
+              <span className="font-semibold bg-gradient-to-r from-foreground via-foreground/90 to-foreground/80 bg-clip-text text-transparent">Visitors</span>
+            </span>
+            {' '}
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">Into</span>
+            {' '}
+            <span className="inline-flex items-center gap-2 relative group">
+              <ShoppingCart className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 lg:h-9 lg:w-9 text-primary transition-all duration-500 group-hover:scale-110 group-hover:rotate-3" style={{ 
+                animation: 'gentle-float 4s ease-in-out infinite',
+                animationDelay: '0.5s',
+                filter: 'drop-shadow(0 0 6px hsl(var(--primary) / 0.4))'
+              }} />
+              <span className="font-semibold bg-gradient-to-r from-foreground via-foreground/90 to-foreground/80 bg-clip-text text-transparent">Shoppers</span>
+            </span>
+            <br className="hidden sm:block" />
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium">with AI Shopping Assistant</span>
           </h1>
           <p className="mx-auto max-w-3xl text-balance text-base sm:text-lg text-white">
             Studio-quality virtual try-on experiences so customers instantly picture themselves in your products plus an intelligent assistant that guides, recommends, and boosts sales.

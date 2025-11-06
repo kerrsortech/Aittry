@@ -23,6 +23,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
     email: "",
     company: "",
     category: "",
+    storeLink: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -45,7 +46,10 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to send message")
+        const errorMessage = data.details 
+          ? `${data.error}: ${data.details}` 
+          : data.error || "Failed to send message"
+        throw new Error(errorMessage)
       }
 
       setIsSubmitting(false)
@@ -54,7 +58,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
       // Reset form after showing success message
       setTimeout(() => {
         setSubmitted(false)
-        setFormData({ name: "", email: "", company: "", category: "" })
+        setFormData({ name: "", email: "", company: "", category: "", storeLink: "" })
         onOpenChange(false)
       }, 2000)
     } catch (err) {
@@ -83,14 +87,14 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
         </DialogHeader>
         <div className="mt-3 rounded-md border border-border/50 bg-muted/30 p-3 text-left">
           <p className="text-sm text-muted-foreground">
-            <span className="font-medium text-foreground">Note:</span> Currently, all of our limited onboarding seats are complete. Please complete the form below to request access once we launch publicly.
+            <span className="font-medium text-foreground">Note:</span> Currently, all of our limited onboarding slots are booked. Please complete the form below to request access.
           </p>
         </div>
 
         {submitted ? (
           <Card className="border-primary/50 bg-primary/10 p-6 text-center">
             <p className="text-sm font-medium text-primary">
-              Thank you for joining! We'll notify you when we launch publicly.
+              Thank you for filling up the waiting list. We are really excited to have you on board. We'll get back to you shortly.
             </p>
           </Card>
         ) : (
@@ -181,6 +185,24 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
                 <option value="cosmetics">Cosmetics & Beauty</option>
                 <option value="other">Other</option>
               </select>
+            </div>
+
+            <div className="space-y-2">
+              <label
+                htmlFor="storeLink"
+                className="text-sm font-medium text-foreground"
+              >
+                E-commerce Store Link
+              </label>
+              <input
+                id="storeLink"
+                name="storeLink"
+                type="text"
+                value={formData.storeLink}
+                onChange={handleChange}
+                className="flex h-9 w-full rounded-md border border-border/50 bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                placeholder="https://yourstore.com or www.yourstore.com"
+              />
             </div>
 
             <DialogFooter className="gap-2 sm:gap-0">
