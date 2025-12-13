@@ -153,12 +153,12 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative min-h-[100vh] md:min-h-[90vh] w-full overflow-hidden flex flex-col justify-center md:block pt-16 pb-16 md:pt-20 md:pb-12 lg:pt-24 lg:pb-14">
+    <section className="relative min-h-[100vh] md:min-h-[90vh] w-full overflow-hidden flex flex-col justify-center md:block pt-8 pb-16 md:pt-20 md:pb-12 lg:pt-24 lg:pb-14">
       <div className="container relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         {/* Hero Content - Centered Layout */}
-        <div className="text-center animate-fade-in space-y-8 md:space-y-10 mb-8 md:mb-16">
+        <div className="text-center animate-fade-in space-y-6 md:space-y-10 mb-8 md:mb-16">
           {/* Pill Badge */}
-          <div className="flex justify-center px-4 mb-6">
+          <div className="flex justify-center px-4 mb-4 md:mb-6">
             <div className="inline-flex items-center gap-1.5 px-5 py-2 sm:px-6 sm:py-2.5 rounded-full bg-white/60 backdrop-blur-md border border-border/40 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
               <span className="text-xs sm:text-sm font-normal text-foreground/80 tracking-wide">
                 One Plugin: <span className="text-foreground font-medium">Lower Returns</span> • <span className="text-foreground font-medium">Higher Conversion</span> • <span className="text-foreground font-medium">Automated Customer Care</span>
@@ -168,10 +168,10 @@ export function HeroSection() {
 
           {/* Main Heading */}
           <div className="space-y-2 md:space-y-3 px-4">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-foreground">
+            <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-foreground">
               Turn Visitors Into Shoppers
               <br />
-              <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-[#FF6B35]">
+              <span className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-[#FF6B35]">
                 with AI Shopping Assistant
               </span>
             </h1>
@@ -179,7 +179,7 @@ export function HeroSection() {
 
           {/* Description - Minimalistic */}
           <div className="space-y-3 max-w-2xl mx-auto px-4">
-            <p className="text-base sm:text-lg md:text-xl text-foreground/70 leading-relaxed">
+            <p className="text-sm sm:text-lg md:text-xl text-foreground/70 leading-relaxed">
               Studio-quality virtual try-on experiences so customers instantly picture themselves in your products plus an intelligent assistant that guides, recommends, and boosts sales.
             </p>
           </div>
