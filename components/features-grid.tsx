@@ -27,21 +27,10 @@ import {
   Wallet,
 } from "lucide-react"
 import { useScrollAnimation } from "@/lib/use-scroll-animation"
-import { useState, useEffect } from "react"
 
-function FeaturesGrid() {
+export function FeaturesGrid() {
   const headerAnimation = useScrollAnimation({ delay: 0 })
   const gridAnimation = useScrollAnimation({ delay: 100 })
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 640)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
 
   return (
     <section id="features" className="relative pt-10 pb-10 md:pt-14 md:pb-14 lg:pt-16 lg:pb-16">
@@ -53,7 +42,7 @@ function FeaturesGrid() {
             headerAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <h2 className="mb-4 text-3xl font-semibold text-foreground sm:text-4xl lg:text-5xl tracking-tight">Platform Features</h2>
+          <h2 className="mb-4 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl tracking-tight">Platform Features</h2>
           <p className="mx-auto max-w-2xl text-lg sm:text-xl text-foreground/70">
             Everything you need to transform your online shopping experience
           </p>
@@ -73,7 +62,7 @@ function FeaturesGrid() {
                   <Lock className="w-3 h-3 mr-1" />
                   Secure & Private
                 </Badge>
-                <h3 className="text-xl font-medium mb-1 text-balance">See It On You, Not The Model</h3>
+                <h3 className="text-xl font-semibold mb-1 text-balance">See It On You, Not The Model</h3>
                 <p className="text-xs text-muted-foreground text-balance">
                   Upload once. Try everything. Get studio-grade previews instantly.
                 </p>
@@ -114,23 +103,13 @@ function FeaturesGrid() {
                     </Badge>
                   </div>
                   <div className="flex gap-2">
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
-                      className="flex-1 bg-transparent text-xs h-7 sm:h-7 md:h-8 px-2 sm:px-3"
-                      title="Save"
-                    >
-                      <Download className="w-3 h-3 sm:mr-1" />
-                      <span className="hidden sm:inline">Save</span>
+                    <Button size="sm" variant="outline" className="flex-1 bg-transparent text-xs h-7">
+                      <Download className="w-3 h-3 mr-1" />
+                      Save
                     </Button>
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
-                      className="flex-1 bg-transparent text-xs h-7 sm:h-7 md:h-8 px-2 sm:px-3"
-                      title="Share"
-                    >
-                      <Share2 className="w-3 h-3 sm:mr-1" />
-                      <span className="hidden sm:inline">Share</span>
+                    <Button size="sm" variant="outline" className="flex-1 bg-transparent text-xs h-7">
+                      <Share2 className="w-3 h-3 mr-1" />
+                      Share
                     </Button>
                   </div>
                 </div>
@@ -173,7 +152,7 @@ function FeaturesGrid() {
                   <Sparkles className="w-3 h-3 mr-1" />
                   Context-Aware AI
                 </Badge>
-                <h3 className="text-xl font-medium mb-1 text-balance">Your Brand-Trained Style Advisor</h3>
+                <h3 className="text-xl font-semibold mb-1 text-balance">Your Brand-Trained Style Advisor</h3>
                 <p className="text-xs text-muted-foreground text-balance">
                   First context-aware chatbot that actually understands your inventory.
                 </p>
@@ -214,9 +193,9 @@ function FeaturesGrid() {
                             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-chart-2/10" />
                             <ShoppingBag className="w-7 h-7 text-muted-foreground/50 relative z-10" />
                           </div>
-                          <p className="text-[10px] font-medium mb-0.5 truncate">{product.name}</p>
+                          <p className="text-[10px] font-semibold mb-0.5 truncate">{product.name}</p>
                           <p className="text-[9px] text-muted-foreground mb-1">{product.color}</p>
-                          <p className="text-xs text-primary font-semibold">${product.price}</p>
+                          <p className="text-xs text-primary font-bold">${product.price}</p>
                         </div>
                       ))}
                     </div>
@@ -242,7 +221,7 @@ function FeaturesGrid() {
                   <Target className="w-3 h-3 mr-1" />
                   Smart Pairing
                 </Badge>
-                <h3 className="text-xl font-medium mb-1 text-balance">Outfit Intelligence Built In</h3>
+                <h3 className="text-xl font-semibold mb-1 text-balance">Outfit Intelligence Built In</h3>
                 <p className="text-xs text-muted-foreground text-balance">
                   Complementary pairings & fit guidance powered by your catalog data.
                 </p>
@@ -282,7 +261,7 @@ function FeaturesGrid() {
                             <ShoppingBag className="w-6 h-6 text-muted-foreground/50 relative z-10" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-xs font-medium mb-0.5">{item.name}</p>
+                            <p className="text-xs font-semibold mb-0.5">{item.name}</p>
                             <div className="flex items-center gap-1.5 mb-0.5">
                               <Badge className="h-4 text-[9px] bg-primary/10 text-primary border-primary/20">
                                 {item.tag}
@@ -291,7 +270,7 @@ function FeaturesGrid() {
                                 {item.match}% Match
                               </span>
                             </div>
-                            <p className="text-xs text-primary font-semibold">${item.price}</p>
+                            <p className="text-xs text-primary font-bold">${item.price}</p>
                           </div>
                         </div>
                       ))}
@@ -317,7 +296,7 @@ function FeaturesGrid() {
                   <DollarSign className="w-3 h-3 mr-1" />
                   Budget-Aware
                 </Badge>
-                <h3 className="text-xl font-medium mb-1 text-balance">Your Personal Shopping Assistant</h3>
+                <h3 className="text-xl font-semibold mb-1 text-balance">Your Personal Shopping Assistant</h3>
                 <p className="text-xs text-muted-foreground text-balance">
                   Ask complex questions. Get complete, budget-aware outfit solutions with complementary pairings & fit guidance powered by your catalog data.
                 </p>
@@ -368,8 +347,8 @@ function FeaturesGrid() {
                             />
                             <div className="absolute inset-0 bg-gradient-to-br from-chart-4/10 to-primary/10" />
                           </div>
-                          <p className="text-[10px] font-medium mb-0.5 truncate">{item.name}</p>
-                          <p className="text-xs text-primary font-semibold">£{item.price}</p>
+                          <p className="text-[10px] font-semibold mb-0.5 truncate">{item.name}</p>
+                          <p className="text-xs text-primary font-bold">£{item.price}</p>
                         </div>
                       ))}
                     </div>
@@ -381,7 +360,7 @@ function FeaturesGrid() {
                           <Check className="w-4 h-4 text-primary" />
                         </div>
                         <div>
-                          <p className="text-xs font-semibold">Total: £200 / £200</p>
+                          <p className="text-xs font-bold">Total: £200 / £200</p>
                           <p className="text-[10px] text-muted-foreground">Perfect match for your budget!</p>
                         </div>
                       </div>
@@ -403,24 +382,24 @@ function FeaturesGrid() {
           </Card>
 
           {/* Feature 5: Multi-Category Intelligence */}
-          <Card className="relative overflow-hidden bg-white/80 backdrop-blur-xl border border-border/30 p-6 md:p-8 group hover:border-primary/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 min-h-[600px] sm:h-[600px] flex flex-col rounded-xl">
+          <Card className="relative overflow-hidden bg-white/80 backdrop-blur-xl border border-border/30 p-6 md:p-8 group hover:border-primary/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-[600px] flex flex-col rounded-xl">
             <div className="flex flex-col h-full">
-              <div className="mb-4 sm:mb-6">
+              <div className="mb-4">
                 <Badge className="mb-2 bg-chart-5/10 text-chart-5 border-chart-5/20">
                   <Sparkles className="w-3 h-3 mr-1" />
                   Universal Platform
                 </Badge>
-                <h3 className="text-lg sm:text-xl font-medium mb-2 sm:mb-1 text-balance">15+ Categories. 1000+ Products. One Platform</h3>
-                <p className="text-xs text-muted-foreground text-balance mb-4 sm:mb-0">
+                <h3 className="text-xl font-semibold mb-1 text-balance">15+ Categories. 1000+ Products. One Platform</h3>
+                <p className="text-xs text-muted-foreground text-balance">
                   Virtual try-on, image generation & AI recommendations across all categories.
                 </p>
               </div>
 
-              <div className="flex-1 relative flex items-center justify-center min-h-[280px] sm:min-h-0 mb-4 sm:mb-4">
+              <div className="flex-1 relative flex items-center justify-center min-h-0 mb-4">
                 {/* Center Logo Circle */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-primary/30 to-chart-2/30 backdrop-blur-sm border-2 border-primary/50 flex items-center justify-center z-10 shadow-lg shadow-primary/20">
-                    <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-primary" />
+                  <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary/30 to-chart-2/30 backdrop-blur-sm border-2 border-primary/50 flex items-center justify-center z-10 shadow-lg shadow-primary/20">
+                    <Sparkles className="w-12 h-12 text-primary" />
                   </div>
                 </div>
 
@@ -433,8 +412,7 @@ function FeaturesGrid() {
                   { icon: Wallet, label: "Handbags", angle: 240, color: "text-primary" },
                   { icon: ShoppingBag, label: "Footwear", angle: 300, color: "text-chart-2" },
                 ].map((category) => {
-                  // Responsive radius: smaller on mobile to prevent overlap
-                  const radius = isMobile ? 80 : 120
+                  const radius = 120
                   const x = Math.cos((category.angle * Math.PI) / 180) * radius
                   const y = Math.sin((category.angle * Math.PI) / 180) * radius
 
@@ -463,9 +441,9 @@ function FeaturesGrid() {
                           transform: "translate(-50%, -50%)",
                         }}
                       >
-                        <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full bg-secondary/80 backdrop-blur-sm border-2 border-border/50 flex flex-col items-center justify-center hover:scale-110 hover:border-primary/50 transition-all cursor-pointer p-1.5 sm:p-2">
-                          <category.icon className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ${category.color} mb-0.5 sm:mb-1`} />
-                          <p className="text-[8px] sm:text-[9px] md:text-[10px] text-foreground/80 font-medium text-center leading-tight">
+                        <div className="w-18 h-18 rounded-full bg-secondary/80 backdrop-blur-sm border-2 border-border/50 flex flex-col items-center justify-center hover:scale-110 hover:border-primary/50 transition-all cursor-pointer p-2">
+                          <category.icon className={`w-6 h-6 ${category.color} mb-1`} />
+                          <p className="text-[10px] text-foreground/80 font-medium text-center leading-tight">
                             {category.label}
                           </p>
                         </div>
@@ -476,7 +454,7 @@ function FeaturesGrid() {
               </div>
 
               {/* Feature Support Tags */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 gap-2">
                 {[
                   { label: "Virtual Try-On", icon: Upload },
                   { label: "Image Generation", icon: Sparkles },
@@ -503,7 +481,7 @@ function FeaturesGrid() {
                   <BarChart3 className="w-3 h-3 mr-1" />
                   Real-Time Analytics
                 </Badge>
-                <h3 className="text-xl font-medium mb-1 text-balance">Insights That Move The Needle</h3>
+                <h3 className="text-xl font-semibold mb-1 text-balance">Insights That Move The Needle</h3>
                 <p className="text-xs text-muted-foreground text-balance">
                   Track try-ons, conversions, and preferences. Know what's working.
                 </p>
@@ -512,7 +490,7 @@ function FeaturesGrid() {
               {/* Dashboard Illustration */}
               <div className="flex-1 space-y-3 min-h-0">
                 {/* Metric Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-2">
                   {[
                     { label: "Try-Ons", value: "2,847", change: "+23%", icon: TrendingUp },
                     { label: "Conv. Rate", value: "34%", change: "vs 12%", icon: Target },
@@ -528,7 +506,7 @@ function FeaturesGrid() {
                           {metric.change}
                         </Badge>
                       </div>
-                      <p className="text-xl font-semibold mb-0.5">{metric.value}</p>
+                      <p className="text-xl font-bold mb-0.5">{metric.value}</p>
                       <p className="text-[10px] text-muted-foreground">{metric.label}</p>
                     </div>
                   ))}
@@ -537,12 +515,12 @@ function FeaturesGrid() {
                 {/* Most Tried-On Products Table */}
                 <div className="bg-secondary/50 backdrop-blur-sm rounded-lg border border-border/50 p-3 flex-1 min-h-0 flex flex-col">
                   <div className="flex items-center justify-between mb-3">
-                    <p className="text-xs font-medium">Most Tried-On Products</p>
+                    <p className="text-xs font-semibold">Most Tried-On Products</p>
                     <Badge className="h-4 text-[9px] bg-muted text-muted-foreground">Last 7 days</Badge>
                   </div>
 
-                  {/* Table Header - Hidden on mobile, shown on larger screens */}
-                  <div className="hidden sm:grid grid-cols-[1fr_2fr_1fr_1fr] gap-2 pb-2 border-b border-border/30 mb-2">
+                  {/* Table Header */}
+                  <div className="grid grid-cols-[1fr_2fr_1fr_1fr] gap-2 pb-2 border-b border-border/30 mb-2">
                     <p className="text-[10px] text-muted-foreground font-medium">Product</p>
                     <p className="text-[10px] text-muted-foreground font-medium">Name</p>
                     <p className="text-[10px] text-muted-foreground font-medium text-right">Try-Ons</p>
@@ -560,30 +538,25 @@ function FeaturesGrid() {
                     ].map((product, index) => (
                       <div
                         key={product.name}
-                        className="flex flex-col sm:grid sm:grid-cols-[1fr_2fr_1fr_1fr] gap-2 items-start sm:items-center bg-background/30 rounded-lg p-2 hover:bg-background/50 transition-all"
+                        className="grid grid-cols-[1fr_2fr_1fr_1fr] gap-2 items-center bg-background/30 rounded-lg p-2 hover:bg-background/50 transition-all"
                       >
-                        {/* Product Image and Name - Mobile Layout */}
-                        <div className="flex items-center gap-2 w-full sm:w-auto">
-                          <div className="w-10 h-10 bg-muted/40 rounded-md flex items-center justify-center relative overflow-hidden flex-shrink-0">
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-chart-2/10" />
-                            <product.image className="w-5 h-5 text-muted-foreground/50 relative z-10" />
-                          </div>
-                          <p className="text-[11px] font-medium truncate flex-1 sm:flex-none">{product.name}</p>
+                        {/* Product Image */}
+                        <div className="w-10 h-10 bg-muted/40 rounded-md flex items-center justify-center relative overflow-hidden">
+                          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-chart-2/10" />
+                          <product.image className="w-5 h-5 text-muted-foreground/50 relative z-10" />
                         </div>
 
-                        {/* Desktop: Product Name (hidden on mobile, shown in grid) */}
-                        <p className="hidden sm:block text-[11px] font-medium truncate">{product.name}</p>
+                        {/* Product Name */}
+                        <p className="text-[11px] font-medium truncate">{product.name}</p>
 
                         {/* Try-Ons Count */}
-                        <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:gap-0">
-                          <span className="text-[10px] text-muted-foreground sm:hidden">Try-Ons:</span>
-                          <p className="text-xs font-semibold text-foreground">{product.tryOns}</p>
+                        <div className="text-right">
+                          <p className="text-xs font-bold text-foreground">{product.tryOns}</p>
                         </div>
 
                         {/* Conversion Rate */}
-                        <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:gap-0">
-                          <span className="text-[10px] text-muted-foreground sm:hidden">Conv. Rate:</span>
-                          <Badge className="h-5 text-[10px] bg-chart-2/10 text-chart-2 border-chart-2/20 font-semibold">
+                        <div className="text-right">
+                          <Badge className="h-5 text-[10px] bg-chart-2/10 text-chart-2 border-chart-2/20 font-bold">
                             {product.convRate}%
                           </Badge>
                         </div>
@@ -599,5 +572,3 @@ function FeaturesGrid() {
     </section>
   )
 }
-
-export { FeaturesGrid }
