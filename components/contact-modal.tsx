@@ -82,7 +82,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
         <DialogHeader>
           <DialogTitle>Join the Waiting List</DialogTitle>
           <DialogDescription>
-            Be one of the first people to receive our product during public launch.
+            Register your details below and we'll reach out to book a quick demo and share tailored recommendations based on your needs.
           </DialogDescription>
         </DialogHeader>
         <div className="mt-3 rounded-md border border-border/50 bg-muted/30 p-3 text-left">

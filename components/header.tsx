@@ -30,7 +30,14 @@ export function Header() {
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href)
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" })
+      const headerOffset = 80
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      })
       setIsMobileMenuOpen(false)
     }
   }
@@ -38,32 +45,32 @@ export function Header() {
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled ? "border-b border-border/50 bg-background/80 backdrop-blur-xl" : "bg-transparent"
+        isScrolled ? "border-b border-border/30 bg-white/80 backdrop-blur-xl shadow-sm" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 transition-opacity hover:opacity-80" aria-label="Stylr Home">
-            <div className="flex h-9 w-9 items-center justify-center" aria-hidden="true">
+          <a href="#" className="flex items-center gap-2.5 transition-opacity hover:opacity-80" aria-label="Stylr Home">
+            <div className="flex h-8 w-8 items-center justify-center" aria-hidden="true">
               <img 
-                src="/stylr icon.svg" 
+                src="/Stylr_icon.png" 
                 alt="Stylr Logo" 
-                width={36} 
-                height={36}
-                className="h-9 w-9 object-contain"
+                width={32} 
+                height={32}
+                className="h-8 w-8 object-contain"
               />
             </div>
-            <span className="text-3xl font-bold text-foreground">Stylr</span>
+            <span className="text-2xl font-medium text-foreground tracking-tight font-sora">Stylr</span>
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden items-center gap-2 md:flex">
             {navItems.map((item) => (
               <button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
-                className="rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                className="rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-all duration-200 hover:bg-foreground/5 hover:text-foreground hover:-translate-y-0.5"
               >
                 {item.label}
               </button>
@@ -73,8 +80,8 @@ export function Header() {
           {/* CTA Button */}
           <div className="hidden items-center gap-3 md:flex">
             <Button 
-              size="sm" 
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              size="default" 
+              className="min-w-[160px] bg-foreground text-background hover:bg-foreground/90 rounded-lg font-medium shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
               onClick={() => setContactModalOpen(true)}
             >
               Join the waiting list
@@ -91,7 +98,7 @@ export function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/50 bg-card/50 text-foreground transition-colors hover:bg-muted/50 md:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/30 bg-white/80 text-foreground transition-colors hover:bg-foreground/5 md:hidden backdrop-blur-sm"
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
@@ -102,13 +109,13 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div id="mobile-menu" className="border-t border-border/50 bg-background/95 py-4 backdrop-blur-xl md:hidden" role="navigation" aria-label="Mobile navigation">
+          <div id="mobile-menu" className="border-t border-border/30 bg-white/95 py-4 backdrop-blur-xl md:hidden shadow-lg" role="navigation" aria-label="Mobile navigation">
             <nav className="flex flex-col gap-1">
               {navItems.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
-                  className="rounded-lg px-4 py-2.5 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                  className="rounded-md px-4 py-2.5 text-left text-sm font-medium text-foreground/70 transition-colors hover:bg-foreground/5 hover:text-foreground"
                 >
                   {item.label}
                 </button>
@@ -116,8 +123,8 @@ export function Header() {
             </nav>
             <div className="mt-4 flex flex-col gap-2 px-4">
               <Button 
-                size="sm" 
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                size="default" 
+                className="w-full bg-foreground text-background hover:bg-foreground/90 rounded-lg font-medium"
                 onClick={() => {
                   setContactModalOpen(true)
                   setIsMobileMenuOpen(false)

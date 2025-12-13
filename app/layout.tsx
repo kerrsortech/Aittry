@@ -3,7 +3,15 @@ import type { Metadata } from "next"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
+import { Sora } from "next/font/google"
 import "./globals.css"
+
+const sora = Sora({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-sora",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://stylr.ai'),
@@ -36,7 +44,7 @@ export const metadata: Metadata = {
     description: "Transform your online store with studio-quality virtual try-on and an AI shopping assistant. Reduce returns by 30%, boost conversions by 30%.",
     images: [
       {
-        url: "/stylr%20icon.svg",
+        url: "/Stylr_icon.png",
         width: 216,
         height: 215,
         alt: "Stylr - Virtual Try-On Platform",
@@ -47,7 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Stylr - AI-Powered Virtual Try-On & Shopping Assistant",
     description: "Transform your online store with studio-quality virtual try-on and an AI shopping assistant.",
-    images: ["/stylr%20icon.svg"],
+    images: ["/Stylr_icon.png"],
     creator: "@stylr",
   },
   alternates: {
@@ -57,9 +65,9 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
-      { url: "/stylr%20icon.svg", type: "image/svg+xml" },
+      { url: "/Stylr_icon.png", type: "image/png" },
     ],
-    apple: "/stylr%20icon.svg",
+    apple: "/Stylr_icon.png",
   },
   manifest: "/manifest.json",
 }
@@ -74,7 +82,7 @@ export default function RootLayout({
     "@type": "Organization",
     "name": "Stylr",
     "url": process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai",
-    "logo": `${process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai"}/stylr%20icon.svg`,
+    "logo": `${process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai"}/Stylr_icon.png`,
     "contactPoint": {
       "@type": "ContactPoint",
       "email": "hello@stylr.tech",
@@ -115,8 +123,8 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en" className="dark">
-      <body className="font-sans antialiased">
+    <html lang="en" className="scroll-smooth">
+      <body className={`${sora.variable} font-sans antialiased`}>
         <Script
           id="organization-schema"
           type="application/ld+json"

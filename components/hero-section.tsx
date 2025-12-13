@@ -10,6 +10,7 @@ import { useEffect, useState } from "react"
 import { ContactModal } from "@/components/contact-modal"
 import { DemoModal } from "@/components/demo-modal"
 import Image from "next/image"
+import { preloadAllImages, preloadCriticalImages } from "@/lib/preload-images"
 
 const productCategories = [
   { icon: Glasses, label: "Eyewear", id: "eyewear" },
@@ -80,14 +81,63 @@ export function HeroSection() {
   const [contactModalOpen, setContactModalOpen] = useState(false)
   const [demoModalOpen, setDemoModalOpen] = useState(false)
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
+  const [imagesPreloaded, setImagesPreloaded] = useState(false)
+  const [autoRotate, setAutoRotate] = useState(true)
 
-  // Rotate through categories
+  // Preload all images from all sections when hero section mounts
   useEffect(() => {
+    // Preload critical images immediately (above-the-fold)
+    preloadCriticalImages()
+    
+    // Preload all other images in batches (non-blocking)
+    preloadAllImages()
+    
+    // Also preload hero section images specifically for immediate use
+    const preloadHeroImages = () => {
+      const imagePromises: Promise<void>[] = []
+      
+      productCategories.forEach((category) => {
+        const types: ("before" | "after" | "user")[] = ["before", "after", "user"]
+        types.forEach((type) => {
+          const imagePath = getImagePath(category.id, type)
+          const promise = new Promise<void>((resolve) => {
+            const img = new window.Image()
+            img.onload = () => resolve()
+            img.onerror = () => resolve() // Resolve even on error to not block other images
+            img.src = imagePath
+          })
+          imagePromises.push(promise)
+        })
+      })
+      
+      Promise.all(imagePromises).then(() => {
+        setImagesPreloaded(true)
+      })
+    }
+    
+    preloadHeroImages()
+  }, [])
+
+  // Rotate through categories (only if auto-rotate is enabled)
+  useEffect(() => {
+    if (!autoRotate) return
+    
     const interval = setInterval(() => {
       setSelectedCategory((prev) => (prev + 1) % productCategories.length)
     }, 3000)
     return () => clearInterval(interval)
-  }, [])
+  }, [autoRotate])
+
+  // Handle category selection
+  const handleCategorySelect = (index: number) => {
+    setSelectedCategory(index)
+    setAutoRotate(false) // Pause auto-rotation when user manually selects
+    
+    // Resume auto-rotation after 10 seconds of inactivity
+    setTimeout(() => {
+      setAutoRotate(true)
+    }, 10000)
+  }
 
   // Reset image errors when category changes
   useEffect(() => {
@@ -103,50 +153,43 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative min-h-[90vh] w-full overflow-hidden py-12 md:py-16">
-      <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Hero Heading */}
-        <div className="mb-8 md:mb-12 text-center">
-          <h1 className="mb-8 md:mb-10 text-balance text-3xl font-semibold leading-none tracking-normal text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
-            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">Turn</span>{' '}
-            <span className="inline-flex items-center gap-2 relative group">
-              <Users className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 lg:h-9 lg:w-9 text-primary transition-all duration-500 group-hover:scale-110 group-hover:rotate-3" style={{ 
-                animation: 'gentle-float 4s ease-in-out infinite',
-                filter: 'drop-shadow(0 0 6px hsl(var(--primary) / 0.4))'
-              }} />
-              <span className="font-semibold bg-gradient-to-r from-foreground via-foreground/90 to-foreground/80 bg-clip-text text-transparent">Visitors</span>
-            </span>
-            {' '}
-            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">Into</span>
-            {' '}
-            <span className="inline-flex items-center gap-2 relative group">
-              <ShoppingCart className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 lg:h-9 lg:w-9 text-primary transition-all duration-500 group-hover:scale-110 group-hover:rotate-3" style={{ 
-                animation: 'gentle-float 4s ease-in-out infinite',
-                animationDelay: '0.5s',
-                filter: 'drop-shadow(0 0 6px hsl(var(--primary) / 0.4))'
-              }} />
-              <span className="font-semibold bg-gradient-to-r from-foreground via-foreground/90 to-foreground/80 bg-clip-text text-transparent">Shoppers</span>
-            </span>
-            <br className="hidden sm:block" />
-            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium">with AI Shopping Assistant</span>
-          </h1>
-          <p className="mx-auto max-w-3xl text-balance text-base sm:text-lg text-white">
-            Studio-quality virtual try-on experiences so customers instantly picture themselves in your products plus an intelligent assistant that guides, recommends, and boosts sales.
-          </p>
+    <section className="relative min-h-[85vh] md:min-h-[90vh] w-full overflow-hidden pt-16 pb-10 md:pt-20 md:pb-12 lg:pt-24 lg:pb-14">
+      <div className="container relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        {/* Hero Content - Centered Layout */}
+        <div className="text-center animate-fade-in space-y-8 md:space-y-10 mb-12 md:mb-16">
+          {/* Pill Badge */}
+          <div className="flex justify-center px-4 mb-6">
+            <div className="inline-flex items-center gap-1.5 px-5 py-2 sm:px-6 sm:py-2.5 rounded-full bg-white/60 backdrop-blur-md border border-border/40 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
+              <span className="text-xs sm:text-sm font-normal text-foreground/80 tracking-wide">
+                One Plugin: <span className="text-foreground font-medium">Lower Returns</span> • <span className="text-foreground font-medium">Higher Conversion</span> • <span className="text-foreground font-medium">Automated Customer Care</span>
+              </span>
+            </div>
+          </div>
+
+          {/* Main Heading */}
+          <div className="space-y-2 md:space-y-3 px-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] tracking-tight text-foreground">
+              Turn Visitors Into Shoppers
+              <br />
+              <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-[#FF6B35]">
+                with AI Shopping Assistant
+              </span>
+            </h1>
+          </div>
+
+          {/* Description - Minimalistic */}
+          <div className="space-y-3 max-w-2xl mx-auto px-4">
+            <p className="text-base sm:text-lg md:text-xl text-foreground/70 leading-relaxed">
+              Studio-quality virtual try-on experiences so customers instantly picture themselves in your products plus an intelligent assistant that guides, recommends, and boosts sales.
+            </p>
+          </div>
           
-          {/* CTA Buttons */}
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            {/* <Button
-              size="lg"
-              onClick={() => setDemoModalOpen(true)}
-              className="h-12 min-w-[160px] bg-primary text-primary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-md active:translate-y-0"
-            >
-              Request Demo
-            </Button> */}
+          {/* CTA Button */}
+          <div>
             <Button
               size="lg"
               onClick={() => setContactModalOpen(true)}
-              className="h-12 min-w-[160px] bg-primary text-primary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-md active:translate-y-0"
+              className="h-14 min-w-[200px] bg-[#FF6B35] hover:bg-[#FF6B35]/90 text-white shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 active:translate-y-0 rounded-xl font-medium text-base px-8"
             >
               Join the waiting list
             </Button>
@@ -154,9 +197,9 @@ export function HeroSection() {
         </div>
 
         {/* Split Panel Container */}
-        <div className="grid gap-4 md:gap-6 lg:grid-cols-[1.2fr_1fr]">
+        <div className="grid gap-4 md:gap-6 lg:grid-cols-[1.2fr_1fr] mb-8 md:mb-12 items-stretch">
           {/* LEFT PANEL: Virtual Try-On */}
-          <div className="space-y-3">
+          <div className="space-y-3 flex flex-col">
             <div className="flex items-center gap-2">
               <Badge variant="outline" className="border-primary/50 bg-primary/5 text-primary">
                 Virtual Try-On
@@ -164,12 +207,12 @@ export function HeroSection() {
               <div className="h-px flex-1 bg-gradient-to-r from-primary/20 to-transparent" />
             </div>
 
-            <Card className="group relative min-h-[600px] overflow-hidden border-border/50 bg-card/50 p-6 backdrop-blur-xl transition-all hover:border-primary/30">
-              <div className="flex h-full flex-col space-y-4">
+            <Card className="group relative overflow-hidden border border-border/30 bg-white/80 p-5 sm:p-6 md:p-7 backdrop-blur-xl transition-all hover:border-primary/40 hover:shadow-lg rounded-xl h-full">
+              <div className="flex flex-col space-y-4 h-full">
                 {/* Product Category Selector */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-semibold text-foreground">Select Category</h3>
+                    <h3 className="text-sm font-medium text-foreground">Select Category</h3>
                     <Badge variant="secondary" className="bg-primary/10 text-primary">
                       15+ Categories
                     </Badge>
@@ -181,139 +224,187 @@ export function HeroSection() {
                       return (
                         <button
                           key={category.id}
-                          onClick={() => setSelectedCategory(index)}
-                          className={`group/cat flex flex-col items-center gap-2 rounded-lg border p-2.5 transition-all ${
+                          onClick={() => handleCategorySelect(index)}
+                          className={`group/cat flex flex-col items-center gap-2 rounded-lg border p-2.5 transition-all duration-300 ease-out ${
                             isSelected
-                              ? "border-primary bg-primary/10 shadow-md shadow-primary/20"
-                              : "border-border/50 bg-card/30 hover:border-primary/50 hover:bg-card/50"
+                              ? "border-primary bg-primary/10 shadow-md shadow-primary/20 scale-105"
+                              : "border-border/50 bg-card/30 hover:border-primary/50 hover:bg-card/50 hover:scale-105 hover:-translate-y-0.5"
                           }`}
                         >
                           <div
-                            className={`rounded-full p-1.5 transition-colors ${
+                            className={`rounded-full p-1.5 transition-colors duration-300 ${
                               isSelected ? "bg-primary/20" : "bg-muted/50 group-hover/cat:bg-muted"
                             }`}
                           >
-                            <Icon className={`h-3.5 w-3.5 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />
+                            <Icon className={`h-3.5 w-3.5 transition-colors duration-300 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />
                           </div>
-                          <span className="text-[9px] font-medium text-foreground/80">{category.label}</span>
+                          <span className="text-[9px] font-medium text-foreground/80 transition-colors duration-300">{category.label}</span>
                         </button>
                       )
                     })}
                   </div>
                 </div>
 
-                <div className="relative flex-1 overflow-hidden rounded-xl border border-border/50 bg-gradient-to-br from-card/40 to-card/20">
-                  <div className="relative grid h-full grid-cols-2 gap-0">
-                    {/* Product Image */}
-                    <div className="relative flex flex-col items-center justify-center border-r border-primary/20 bg-gradient-to-br from-card/40 to-card/10 overflow-hidden" style={{ aspectRatio: "1/1" }}>
-                      <div className="relative w-full h-full">
-                        {imageErrors[`${productCategories[selectedCategory].id}_before`] ? (
-                          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 to-chart-2/10">
-                            <div className="text-center">
-                              <div className="mx-auto mb-2 h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center">
-                                <ShoppingBag className="h-6 w-6 text-primary/50" />
-                              </div>
-                              <p className="text-xs text-muted-foreground">Product Image</p>
+                <div className="flex flex-col">
+                  <div className="relative flex-1 overflow-hidden rounded-xl border border-border/50 bg-gradient-to-br from-card/40 to-card/20">
+                    <div className="relative grid h-full grid-cols-2 gap-0">
+                      {/* Product Image - Render all categories, show only selected */}
+                      <div className="relative flex flex-col items-center justify-center border-r border-primary/20 bg-gradient-to-br from-card/40 to-card/10 overflow-hidden" style={{ aspectRatio: "1/1" }}>
+                        {productCategories.map((category, index) => {
+                          const isSelected = index === selectedCategory
+                          const errorKey = `${category.id}_before`
+                          const hasError = imageErrors[errorKey]
+                          
+                          return (
+                            <div
+                              key={`before_${category.id}`}
+                              className={`absolute inset-0 transition-opacity duration-300 ${
+                                isSelected ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                              }`}
+                            >
+                              {hasError ? (
+                                <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 to-chart-2/10">
+                                  <div className="text-center">
+                                    <div className="mx-auto mb-2 h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center">
+                                      <ShoppingBag className="h-6 w-6 text-primary/50" />
+                                    </div>
+                                    <p className="text-xs text-muted-foreground">Product Image</p>
+                                  </div>
+                                </div>
+                              ) : (
+                                <Image
+                                  src={getImagePath(category.id, "before")}
+                                  alt={`${category.label} product`}
+                                  fill
+                                  sizes="(max-width: 768px) 50vw, 50vw"
+                                  className="object-cover"
+                                  priority={index === 0}
+                                  loading={index === 0 ? "eager" : "eager"}
+                                  quality={85}
+                                  onError={() => {
+                                    setImageErrors(prev => ({
+                                      ...prev,
+                                      [errorKey]: true
+                                    }))
+                                  }}
+                                />
+                              )}
                             </div>
-                          </div>
-                        ) : (
-                          <Image
-                            src={getImagePath(productCategories[selectedCategory].id, "before")}
-                            alt={`${productCategories[selectedCategory].label} product`}
-                            fill
-                            sizes="(max-width: 768px) 50vw, 50vw"
-                            className="object-cover transition-opacity duration-500"
-                            priority={selectedCategory === 0}
-                            loading={selectedCategory === 0 ? "eager" : "lazy"}
-                            quality={85}
-                            onError={() => {
-                              setImageErrors(prev => ({
-                                ...prev,
-                                [`${productCategories[selectedCategory].id}_before`]: true
-                              }))
-                            }}
-                          />
-                        )}
+                          )
+                        })}
                       </div>
-                      <Badge variant="secondary" className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-background/95 backdrop-blur-sm text-[10px] font-semibold border border-border/30">
+
+                      {/* Result with User - Generated Image - Render all categories, show only selected */}
+                      <div className="relative flex flex-col items-center justify-center bg-gradient-to-br from-primary/10 to-chart-2/10 overflow-hidden" style={{ aspectRatio: "1/1" }}>
+                        {productCategories.map((category, index) => {
+                          const isSelected = index === selectedCategory
+                          const errorKey = `${category.id}_after`
+                          const hasError = imageErrors[errorKey]
+                          
+                          return (
+                            <div
+                              key={`after_${category.id}`}
+                              className={`absolute inset-0 transition-opacity duration-300 ${
+                                isSelected ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                              }`}
+                            >
+                              {hasError ? (
+                                <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 to-chart-2/10">
+                                  <div className="text-center">
+                                    <div className="mx-auto mb-2 h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center">
+                                      <Sparkles className="h-6 w-6 text-primary/50" />
+                                    </div>
+                                    <p className="text-xs text-muted-foreground">Generated Image</p>
+                                  </div>
+                                </div>
+                              ) : (
+                                <Image
+                                  src={getImagePath(category.id, "after")}
+                                  alt={`${category.label} generated result`}
+                                  fill
+                                  sizes="(max-width: 768px) 50vw, 50vw"
+                                  className="object-cover"
+                                  priority={index === 0}
+                                  loading={index === 0 ? "eager" : "eager"}
+                                  quality={85}
+                                  onError={() => {
+                                    setImageErrors(prev => ({
+                                      ...prev,
+                                      [errorKey]: true
+                                    }))
+                                  }}
+                                />
+                              )}
+                            </div>
+                          )
+                        })}
+                      </div>
+
+                    </div>
+                  </div>
+                  
+                  {/* Badges and User's Photo below images */}
+                  <div className="grid grid-cols-3 gap-0 mt-2 items-center">
+                    <div className="flex justify-center">
+                      <Badge variant="secondary" className="bg-background/95 backdrop-blur-sm text-[10px] font-medium border border-border/30 rounded-full px-3 py-1">
                         Product Image
                       </Badge>
                     </div>
-
-                    {/* Result with User - Generated Image */}
-                    <div className="relative flex flex-col items-center justify-center bg-gradient-to-br from-primary/10 to-chart-2/10 overflow-hidden" style={{ aspectRatio: "1/1" }}>
-                      <div className="relative w-full h-full">
-                        {imageErrors[`${productCategories[selectedCategory].id}_after`] ? (
-                          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 to-chart-2/10">
-                            <div className="text-center">
-                              <div className="mx-auto mb-2 h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center">
-                                <Sparkles className="h-6 w-6 text-primary/50" />
+                    <div className="flex justify-center">
+                      <div className="rounded-lg bg-background/95 p-0.5 shadow-xl backdrop-blur-md border border-border/50 ring-2 ring-primary/10 flex flex-col items-center">
+                        <div className="relative h-12 w-12 overflow-hidden rounded-md lg:h-16 lg:w-16">
+                          {productCategories.map((category, index) => {
+                            const isSelected = index === selectedCategory
+                            const errorKey = `${category.id}_user`
+                            const hasError = imageErrors[errorKey]
+                            
+                            return (
+                              <div
+                                key={`user_${category.id}`}
+                                className={`absolute inset-0 transition-opacity duration-300 ${
+                                  isSelected ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                                }`}
+                              >
+                                {hasError ? (
+                                  <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-muted to-muted/50">
+                                    <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center">
+                                      <Avatar className="h-4 w-4">
+                                        <div className="flex h-full w-full items-center justify-center bg-primary/20">
+                                          <span className="text-[8px] text-primary/50">U</span>
+                                        </div>
+                                      </Avatar>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <Image
+                                    src={getImagePath(category.id, "user")}
+                                    alt="User"
+                                    fill
+                                    sizes="(max-width: 768px) 48px, 64px"
+                                    className="object-cover rounded-md"
+                                    priority={index === 0}
+                                    loading={index === 0 ? "eager" : "eager"}
+                                    quality={85}
+                                    onError={() => {
+                                      setImageErrors(prev => ({
+                                        ...prev,
+                                        [errorKey]: true
+                                      }))
+                                    }}
+                                  />
+                                )}
                               </div>
-                              <p className="text-xs text-muted-foreground">Generated Image</p>
-                            </div>
-                          </div>
-                        ) : (
-                          <Image
-                            src={getImagePath(productCategories[selectedCategory].id, "after")}
-                            alt={`${productCategories[selectedCategory].label} generated result`}
-                            fill
-                            sizes="(max-width: 768px) 50vw, 50vw"
-                            className="object-cover transition-opacity duration-500"
-                            priority={selectedCategory === 0}
-                            loading={selectedCategory === 0 ? "eager" : "lazy"}
-                            quality={85}
-                            onError={() => {
-                              setImageErrors(prev => ({
-                                ...prev,
-                                [`${productCategories[selectedCategory].id}_after`]: true
-                              }))
-                            }}
-                          />
-                        )}
+                            )
+                          })}
+                        </div>
+                        <p className="mt-0.5 text-center text-[8px] font-medium text-foreground">User's Photo</p>
                       </div>
-                      <Badge className="absolute bottom-3 left-1/2 -translate-x-1/2 gap-1 bg-primary/25 backdrop-blur-sm text-primary border border-primary/30 text-[10px] font-semibold">
+                    </div>
+                    <div className="flex justify-center">
+                      <Badge className="gap-1 bg-primary/25 backdrop-blur-sm text-primary border border-primary/30 text-[10px] font-medium rounded-full px-3 py-1">
                         <Sparkles className="h-2.5 w-2.5" />
                         <span>AI Generated</span>
                       </Badge>
-                    </div>
-
-                    {/* Center User Image Card */}
-                    <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
-                      <div className="flex flex-col items-center gap-1">
-                        <div className="rounded-lg bg-background/95 p-1 shadow-xl backdrop-blur-md border border-border/50 ring-2 ring-primary/10 flex flex-col items-center">
-                          <div className="relative h-16 w-16 overflow-hidden rounded-md lg:h-20 lg:w-20">
-                            {imageErrors[`${productCategories[selectedCategory].id}_user`] ? (
-                              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-muted to-muted/50">
-                                <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center">
-                                  <Avatar className="h-6 w-6">
-                                    <div className="flex h-full w-full items-center justify-center bg-primary/20">
-                                      <span className="text-xs text-primary/50">U</span>
-                                    </div>
-                                  </Avatar>
-                                </div>
-                              </div>
-                            ) : (
-                              <Image
-                                src={getImagePath(productCategories[selectedCategory].id, "user")}
-                                alt="User"
-                                fill
-                                sizes="(max-width: 768px) 64px, 80px"
-                                className="object-cover transition-opacity duration-500 rounded-md"
-                                priority={selectedCategory === 0}
-                                loading={selectedCategory === 0 ? "eager" : "lazy"}
-                                quality={85}
-                                onError={() => {
-                                  setImageErrors(prev => ({
-                                    ...prev,
-                                    [`${productCategories[selectedCategory].id}_user`]: true
-                                  }))
-                                }}
-                              />
-                            )}
-                          </div>
-                          <p className="mt-1 text-center text-[9px] font-semibold text-foreground">User's Photo</p>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -324,7 +415,7 @@ export function HeroSection() {
           </div>
 
           {/* RIGHT PANEL: AI Chatbot */}
-          <div className="space-y-3">
+          <div className="space-y-3 flex flex-col">
             <div className="flex items-center gap-2">
               <Badge variant="outline" className="border-chart-2/50 bg-chart-2/5 text-chart-2">
                 Context-Aware Chatbot
@@ -332,43 +423,42 @@ export function HeroSection() {
               <div className="h-px flex-1 bg-gradient-to-r from-chart-2/20 to-transparent" />
             </div>
 
-            <Card className="group relative min-h-[600px] overflow-hidden border-border/50 bg-card/50 backdrop-blur-xl transition-all hover:border-primary/30">
-              <div className="flex h-full flex-col p-6">
+            <div className="group relative overflow-hidden border border-border/30 bg-white/80 backdrop-blur-xl transition-all hover:border-primary/40 hover:shadow-lg rounded-xl flex flex-col p-5 sm:p-6 md:p-7 h-full">
                 {/* Chat Header */}
-                <div className="mb-3 flex items-center gap-3 border-b border-border/50 pb-3">
-                  <Avatar className="h-9 w-9">
-                    <div className="flex h-full w-full items-center justify-center bg-background">
-                      <img 
-                        src="/stylr icon.svg" 
-                        alt="Stylr" 
-                        width={36} 
-                        height={36}
-                        className="h-full w-full object-contain"
-                      />
-                    </div>
-                  </Avatar>
-                  <div className="flex-1">
+                <div className="mb-2 flex items-center justify-between gap-3 border-b border-border/50 pb-2">
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-8 w-8">
+                      <div className="flex h-full w-full items-center justify-center bg-background">
+                        <img 
+                          src="/Stylr_icon.png" 
+                          alt="Stylr" 
+                          width={32} 
+                          height={32}
+                          className="h-full w-full object-contain"
+                        />
+                      </div>
+                    </Avatar>
                     <div className="flex items-center gap-2">
-                      <h3 className="text-sm font-semibold text-foreground">Stylr</h3>
+                      <h3 className="text-sm font-medium text-foreground font-sora">Stylr</h3>
                       <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
                     </div>
-                    <div className="flex gap-1.5">
-                      <Badge variant="secondary" className="text-[9px]">
-                        Context-Aware
-                      </Badge>
-                      <Badge variant="secondary" className="text-[9px]">
-                        Catalog-Trained
-                      </Badge>
-                    </div>
+                  </div>
+                  <div className="flex gap-1.5">
+                    <Badge variant="secondary" className="text-[9px]">
+                      Context-Aware
+                    </Badge>
+                    <Badge variant="secondary" className="text-[9px]">
+                      Catalog-Trained
+                    </Badge>
                   </div>
                 </div>
 
                 {/* Chat Messages */}
-                <div className="flex-1 space-y-2.5 overflow-y-auto">
+                <div className="flex-1 space-y-1.5 overflow-y-auto py-1">
                   {/* User Message */}
                   {showMessages.includes(0) && (
                     <div className="flex justify-end animate-in fade-in slide-in-from-right-4">
-                      <div className="max-w-[85%] rounded-2xl rounded-tr-sm border border-border/50 bg-secondary/50 px-3 py-2">
+                      <div className="max-w-[85%] rounded-2xl rounded-tr-sm border border-border/50 bg-secondary/50 px-2.5 py-1.5">
                         <p className="text-xs text-foreground">
                           I need an outfit for my interview, budget around $200, prefer blue
                         </p>
@@ -379,7 +469,7 @@ export function HeroSection() {
                   {/* Bot Response */}
                   {showMessages.includes(1) && (
                     <div className="flex justify-start animate-in fade-in slide-in-from-left-4">
-                      <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-primary/30 bg-primary/10 px-3 py-2">
+                      <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-primary/30 bg-primary/10 px-2.5 py-1.5">
                         <p className="text-xs text-foreground">Perfect! Here's a complete interview outfit:</p>
                       </div>
                     </div>
@@ -387,67 +477,70 @@ export function HeroSection() {
 
                   {showMessages.includes(2) && (
                     <div className="animate-in fade-in slide-in-from-left-4">
-                      <div className="relative h-32 rounded-xl border border-border/50 bg-card/30 p-3">
-                        {/* Stacked cards effect */}
-                        {[
-                          { name: "Navy Blazer", price: "$89", offset: "left-0", image: "/Product_images/navy blazer.jpg" },
-                          { name: "Blue Shirt", price: "$32", offset: "left-16", image: "/Product_images/blue shirt.jpg" },
-                          { name: "Grey Trousers", price: "$45", offset: "left-32", image: "/Product_images/grey apnts.jpg" },
-                          { name: "Black Shoes", price: "$34", offset: "left-48", image: "/Product_images/shoes.jpg" },
-                        ].map((product, i) => (
-                          <div
-                            key={i}
-                            className={`absolute top-3 ${product.offset} h-24 w-20 overflow-hidden rounded-lg border border-border/50 bg-card/80 p-1.5 shadow-lg backdrop-blur-sm transition-all hover:z-10 hover:scale-105`}
-                            style={{
-                              transform: `translateX(${i * 4}px) rotate(${i * 2 - 3}deg)`,
-                            }}
-                          >
-                            <div className="mb-1 aspect-square rounded-md relative overflow-hidden bg-gradient-to-br from-muted/50 to-muted/20">
-                              <Image
-                                src={product.image}
-                                alt={product.name}
-                                fill
-                                sizes="80px"
-                                className="object-cover rounded-md"
-                                loading="lazy"
-                                quality={80}
-                              />
-                            </div>
-                            <p className="mb-0.5 truncate text-[9px] font-medium text-foreground">{product.name}</p>
-                            <div className="flex items-center justify-between">
-                              <span className="text-[9px] font-semibold text-primary">{product.price}</span>
-                              <div className="rounded-full bg-primary/20 p-0.5">
-                                <Check className="h-2 w-2 text-primary" />
+                      <div className="rounded-xl border border-border/50 bg-card/30 p-3 pb-4">
+                        {/* Product Cards Grid - Clean horizontal layout */}
+                        <div className="flex gap-2.5 justify-start items-start">
+                          {[
+                            { name: "Navy Blazer", price: "$89", image: "/Product_images/navy blazer.jpg" },
+                            { name: "Blue Shirt", price: "$32", image: "/Product_images/blue shirt.jpg" },
+                            { name: "Grey Trousers", price: "$45", image: "/Product_images/grey apnts.jpg" },
+                            { name: "Black Shoes", price: "$34", image: "/Product_images/shoes.jpg" },
+                          ].map((product, i) => (
+                            <div
+                              key={i}
+                              className="w-20 rounded-lg border border-border/50 bg-card/80 pt-1.5 px-1.5 pb-2.5 shadow-md hover:shadow-lg transition-all hover:scale-105 flex flex-col flex-shrink-0"
+                            >
+                              <div className="mb-1.5 aspect-square rounded-md relative overflow-hidden bg-gradient-to-br from-muted/50 to-muted/20 flex-shrink-0">
+                                <Image
+                                  src={product.image}
+                                  alt={product.name}
+                                  fill
+                                  sizes="80px"
+                                  className="object-cover rounded-md"
+                                  loading="lazy"
+                                  quality={80}
+                                />
+                              </div>
+                              <p className="mb-1 truncate text-[9px] font-medium text-foreground flex-shrink-0 text-center">{product.name}</p>
+                              <div className="flex items-center justify-between flex-shrink-0">
+                                <span className="text-[9px] font-medium text-primary">{product.price}</span>
+                                <div className="rounded-full bg-primary/20 p-0.5">
+                                  <Check className="h-1.5 w-1.5 text-primary" />
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
                     </div>
                   )}
 
                   {/* Summary Panel */}
                   {showMessages.includes(3) && (
-                    <div className="flex justify-start animate-in fade-in slide-in-from-left-4">
-                      <div className="max-w-[85%] space-y-2 rounded-2xl rounded-tl-sm border border-primary/30 bg-primary/10 px-3 py-2">
-                        <div className="space-y-1.5">
-                          <div className="flex items-center justify-between text-xs">
-                            <span className="text-muted-foreground">Total Budget</span>
-                            <span className="font-semibold text-primary">$200 / $200</span>
+                    <div className="flex justify-start animate-in fade-in slide-in-from-left-4 mt-2">
+                      <div className="max-w-[90%] rounded-2xl rounded-tl-sm border border-primary/30 bg-primary/10 px-3 py-2">
+                        <div className="flex items-center justify-between gap-4">
+                          {/* Left side - Budget and Colors */}
+                          <div className="flex-1 space-y-1.5">
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="text-muted-foreground">Total Budget</span>
+                              <span className="font-medium text-primary">$200 / $200</span>
+                            </div>
+                            <Progress value={100} className="h-1.5" />
+                            <div className="flex items-center gap-1.5 text-[10px]">
+                              <span className="text-muted-foreground">Colors:</span>
+                              <div className="flex gap-1">
+                                <div className="h-3 w-3 rounded-full bg-[#FF6B35] ring-1 ring-border" />
+                                <div className="h-3 w-3 rounded-full bg-gray-500 ring-1 ring-border" />
+                                <div className="h-3 w-3 rounded-full bg-slate-800 ring-1 ring-border" />
+                              </div>
+                            </div>
                           </div>
-                          <Progress value={100} className="h-1" />
-                        </div>
-                        <div className="flex items-center gap-1.5 text-[10px]">
-                          <span className="text-muted-foreground">Colors:</span>
-                          <div className="flex gap-1">
-                            <div className="h-3 w-3 rounded-full bg-blue-500 ring-1 ring-border" />
-                            <div className="h-3 w-3 rounded-full bg-gray-500 ring-1 ring-border" />
-                            <div className="h-3 w-3 rounded-full bg-slate-800 ring-1 ring-border" />
+                          {/* Right side - Professional */}
+                          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground flex-shrink-0">
+                            <Briefcase className="h-3 w-3" />
+                            <span>Professional</span>
                           </div>
-                        </div>
-                        <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
-                          <Briefcase className="h-3 w-3" />
-                          <span>Professional</span>
                         </div>
                       </div>
                     </div>
@@ -455,12 +548,12 @@ export function HeroSection() {
                 </div>
 
                 {/* Input Bar */}
-                <div className="mt-3 space-y-2 border-t border-border/50 pt-3">
+                <div className="mt-2 border-t border-border/50 pt-2">
                   <div className="flex gap-2">
                     <input
                       type="text"
                       placeholder="Ask about products, styles, or fit..."
-                      className="flex-1 rounded-lg border border-border/50 bg-card/30 px-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                      className="flex-1 rounded-lg border border-border/50 bg-card/30 px-2.5 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                     />
                     <Button
                       size="icon"
@@ -470,13 +563,12 @@ export function HeroSection() {
                     </Button>
                   </div>
                 </div>
-              </div>
-            </Card>
+            </div>
           </div>
         </div>
 
         {/* Connecting Element */}
-        <div className="relative mt-8 flex items-center justify-center">
+        <div className="relative mt-8 mb-8 md:mb-12 flex items-center justify-center">
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <Badge className="gap-2 bg-primary/20 text-primary backdrop-blur-sm">
               <Sparkles className="h-3 w-3" />

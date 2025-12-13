@@ -18,7 +18,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="relative border-t border-border/50 bg-background/80 backdrop-blur-sm py-8 md:py-12" role="contentinfo">
+    <footer className="relative border-t border-border/30 bg-white/90 backdrop-blur-sm pt-12 pb-12 md:pt-16 md:pb-16" role="contentinfo">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-8">
@@ -28,14 +28,14 @@ export function Footer() {
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center">
                 <img 
-                  src="/stylr icon.svg" 
+                  src="/Stylr_icon.png" 
                   alt="Stylr Logo" 
                   width={32} 
                   height={32}
                   className="h-8 w-8 object-contain"
                 />
               </div>
-              <span className="text-3xl font-bold text-foreground">Stylr</span>
+              <span className="text-3xl font-semibold text-foreground font-sora">Stylr</span>
             </div>
             
             {/* Locations */}

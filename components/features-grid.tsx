@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -24,29 +26,43 @@ import {
   Gem,
   Wallet,
 } from "lucide-react"
+import { useScrollAnimation } from "@/lib/use-scroll-animation"
 
-export function FeaturesGrid() {
+function FeaturesGrid() {
+  const headerAnimation = useScrollAnimation({ delay: 0 })
+  const gridAnimation = useScrollAnimation({ delay: 100 })
+
   return (
-    <section id="features" className="relative py-12 md:py-16">
+    <section id="features" className="relative pt-10 pb-10 md:pt-14 md:pb-14 lg:pt-16 lg:pb-16">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-8 md:mb-12 text-center">
-          <h2 className="mb-4 text-2xl font-semibold text-foreground sm:text-3xl lg:text-4xl">Platform Features</h2>
-          <p className="mx-auto max-w-2xl text-base sm:text-lg text-white">
+        <div 
+          ref={headerAnimation.ref}
+          className={`mb-12 md:mb-16 text-center transition-all duration-700 ${
+            headerAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <h2 className="mb-4 text-3xl font-semibold text-foreground sm:text-4xl lg:text-5xl tracking-tight">Platform Features</h2>
+          <p className="mx-auto max-w-2xl text-lg sm:text-xl text-foreground/70">
             Everything you need to transform your online shopping experience
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+        <div 
+          ref={gridAnimation.ref}
+          className={`grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 lg:gap-8 transition-all duration-700 ${
+            gridAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           {/* Feature 1: Virtual Try-On Engine */}
-          <Card className="relative overflow-hidden bg-card/50 backdrop-blur-xl border-border/50 p-8 group hover:border-primary/50 transition-all duration-300 h-[600px] flex flex-col">
+          <Card className="relative overflow-hidden bg-white/80 backdrop-blur-xl border border-border/30 p-6 md:p-8 group hover:border-primary/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-[600px] flex flex-col rounded-xl">
             <div className="flex flex-col h-full">
               <div className="mb-4">
                 <Badge className="mb-2 bg-primary/10 text-primary border-primary/20">
                   <Lock className="w-3 h-3 mr-1" />
                   Secure & Private
                 </Badge>
-                <h3 className="text-xl font-semibold mb-1 text-balance">See It On You, Not The Model</h3>
+                <h3 className="text-xl font-medium mb-1 text-balance">See It On You, Not The Model</h3>
                 <p className="text-xs text-muted-foreground text-balance">
                   Upload once. Try everything. Get studio-grade previews instantly.
                 </p>
@@ -136,7 +152,7 @@ export function FeaturesGrid() {
                   <Sparkles className="w-3 h-3 mr-1" />
                   Context-Aware AI
                 </Badge>
-                <h3 className="text-xl font-semibold mb-1 text-balance">Your Brand-Trained Style Advisor</h3>
+                <h3 className="text-xl font-medium mb-1 text-balance">Your Brand-Trained Style Advisor</h3>
                 <p className="text-xs text-muted-foreground text-balance">
                   First context-aware chatbot that actually understands your inventory.
                 </p>
@@ -177,9 +193,9 @@ export function FeaturesGrid() {
                             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-chart-2/10" />
                             <ShoppingBag className="w-7 h-7 text-muted-foreground/50 relative z-10" />
                           </div>
-                          <p className="text-[10px] font-semibold mb-0.5 truncate">{product.name}</p>
+                          <p className="text-[10px] font-medium mb-0.5 truncate">{product.name}</p>
                           <p className="text-[9px] text-muted-foreground mb-1">{product.color}</p>
-                          <p className="text-xs text-primary font-bold">${product.price}</p>
+                          <p className="text-xs text-primary font-semibold">${product.price}</p>
                         </div>
                       ))}
                     </div>
@@ -205,7 +221,7 @@ export function FeaturesGrid() {
                   <Target className="w-3 h-3 mr-1" />
                   Smart Pairing
                 </Badge>
-                <h3 className="text-xl font-semibold mb-1 text-balance">Outfit Intelligence Built In</h3>
+                <h3 className="text-xl font-medium mb-1 text-balance">Outfit Intelligence Built In</h3>
                 <p className="text-xs text-muted-foreground text-balance">
                   Complementary pairings & fit guidance powered by your catalog data.
                 </p>
@@ -245,7 +261,7 @@ export function FeaturesGrid() {
                             <ShoppingBag className="w-6 h-6 text-muted-foreground/50 relative z-10" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-xs font-semibold mb-0.5">{item.name}</p>
+                            <p className="text-xs font-medium mb-0.5">{item.name}</p>
                             <div className="flex items-center gap-1.5 mb-0.5">
                               <Badge className="h-4 text-[9px] bg-primary/10 text-primary border-primary/20">
                                 {item.tag}
@@ -254,7 +270,7 @@ export function FeaturesGrid() {
                                 {item.match}% Match
                               </span>
                             </div>
-                            <p className="text-xs text-primary font-bold">${item.price}</p>
+                            <p className="text-xs text-primary font-semibold">${item.price}</p>
                           </div>
                         </div>
                       ))}
@@ -273,14 +289,14 @@ export function FeaturesGrid() {
           )}
 
           {/* Feature 4: Personal Stylist & Budget-Aware */}
-          <Card className="relative overflow-hidden bg-card/50 backdrop-blur-xl border-border/50 p-8 group hover:border-primary/50 transition-all duration-300 h-[600px] flex flex-col">
+          <Card className="relative overflow-hidden bg-white/80 backdrop-blur-xl border border-border/30 p-6 md:p-8 group hover:border-primary/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-[600px] flex flex-col rounded-xl">
             <div className="flex flex-col h-full">
               <div className="mb-4">
                 <Badge className="mb-2 bg-chart-4/10 text-chart-4 border-chart-4/20">
                   <DollarSign className="w-3 h-3 mr-1" />
                   Budget-Aware
                 </Badge>
-                <h3 className="text-xl font-semibold mb-1 text-balance">Your Personal Shopping Assistant</h3>
+                <h3 className="text-xl font-medium mb-1 text-balance">Your Personal Shopping Assistant</h3>
                 <p className="text-xs text-muted-foreground text-balance">
                   Ask complex questions. Get complete, budget-aware outfit solutions with complementary pairings & fit guidance powered by your catalog data.
                 </p>
@@ -331,8 +347,8 @@ export function FeaturesGrid() {
                             />
                             <div className="absolute inset-0 bg-gradient-to-br from-chart-4/10 to-primary/10" />
                           </div>
-                          <p className="text-[10px] font-semibold mb-0.5 truncate">{item.name}</p>
-                          <p className="text-xs text-primary font-bold">£{item.price}</p>
+                          <p className="text-[10px] font-medium mb-0.5 truncate">{item.name}</p>
+                          <p className="text-xs text-primary font-semibold">£{item.price}</p>
                         </div>
                       ))}
                     </div>
@@ -344,7 +360,7 @@ export function FeaturesGrid() {
                           <Check className="w-4 h-4 text-primary" />
                         </div>
                         <div>
-                          <p className="text-xs font-bold">Total: £200 / £200</p>
+                          <p className="text-xs font-semibold">Total: £200 / £200</p>
                           <p className="text-[10px] text-muted-foreground">Perfect match for your budget!</p>
                         </div>
                       </div>
@@ -366,14 +382,14 @@ export function FeaturesGrid() {
           </Card>
 
           {/* Feature 5: Multi-Category Intelligence */}
-          <Card className="relative overflow-hidden bg-card/50 backdrop-blur-xl border-border/50 p-8 group hover:border-primary/50 transition-all duration-300 h-[600px] flex flex-col">
+          <Card className="relative overflow-hidden bg-white/80 backdrop-blur-xl border border-border/30 p-6 md:p-8 group hover:border-primary/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-[600px] flex flex-col rounded-xl">
             <div className="flex flex-col h-full">
               <div className="mb-4">
                 <Badge className="mb-2 bg-chart-5/10 text-chart-5 border-chart-5/20">
                   <Sparkles className="w-3 h-3 mr-1" />
                   Universal Platform
                 </Badge>
-                <h3 className="text-xl font-semibold mb-1 text-balance">15+ Categories. 1000+ Products. One Platform</h3>
+                <h3 className="text-xl font-medium mb-1 text-balance">15+ Categories. 1000+ Products. One Platform</h3>
                 <p className="text-xs text-muted-foreground text-balance">
                   Virtual try-on, image generation & AI recommendations across all categories.
                 </p>
@@ -458,14 +474,14 @@ export function FeaturesGrid() {
           </Card>
 
           {/* Feature 6: Analytics & Insights Dashboard */}
-          <Card className="relative overflow-hidden bg-card/50 backdrop-blur-xl border-border/50 p-8 group hover:border-primary/50 transition-all duration-300 h-[600px] flex flex-col">
+          <Card className="relative overflow-hidden bg-white/80 backdrop-blur-xl border border-border/30 p-6 md:p-8 group hover:border-primary/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-[600px] flex flex-col rounded-xl">
             <div className="flex flex-col h-full">
               <div className="mb-4">
                 <Badge className="mb-2 bg-primary/10 text-primary border-primary/20">
                   <BarChart3 className="w-3 h-3 mr-1" />
                   Real-Time Analytics
                 </Badge>
-                <h3 className="text-xl font-semibold mb-1 text-balance">Insights That Move The Needle</h3>
+                <h3 className="text-xl font-medium mb-1 text-balance">Insights That Move The Needle</h3>
                 <p className="text-xs text-muted-foreground text-balance">
                   Track try-ons, conversions, and preferences. Know what's working.
                 </p>
@@ -490,7 +506,7 @@ export function FeaturesGrid() {
                           {metric.change}
                         </Badge>
                       </div>
-                      <p className="text-xl font-bold mb-0.5">{metric.value}</p>
+                      <p className="text-xl font-semibold mb-0.5">{metric.value}</p>
                       <p className="text-[10px] text-muted-foreground">{metric.label}</p>
                     </div>
                   ))}
@@ -499,7 +515,7 @@ export function FeaturesGrid() {
                 {/* Most Tried-On Products Table */}
                 <div className="bg-secondary/50 backdrop-blur-sm rounded-lg border border-border/50 p-3 flex-1 min-h-0 flex flex-col">
                   <div className="flex items-center justify-between mb-3">
-                    <p className="text-xs font-semibold">Most Tried-On Products</p>
+                    <p className="text-xs font-medium">Most Tried-On Products</p>
                     <Badge className="h-4 text-[9px] bg-muted text-muted-foreground">Last 7 days</Badge>
                   </div>
 
@@ -535,12 +551,12 @@ export function FeaturesGrid() {
 
                         {/* Try-Ons Count */}
                         <div className="text-right">
-                          <p className="text-xs font-bold text-foreground">{product.tryOns}</p>
+                          <p className="text-xs font-semibold text-foreground">{product.tryOns}</p>
                         </div>
 
                         {/* Conversion Rate */}
                         <div className="text-right">
-                          <Badge className="h-5 text-[10px] bg-chart-2/10 text-chart-2 border-chart-2/20 font-bold">
+                          <Badge className="h-5 text-[10px] bg-chart-2/10 text-chart-2 border-chart-2/20 font-semibold">
                             {product.convRate}%
                           </Badge>
                         </div>
@@ -556,3 +572,5 @@ export function FeaturesGrid() {
     </section>
   )
 }
+
+export { FeaturesGrid }

@@ -3,21 +3,35 @@
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Check, Code2, ShoppingBag } from "lucide-react"
+import { useScrollAnimation } from "@/lib/use-scroll-animation"
 
 export function IntegrationSection() {
+  const headerAnimation = useScrollAnimation({ delay: 0 })
+  const cardsAnimation = useScrollAnimation({ delay: 150 })
+
   return (
-    <section id="integration" className="relative py-12 md:py-16">
+    <section id="integration" className="relative pt-10 pb-10 md:pt-14 md:pb-14 lg:pt-16 lg:pb-16">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-8 md:mb-12 text-center">
-          <h2 className="mb-4 text-2xl font-semibold text-foreground sm:text-3xl">Easy Integration</h2>
-          <p className="text-base sm:text-lg text-white">Choose what works for your store</p>
+        <div 
+          ref={headerAnimation.ref}
+          className={`mb-12 md:mb-16 text-center transition-all duration-700 ${
+            headerAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <h2 className="mb-4 text-3xl font-semibold text-foreground sm:text-4xl lg:text-5xl tracking-tight">Easy Integration</h2>
+          <p className="text-lg sm:text-xl text-foreground/70">Choose what works for your store</p>
         </div>
 
         {/* Integration Cards */}
-        <div className="grid gap-4 md:grid-cols-2 max-w-4xl mx-auto">
+        <div 
+          ref={cardsAnimation.ref}
+          className={`grid gap-5 md:grid-cols-2 md:gap-6 lg:gap-8 max-w-4xl mx-auto transition-all duration-700 ${
+            cardsAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           {/* Custom SDK Card */}
-          <Card className="group relative h-full overflow-hidden border-l-[3px] border-l-primary border-border/50 bg-card/50 p-5 backdrop-blur-xl transition-all">
+          <Card className="group relative h-full overflow-hidden border-l-[3px] border-l-primary border border-border/30 bg-white/80 p-6 md:p-8 backdrop-blur-xl transition-all hover:shadow-lg hover:-translate-y-1 rounded-xl">
             <div className="flex h-full flex-col">
               {/* Icon */}
               <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
@@ -30,7 +44,7 @@ export function IntegrationSection() {
               </div>
 
               {/* Title */}
-              <h3 className="mb-3 text-xl font-semibold text-foreground">Custom SDK</h3>
+              <h3 className="mb-3 text-xl font-medium text-foreground">Custom SDK</h3>
 
               {/* Description */}
               <p className="mb-4 text-base text-muted-foreground">
@@ -56,7 +70,7 @@ export function IntegrationSection() {
           </Card>
 
           {/* Shopify App Card */}
-          <Card className="group relative h-full overflow-hidden border-l-[3px] border-l-primary border-border/50 bg-card/50 p-5 backdrop-blur-xl transition-all">
+          <Card className="group relative h-full overflow-hidden border-l-[3px] border-l-primary border border-border/30 bg-white/80 p-6 md:p-8 backdrop-blur-xl transition-all hover:shadow-lg hover:-translate-y-1 rounded-xl">
             <div className="flex h-full flex-col">
               {/* Icon */}
               <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
@@ -64,7 +78,7 @@ export function IntegrationSection() {
               </div>
 
               {/* Title */}
-              <h3 className="mb-3 text-xl font-semibold text-foreground">Shopify App</h3>
+              <h3 className="mb-3 text-xl font-medium text-foreground">Shopify App</h3>
 
               {/* Description */}
               <p className="mb-4 text-base text-muted-foreground">
@@ -92,7 +106,7 @@ export function IntegrationSection() {
 
         {/* Bottom Callout */}
         <div className="mt-6 text-center max-w-4xl mx-auto">
-          <div className="inline-block rounded-lg border border-border/50 bg-card/30 px-3 py-3 backdrop-blur-sm">
+          <div className="inline-block rounded-lg border border-border/30 bg-white/60 px-3 py-3 backdrop-blur-sm">
             <p className="text-xs sm:text-sm text-muted-foreground">Our team provides full onboarding support for both options</p>
           </div>
         </div>
