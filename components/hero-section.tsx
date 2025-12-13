@@ -197,7 +197,7 @@ export function HeroSection() {
         </div>
 
         {/* Split Panel Container */}
-        <div className="grid gap-4 md:gap-6 lg:grid-cols-[1.2fr_1fr] mb-8 md:mb-12 items-stretch">
+        <div className="flex flex-col lg:grid gap-4 md:gap-6 lg:grid-cols-[1.2fr_1fr] mb-8 md:mb-12 items-stretch">
           {/* LEFT PANEL: Virtual Try-On */}
           <div className="space-y-3 flex flex-col">
             <div className="flex items-center gap-2">
@@ -217,7 +217,7 @@ export function HeroSection() {
                       15+ Categories
                     </Badge>
                   </div>
-                  <div className="grid grid-cols-6 gap-2">
+                  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 sm:gap-2.5">
                     {productCategories.map((category, index) => {
                       const Icon = category.icon
                       const isSelected = index === selectedCategory
@@ -225,20 +225,20 @@ export function HeroSection() {
                         <button
                           key={category.id}
                           onClick={() => handleCategorySelect(index)}
-                          className={`group/cat flex flex-col items-center gap-2 rounded-lg border p-2.5 transition-all duration-300 ease-out ${
+                          className={`group/cat flex flex-col items-center gap-1.5 sm:gap-2 rounded-lg border p-2 sm:p-2.5 transition-all duration-300 ease-out ${
                             isSelected
                               ? "border-primary bg-primary/10 shadow-md shadow-primary/20 scale-105"
                               : "border-border/50 bg-card/30 hover:border-primary/50 hover:bg-card/50 hover:scale-105 hover:-translate-y-0.5"
                           }`}
                         >
                           <div
-                            className={`rounded-full p-1.5 transition-colors duration-300 ${
+                            className={`rounded-full p-1.5 sm:p-1.5 transition-colors duration-300 ${
                               isSelected ? "bg-primary/20" : "bg-muted/50 group-hover/cat:bg-muted"
                             }`}
                           >
-                            <Icon className={`h-3.5 w-3.5 transition-colors duration-300 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />
+                            <Icon className={`h-4 w-4 sm:h-3.5 sm:w-3.5 transition-colors duration-300 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />
                           </div>
-                          <span className="text-[9px] font-medium text-foreground/80 transition-colors duration-300">{category.label}</span>
+                          <span className="text-[10px] sm:text-[9px] font-medium text-foreground/80 transition-colors duration-300 text-center leading-tight">{category.label}</span>
                         </button>
                       )
                     })}
@@ -247,9 +247,9 @@ export function HeroSection() {
 
                 <div className="flex flex-col">
                   <div className="relative flex-1 overflow-hidden rounded-xl border border-border/50 bg-gradient-to-br from-card/40 to-card/20">
-                    <div className="relative grid h-full grid-cols-2 gap-0">
+                    <div className="relative grid h-full grid-cols-1 md:grid-cols-2 gap-0">
                       {/* Product Image - Render all categories, show only selected */}
-                      <div className="relative flex flex-col items-center justify-center border-r border-primary/20 bg-gradient-to-br from-card/40 to-card/10 overflow-hidden" style={{ aspectRatio: "1/1" }}>
+                      <div className="relative flex flex-col items-center justify-center md:border-r border-b md:border-b-0 border-primary/20 bg-gradient-to-br from-card/40 to-card/10 overflow-hidden" style={{ aspectRatio: "1/1" }}>
                         {productCategories.map((category, index) => {
                           const isSelected = index === selectedCategory
                           const errorKey = `${category.id}_before`
@@ -344,15 +344,15 @@ export function HeroSection() {
                   </div>
                   
                   {/* Badges and User's Photo below images */}
-                  <div className="grid grid-cols-3 gap-0 mt-2 items-center">
-                    <div className="flex justify-center">
-                      <Badge variant="secondary" className="bg-background/95 backdrop-blur-sm text-[10px] font-medium border border-border/30 rounded-full px-3 py-1">
+                  <div className="flex flex-col sm:grid sm:grid-cols-3 gap-2 sm:gap-0 mt-2 items-center">
+                    <div className="flex justify-center order-1 sm:order-1">
+                      <Badge variant="secondary" className="bg-background/95 backdrop-blur-sm text-[10px] sm:text-[10px] font-medium border border-border/30 rounded-full px-3 py-1">
                         Product Image
                       </Badge>
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center order-2 sm:order-2">
                       <div className="rounded-lg bg-background/95 p-0.5 shadow-xl backdrop-blur-md border border-border/50 ring-2 ring-primary/10 flex flex-col items-center">
-                        <div className="relative h-12 w-12 overflow-hidden rounded-md lg:h-16 lg:w-16">
+                        <div className="relative h-12 w-12 sm:h-12 sm:w-12 md:h-14 md:w-14 lg:h-16 lg:w-16 overflow-hidden rounded-md">
                           {productCategories.map((category, index) => {
                             const isSelected = index === selectedCategory
                             const errorKey = `${category.id}_user`
@@ -397,10 +397,10 @@ export function HeroSection() {
                             )
                           })}
                         </div>
-                        <p className="mt-0.5 text-center text-[8px] font-medium text-foreground">User's Photo</p>
+                        <p className="mt-0.5 text-center text-[9px] sm:text-[8px] font-medium text-foreground">User's Photo</p>
                       </div>
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center order-3 sm:order-3">
                       <Badge className="gap-1 bg-primary/25 backdrop-blur-sm text-primary border border-primary/30 text-[10px] font-medium rounded-full px-3 py-1">
                         <Sparkles className="h-2.5 w-2.5" />
                         <span>AI Generated</span>
@@ -425,7 +425,7 @@ export function HeroSection() {
 
             <div className="group relative overflow-hidden border border-border/30 bg-white/80 backdrop-blur-xl transition-all hover:border-primary/40 hover:shadow-lg rounded-xl flex flex-col p-5 sm:p-6 md:p-7 h-full">
                 {/* Chat Header */}
-                <div className="mb-2 flex items-center justify-between gap-3 border-b border-border/50 pb-2">
+                <div className="mb-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3 border-b border-border/50 pb-2">
                   <div className="flex items-center gap-3">
                     <Avatar className="h-8 w-8">
                       <div className="flex h-full w-full items-center justify-center bg-background">
@@ -443,7 +443,7 @@ export function HeroSection() {
                       <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
                     </div>
                   </div>
-                  <div className="flex gap-1.5">
+                  <div className="flex gap-1.5 flex-wrap">
                     <Badge variant="secondary" className="text-[9px]">
                       Context-Aware
                     </Badge>
@@ -478,8 +478,8 @@ export function HeroSection() {
                   {showMessages.includes(2) && (
                     <div className="animate-in fade-in slide-in-from-left-4">
                       <div className="rounded-xl border border-border/50 bg-card/30 p-3 pb-4">
-                        {/* Product Cards Grid - Clean horizontal layout */}
-                        <div className="flex gap-2.5 justify-start items-start">
+                        {/* Product Cards Grid - Responsive layout */}
+                        <div className="grid grid-cols-2 sm:flex sm:gap-2.5 sm:justify-start sm:items-start gap-2">
                           {[
                             { name: "Navy Blazer", price: "$89", image: "/Product_images/navy blazer.jpg" },
                             { name: "Blue Shirt", price: "$32", image: "/Product_images/blue shirt.jpg" },
@@ -488,20 +488,20 @@ export function HeroSection() {
                           ].map((product, i) => (
                             <div
                               key={i}
-                              className="w-20 rounded-lg border border-border/50 bg-card/80 pt-1.5 px-1.5 pb-2.5 shadow-md hover:shadow-lg transition-all hover:scale-105 flex flex-col flex-shrink-0"
+                              className="w-full sm:w-20 rounded-lg border border-border/50 bg-card/80 pt-1.5 px-1.5 pb-2.5 shadow-md hover:shadow-lg transition-all hover:scale-105 flex flex-col flex-shrink-0"
                             >
                               <div className="mb-1.5 aspect-square rounded-md relative overflow-hidden bg-gradient-to-br from-muted/50 to-muted/20 flex-shrink-0">
                                 <Image
                                   src={product.image}
                                   alt={product.name}
                                   fill
-                                  sizes="80px"
+                                  sizes="(max-width: 640px) 50vw, 80px"
                                   className="object-cover rounded-md"
                                   loading="lazy"
                                   quality={80}
                                 />
                               </div>
-                              <p className="mb-1 truncate text-[9px] font-medium text-foreground flex-shrink-0 text-center">{product.name}</p>
+                              <p className="mb-1 truncate text-[9px] sm:text-[9px] font-medium text-foreground flex-shrink-0 text-center">{product.name}</p>
                               <div className="flex items-center justify-between flex-shrink-0">
                                 <span className="text-[9px] font-medium text-primary">{product.price}</span>
                                 <div className="rounded-full bg-primary/20 p-0.5">
@@ -519,7 +519,7 @@ export function HeroSection() {
                   {showMessages.includes(3) && (
                     <div className="flex justify-start animate-in fade-in slide-in-from-left-4 mt-2">
                       <div className="max-w-[90%] rounded-2xl rounded-tl-sm border border-primary/30 bg-primary/10 px-3 py-2">
-                        <div className="flex items-center justify-between gap-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                           {/* Left side - Budget and Colors */}
                           <div className="flex-1 space-y-1.5">
                             <div className="flex items-center justify-between text-xs">
@@ -537,7 +537,7 @@ export function HeroSection() {
                             </div>
                           </div>
                           {/* Right side - Professional */}
-                          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground flex-shrink-0">
+                          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground flex-shrink-0 sm:self-start">
                             <Briefcase className="h-3 w-3" />
                             <span>Professional</span>
                           </div>
