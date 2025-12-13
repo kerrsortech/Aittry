@@ -27,10 +27,21 @@ import {
   Wallet,
 } from "lucide-react"
 import { useScrollAnimation } from "@/lib/use-scroll-animation"
+import { useState, useEffect } from "react"
 
 export function FeaturesGrid() {
   const headerAnimation = useScrollAnimation({ delay: 0 })
   const gridAnimation = useScrollAnimation({ delay: 100 })
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   return (
     <section id="features" className="relative pt-10 pb-10 md:pt-14 md:pb-14 lg:pt-16 lg:pb-16">
@@ -103,13 +114,23 @@ export function FeaturesGrid() {
                     </Badge>
                   </div>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline" className="flex-1 bg-transparent text-xs h-7">
-                      <Download className="w-3 h-3 mr-1" />
-                      Save
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="flex-1 bg-transparent text-xs h-7 sm:h-7 md:h-8 px-2 sm:px-3"
+                      title="Save"
+                    >
+                      <Download className="w-3 h-3 sm:mr-1" />
+                      <span className="hidden sm:inline">Save</span>
                     </Button>
-                    <Button size="sm" variant="outline" className="flex-1 bg-transparent text-xs h-7">
-                      <Share2 className="w-3 h-3 mr-1" />
-                      Share
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="flex-1 bg-transparent text-xs h-7 sm:h-7 md:h-8 px-2 sm:px-3"
+                      title="Share"
+                    >
+                      <Share2 className="w-3 h-3 sm:mr-1" />
+                      <span className="hidden sm:inline">Share</span>
                     </Button>
                   </div>
                 </div>
@@ -382,24 +403,24 @@ export function FeaturesGrid() {
           </Card>
 
           {/* Feature 5: Multi-Category Intelligence */}
-          <Card className="relative overflow-hidden bg-white/80 backdrop-blur-xl border border-border/30 p-6 md:p-8 group hover:border-primary/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-[600px] flex flex-col rounded-xl">
+          <Card className="relative overflow-hidden bg-white/80 backdrop-blur-xl border border-border/30 p-6 md:p-8 group hover:border-primary/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 min-h-[600px] sm:h-[600px] flex flex-col rounded-xl">
             <div className="flex flex-col h-full">
-              <div className="mb-4">
+              <div className="mb-4 sm:mb-6">
                 <Badge className="mb-2 bg-chart-5/10 text-chart-5 border-chart-5/20">
                   <Sparkles className="w-3 h-3 mr-1" />
                   Universal Platform
                 </Badge>
-                <h3 className="text-xl font-semibold mb-1 text-balance">15+ Categories. 1000+ Products. One Platform</h3>
-                <p className="text-xs text-muted-foreground text-balance">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-1 text-balance">15+ Categories. 1000+ Products. One Platform</h3>
+                <p className="text-xs text-muted-foreground text-balance mb-4 sm:mb-0">
                   Virtual try-on, image generation & AI recommendations across all categories.
                 </p>
               </div>
 
-              <div className="flex-1 relative flex items-center justify-center min-h-0 mb-4">
+              <div className="flex-1 relative flex items-center justify-center min-h-[280px] sm:min-h-0 mb-4 sm:mb-4">
                 {/* Center Logo Circle */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary/30 to-chart-2/30 backdrop-blur-sm border-2 border-primary/50 flex items-center justify-center z-10 shadow-lg shadow-primary/20">
-                    <Sparkles className="w-12 h-12 text-primary" />
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-primary/30 to-chart-2/30 backdrop-blur-sm border-2 border-primary/50 flex items-center justify-center z-10 shadow-lg shadow-primary/20">
+                    <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-primary" />
                   </div>
                 </div>
 
@@ -412,7 +433,8 @@ export function FeaturesGrid() {
                   { icon: Wallet, label: "Handbags", angle: 240, color: "text-primary" },
                   { icon: ShoppingBag, label: "Footwear", angle: 300, color: "text-chart-2" },
                 ].map((category) => {
-                  const radius = 120
+                  // Responsive radius: smaller on mobile to prevent overlap
+                  const radius = isMobile ? 80 : 120
                   const x = Math.cos((category.angle * Math.PI) / 180) * radius
                   const y = Math.sin((category.angle * Math.PI) / 180) * radius
 
@@ -441,9 +463,9 @@ export function FeaturesGrid() {
                           transform: "translate(-50%, -50%)",
                         }}
                       >
-                        <div className="w-18 h-18 rounded-full bg-secondary/80 backdrop-blur-sm border-2 border-border/50 flex flex-col items-center justify-center hover:scale-110 hover:border-primary/50 transition-all cursor-pointer p-2">
-                          <category.icon className={`w-6 h-6 ${category.color} mb-1`} />
-                          <p className="text-[10px] text-foreground/80 font-medium text-center leading-tight">
+                        <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full bg-secondary/80 backdrop-blur-sm border-2 border-border/50 flex flex-col items-center justify-center hover:scale-110 hover:border-primary/50 transition-all cursor-pointer p-1.5 sm:p-2">
+                          <category.icon className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ${category.color} mb-0.5 sm:mb-1`} />
+                          <p className="text-[8px] sm:text-[9px] md:text-[10px] text-foreground/80 font-medium text-center leading-tight">
                             {category.label}
                           </p>
                         </div>
@@ -454,7 +476,7 @@ export function FeaturesGrid() {
               </div>
 
               {/* Feature Support Tags */}
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {[
                   { label: "Virtual Try-On", icon: Upload },
                   { label: "Image Generation", icon: Sparkles },
@@ -490,7 +512,7 @@ export function FeaturesGrid() {
               {/* Dashboard Illustration */}
               <div className="flex-1 space-y-3 min-h-0">
                 {/* Metric Cards */}
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   {[
                     { label: "Try-Ons", value: "2,847", change: "+23%", icon: TrendingUp },
                     { label: "Conv. Rate", value: "34%", change: "vs 12%", icon: Target },
@@ -519,8 +541,8 @@ export function FeaturesGrid() {
                     <Badge className="h-4 text-[9px] bg-muted text-muted-foreground">Last 7 days</Badge>
                   </div>
 
-                  {/* Table Header */}
-                  <div className="grid grid-cols-[1fr_2fr_1fr_1fr] gap-2 pb-2 border-b border-border/30 mb-2">
+                  {/* Table Header - Hidden on mobile, shown on larger screens */}
+                  <div className="hidden sm:grid grid-cols-[1fr_2fr_1fr_1fr] gap-2 pb-2 border-b border-border/30 mb-2">
                     <p className="text-[10px] text-muted-foreground font-medium">Product</p>
                     <p className="text-[10px] text-muted-foreground font-medium">Name</p>
                     <p className="text-[10px] text-muted-foreground font-medium text-right">Try-Ons</p>
@@ -538,24 +560,29 @@ export function FeaturesGrid() {
                     ].map((product, index) => (
                       <div
                         key={product.name}
-                        className="grid grid-cols-[1fr_2fr_1fr_1fr] gap-2 items-center bg-background/30 rounded-lg p-2 hover:bg-background/50 transition-all"
+                        className="flex flex-col sm:grid sm:grid-cols-[1fr_2fr_1fr_1fr] gap-2 items-start sm:items-center bg-background/30 rounded-lg p-2 hover:bg-background/50 transition-all"
                       >
-                        {/* Product Image */}
-                        <div className="w-10 h-10 bg-muted/40 rounded-md flex items-center justify-center relative overflow-hidden">
-                          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-chart-2/10" />
-                          <product.image className="w-5 h-5 text-muted-foreground/50 relative z-10" />
+                        {/* Product Image and Name - Mobile Layout */}
+                        <div className="flex items-center gap-2 w-full sm:w-auto">
+                          <div className="w-10 h-10 bg-muted/40 rounded-md flex items-center justify-center relative overflow-hidden flex-shrink-0">
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-chart-2/10" />
+                            <product.image className="w-5 h-5 text-muted-foreground/50 relative z-10" />
+                          </div>
+                          <p className="text-[11px] font-medium truncate flex-1 sm:flex-none">{product.name}</p>
                         </div>
 
-                        {/* Product Name */}
-                        <p className="text-[11px] font-medium truncate">{product.name}</p>
+                        {/* Desktop: Product Name (hidden on mobile, shown in grid) */}
+                        <p className="hidden sm:block text-[11px] font-medium truncate">{product.name}</p>
 
                         {/* Try-Ons Count */}
-                        <div className="text-right">
+                        <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:gap-0">
+                          <span className="text-[10px] text-muted-foreground sm:hidden">Try-Ons:</span>
                           <p className="text-xs font-bold text-foreground">{product.tryOns}</p>
                         </div>
 
                         {/* Conversion Rate */}
-                        <div className="text-right">
+                        <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:gap-0">
+                          <span className="text-[10px] text-muted-foreground sm:hidden">Conv. Rate:</span>
                           <Badge className="h-5 text-[10px] bg-chart-2/10 text-chart-2 border-chart-2/20 font-bold">
                             {product.convRate}%
                           </Badge>
