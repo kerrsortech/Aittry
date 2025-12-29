@@ -47,11 +47,10 @@ export function FeaturesGrid() {
     <section id="features" className="relative pt-10 pb-10 md:pt-14 md:pb-14 lg:pt-16 lg:pb-16">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div 
+        <div
           ref={headerAnimation.ref}
-          className={`mb-12 md:mb-16 text-center transition-all duration-700 ${
-            headerAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+          className={`mb-12 md:mb-16 text-center transition-all duration-700 ${headerAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
         >
           <h2 className="mb-4 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl tracking-tight">Platform Features</h2>
           <p className="mx-auto max-w-2xl text-lg sm:text-xl text-foreground/70">
@@ -59,11 +58,10 @@ export function FeaturesGrid() {
           </p>
         </div>
 
-        <div 
+        <div
           ref={gridAnimation.ref}
-          className={`grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 lg:gap-8 transition-all duration-700 ${
-            gridAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+          className={`grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 lg:gap-8 transition-all duration-700 ${gridAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
         >
           {/* Feature 1: Virtual Try-On Engine */}
           <Card className="relative overflow-hidden bg-white/80 backdrop-blur-xl border border-border/30 p-6 md:p-8 group hover:border-primary/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-[600px] flex flex-col rounded-xl">
@@ -114,18 +112,18 @@ export function FeaturesGrid() {
                     </Badge>
                   </div>
                   <div className="flex gap-2">
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
+                    <Button
+                      size="sm"
+                      variant="outline"
                       className="flex-1 bg-transparent text-xs h-7 sm:h-7 md:h-8 px-2 sm:px-3"
                       title="Save"
                     >
                       <Download className="w-3 h-3 sm:mr-1" />
                       <span className="hidden sm:inline">Save</span>
                     </Button>
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
+                    <Button
+                      size="sm"
+                      variant="outline"
                       className="flex-1 bg-transparent text-xs h-7 sm:h-7 md:h-8 px-2 sm:px-3"
                       title="Share"
                     >
@@ -144,9 +142,8 @@ export function FeaturesGrid() {
                   ].map((item) => (
                     <div
                       key={item.name}
-                      className={`bg-secondary/50 backdrop-blur-sm rounded-md border p-2 transition-all ${
-                        item.name === "Jacket" ? "border-primary/50" : "border-border/50 hover:border-primary/50"
-                      }`}
+                      className={`bg-secondary/50 backdrop-blur-sm rounded-md border p-2 transition-all ${item.name === "Jacket" ? "border-primary/50" : "border-border/50 hover:border-primary/50"
+                        }`}
                     >
                       <div className="aspect-square bg-muted/30 rounded mb-1.5 flex items-center justify-center relative overflow-hidden">
                         <Image
@@ -166,147 +163,147 @@ export function FeaturesGrid() {
 
           {/* Feature 2: AI Shopping Assistant - COMMENTED OUT */}
           {false && (
-          <Card className="relative overflow-hidden bg-card/50 backdrop-blur-xl border-border/50 p-8 group hover:border-primary/50 transition-all duration-300 h-[600px] flex flex-col">
-            <div className="flex flex-col h-full">
-              <div className="mb-4">
-                <Badge className="mb-2 bg-chart-2/10 text-chart-2 border-chart-2/20">
-                  <Sparkles className="w-3 h-3 mr-1" />
-                  Context-Aware AI
-                </Badge>
-                <h3 className="text-xl font-semibold mb-1 text-balance">Your Brand-Trained Style Advisor</h3>
-                <p className="text-xs text-muted-foreground text-balance">
-                  First context-aware chatbot that actually understands your inventory.
-                </p>
-              </div>
-
-              <div className="flex-1 flex flex-col gap-2 min-h-0">
-                <div className="flex gap-2 justify-end">
-                  <div className="bg-primary/20 backdrop-blur-sm rounded-lg rounded-tr-none border border-primary/30 p-2 max-w-[75%]">
-                    <p className="text-xs text-foreground/90">
-                      I need something comfortable for summer. What do you suggest?
-                    </p>
-                  </div>
-                  <div className="w-7 h-7 rounded-full bg-muted/50 flex items-center justify-center flex-shrink-0">
-                    <div className="w-4 h-4 rounded-full bg-primary/30" />
-                  </div>
+            <Card className="relative overflow-hidden bg-card/50 backdrop-blur-xl border-border/50 p-8 group hover:border-primary/50 transition-all duration-300 h-[600px] flex flex-col">
+              <div className="flex flex-col h-full">
+                <div className="mb-4">
+                  <Badge className="mb-2 bg-chart-2/10 text-chart-2 border-chart-2/20">
+                    <Sparkles className="w-3 h-3 mr-1" />
+                    Context-Aware AI
+                  </Badge>
+                  <h3 className="text-xl font-semibold mb-1 text-balance">Your Brand-Trained Style Advisor</h3>
+                  <p className="text-xs text-muted-foreground text-balance">
+                    First context-aware chatbot that actually understands your inventory.
+                  </p>
                 </div>
 
-                <div className="flex gap-2 flex-1 min-h-0">
-                  <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-4 h-4 text-primary" />
-                  </div>
-                  <div className="flex-1 bg-secondary/50 backdrop-blur-sm rounded-lg rounded-tl-none border border-border/50 p-3 flex flex-col min-h-0">
-                    <p className="text-xs text-foreground/90 mb-3">
-                      Perfect! Our linen collection is ideal for summer. Here are my top picks:
-                    </p>
-
-                    <div className="grid grid-cols-3 gap-2 flex-1">
-                      {[
-                        { name: "Linen Shirt", price: 32, color: "Sky Blue" },
-                        { name: "Cotton Shorts", price: 28, color: "Khaki" },
-                        { name: "Canvas Sneakers", price: 45, color: "White" },
-                      ].map((product) => (
-                        <div
-                          key={product.name}
-                          className="bg-background/50 backdrop-blur-sm rounded-lg border border-border/40 p-2 hover:border-primary/50 transition-all hover:scale-105 flex flex-col"
-                        >
-                          <div className="aspect-square bg-muted/40 rounded-md mb-1.5 flex items-center justify-center relative overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-chart-2/10" />
-                            <ShoppingBag className="w-7 h-7 text-muted-foreground/50 relative z-10" />
-                          </div>
-                          <p className="text-[10px] font-semibold mb-0.5 truncate">{product.name}</p>
-                          <p className="text-[9px] text-muted-foreground mb-1">{product.color}</p>
-                          <p className="text-xs text-primary font-bold">${product.price}</p>
-                        </div>
-                      ))}
+                <div className="flex-1 flex flex-col gap-2 min-h-0">
+                  <div className="flex gap-2 justify-end">
+                    <div className="bg-primary/20 backdrop-blur-sm rounded-lg rounded-tr-none border border-primary/30 p-2 max-w-[75%]">
+                      <p className="text-xs text-foreground/90">
+                        I need something comfortable for summer. What do you suggest?
+                      </p>
+                    </div>
+                    <div className="w-7 h-7 rounded-full bg-muted/50 flex items-center justify-center flex-shrink-0">
+                      <div className="w-4 h-4 rounded-full bg-primary/30" />
                     </div>
                   </div>
-                </div>
 
-                <div className="bg-secondary/50 backdrop-blur-sm rounded-lg border border-border/50 p-2 flex items-center gap-2">
-                  <MessageSquare className="w-3.5 h-3.5 text-muted-foreground" />
-                  <span className="text-xs text-muted-foreground flex-1">Ask anything...</span>
-                  <Zap className="w-3.5 h-3.5 text-primary" />
+                  <div className="flex gap-2 flex-1 min-h-0">
+                    <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Sparkles className="w-4 h-4 text-primary" />
+                    </div>
+                    <div className="flex-1 bg-secondary/50 backdrop-blur-sm rounded-lg rounded-tl-none border border-border/50 p-3 flex flex-col min-h-0">
+                      <p className="text-xs text-foreground/90 mb-3">
+                        Perfect! Our linen collection is ideal for summer. Here are my top picks:
+                      </p>
+
+                      <div className="grid grid-cols-3 gap-2 flex-1">
+                        {[
+                          { name: "Linen Shirt", price: 32, color: "Sky Blue" },
+                          { name: "Cotton Shorts", price: 28, color: "Khaki" },
+                          { name: "Canvas Sneakers", price: 45, color: "White" },
+                        ].map((product) => (
+                          <div
+                            key={product.name}
+                            className="bg-background/50 backdrop-blur-sm rounded-lg border border-border/40 p-2 hover:border-primary/50 transition-all hover:scale-105 flex flex-col"
+                          >
+                            <div className="aspect-square bg-muted/40 rounded-md mb-1.5 flex items-center justify-center relative overflow-hidden">
+                              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-chart-2/10" />
+                              <ShoppingBag className="w-7 h-7 text-muted-foreground/50 relative z-10" />
+                            </div>
+                            <p className="text-[10px] font-semibold mb-0.5 truncate">{product.name}</p>
+                            <p className="text-[9px] text-muted-foreground mb-1">{product.color}</p>
+                            <p className="text-xs text-primary font-bold">${product.price}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-secondary/50 backdrop-blur-sm rounded-lg border border-border/50 p-2 flex items-center gap-2">
+                    <MessageSquare className="w-3.5 h-3.5 text-muted-foreground" />
+                    <span className="text-xs text-muted-foreground flex-1">Ask anything...</span>
+                    <Zap className="w-3.5 h-3.5 text-primary" />
+                  </div>
                 </div>
               </div>
-            </div>
-          </Card>
+            </Card>
           )}
 
           {/* Feature 3: Smart Recommendations Engine - COMMENTED OUT */}
           {false && (
-          <Card className="relative overflow-hidden bg-card/50 backdrop-blur-xl border-border/50 p-8 group hover:border-primary/50 transition-all duration-300 h-[600px] flex flex-col">
-            <div className="flex flex-col h-full">
-              <div className="mb-4">
-                <Badge className="mb-2 bg-chart-3/10 text-chart-3 border-chart-3/20">
-                  <Target className="w-3 h-3 mr-1" />
-                  Smart Pairing
-                </Badge>
-                <h3 className="text-xl font-semibold mb-1 text-balance">Outfit Intelligence Built In</h3>
-                <p className="text-xs text-muted-foreground text-balance">
-                  Complementary pairings & fit guidance powered by your catalog data.
-                </p>
-              </div>
-
-              <div className="flex-1 flex flex-col gap-2 min-h-0">
-                <div className="flex gap-2 justify-end">
-                  <div className="bg-primary/20 backdrop-blur-sm rounded-lg rounded-tr-none border border-primary/30 p-2 max-w-[75%]">
-                    <p className="text-xs text-foreground/90">What goes well with this blue dress shirt?</p>
-                  </div>
-                  <div className="w-7 h-7 rounded-full bg-muted/50 flex items-center justify-center flex-shrink-0">
-                    <div className="w-4 h-4 rounded-full bg-primary/30" />
-                  </div>
+            <Card className="relative overflow-hidden bg-card/50 backdrop-blur-xl border-border/50 p-8 group hover:border-primary/50 transition-all duration-300 h-[600px] flex flex-col">
+              <div className="flex flex-col h-full">
+                <div className="mb-4">
+                  <Badge className="mb-2 bg-chart-3/10 text-chart-3 border-chart-3/20">
+                    <Target className="w-3 h-3 mr-1" />
+                    Smart Pairing
+                  </Badge>
+                  <h3 className="text-xl font-semibold mb-1 text-balance">Outfit Intelligence Built In</h3>
+                  <p className="text-xs text-muted-foreground text-balance">
+                    Complementary pairings & fit guidance powered by your catalog data.
+                  </p>
                 </div>
 
-                <div className="flex gap-2 flex-1 min-h-0">
-                  <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-4 h-4 text-primary" />
-                  </div>
-                  <div className="flex-1 bg-secondary/50 backdrop-blur-sm rounded-lg rounded-tl-none border border-border/50 p-3 flex flex-col min-h-0">
-                    <p className="text-xs text-foreground/90 mb-3">
-                      Great choice! Here are perfect pairings based on color harmony and style:
-                    </p>
-
-                    <div className="space-y-2 flex-1 overflow-auto">
-                      {[
-                        { name: "Grey Chinos", price: 54, match: 95, tag: "Color Harmony" },
-                        { name: "Leather Belt", price: 28, match: 92, tag: "Size Match" },
-                        { name: "Oxford Shoes", price: 68, match: 88, tag: "Style Match" },
-                      ].map((item) => (
-                        <div
-                          key={item.name}
-                          className="bg-background/50 backdrop-blur-sm rounded-lg border border-border/40 p-2 flex items-center gap-2 hover:border-primary/50 transition-all"
-                        >
-                          <div className="w-14 h-14 bg-muted/40 rounded-md flex items-center justify-center flex-shrink-0 relative overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-br from-chart-3/10 to-primary/10" />
-                            <ShoppingBag className="w-6 h-6 text-muted-foreground/50 relative z-10" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-xs font-semibold mb-0.5">{item.name}</p>
-                            <div className="flex items-center gap-1.5 mb-0.5">
-                              <Badge className="h-4 text-[9px] bg-primary/10 text-primary border-primary/20">
-                                {item.tag}
-                              </Badge>
-                              <span className="text-[10px] text-muted-foreground font-medium text-chart-2">
-                                {item.match}% Match
-                              </span>
-                            </div>
-                            <p className="text-xs text-primary font-bold">${item.price}</p>
-                          </div>
-                        </div>
-                      ))}
+                <div className="flex-1 flex flex-col gap-2 min-h-0">
+                  <div className="flex gap-2 justify-end">
+                    <div className="bg-primary/20 backdrop-blur-sm rounded-lg rounded-tr-none border border-primary/30 p-2 max-w-[75%]">
+                      <p className="text-xs text-foreground/90">What goes well with this blue dress shirt?</p>
+                    </div>
+                    <div className="w-7 h-7 rounded-full bg-muted/50 flex items-center justify-center flex-shrink-0">
+                      <div className="w-4 h-4 rounded-full bg-primary/30" />
                     </div>
                   </div>
-                </div>
 
-                <div className="bg-secondary/50 backdrop-blur-sm rounded-lg border border-border/50 p-2 flex items-center gap-2">
-                  <MessageSquare className="w-3.5 h-3.5 text-muted-foreground" />
-                  <span className="text-xs text-muted-foreground flex-1">Ask for more pairings...</span>
-                  <Zap className="w-3.5 h-3.5 text-primary" />
+                  <div className="flex gap-2 flex-1 min-h-0">
+                    <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Sparkles className="w-4 h-4 text-primary" />
+                    </div>
+                    <div className="flex-1 bg-secondary/50 backdrop-blur-sm rounded-lg rounded-tl-none border border-border/50 p-3 flex flex-col min-h-0">
+                      <p className="text-xs text-foreground/90 mb-3">
+                        Great choice! Here are perfect pairings based on color harmony and style:
+                      </p>
+
+                      <div className="space-y-2 flex-1 overflow-auto">
+                        {[
+                          { name: "Grey Chinos", price: 54, match: 95, tag: "Color Harmony" },
+                          { name: "Leather Belt", price: 28, match: 92, tag: "Size Match" },
+                          { name: "Oxford Shoes", price: 68, match: 88, tag: "Style Match" },
+                        ].map((item) => (
+                          <div
+                            key={item.name}
+                            className="bg-background/50 backdrop-blur-sm rounded-lg border border-border/40 p-2 flex items-center gap-2 hover:border-primary/50 transition-all"
+                          >
+                            <div className="w-14 h-14 bg-muted/40 rounded-md flex items-center justify-center flex-shrink-0 relative overflow-hidden">
+                              <div className="absolute inset-0 bg-gradient-to-br from-chart-3/10 to-primary/10" />
+                              <ShoppingBag className="w-6 h-6 text-muted-foreground/50 relative z-10" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-semibold mb-0.5">{item.name}</p>
+                              <div className="flex items-center gap-1.5 mb-0.5">
+                                <Badge className="h-4 text-[9px] bg-primary/10 text-primary border-primary/20">
+                                  {item.tag}
+                                </Badge>
+                                <span className="text-[10px] text-muted-foreground font-medium text-chart-2">
+                                  {item.match}% Match
+                                </span>
+                              </div>
+                              <p className="text-xs text-primary font-bold">${item.price}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-secondary/50 backdrop-blur-sm rounded-lg border border-border/50 p-2 flex items-center gap-2">
+                    <MessageSquare className="w-3.5 h-3.5 text-muted-foreground" />
+                    <span className="text-xs text-muted-foreground flex-1">Ask for more pairings...</span>
+                    <Zap className="w-3.5 h-3.5 text-primary" />
+                  </div>
                 </div>
               </div>
-            </div>
-          </Card>
+            </Card>
           )}
 
           {/* Feature 4: Personal Stylist & Budget-Aware */}
@@ -568,7 +565,7 @@ export function FeaturesGrid() {
                             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-chart-2/10" />
                             <product.image className="w-5 h-5 text-muted-foreground/50 relative z-10" />
                           </div>
-                          <p className="text-[11px] font-medium truncate flex-1 sm:flex-none">{product.name}</p>
+                          <p className="text-[11px] font-medium truncate flex-1 sm:hidden">{product.name}</p>
                         </div>
 
                         {/* Desktop: Product Name (hidden on mobile, shown in grid) */}

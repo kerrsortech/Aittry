@@ -15,11 +15,10 @@ export function CtaSection() {
   return (
     <section className="relative pt-10 pb-10 md:pt-14 md:pb-14 lg:pt-16 lg:pb-16 overflow-hidden">
       <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Card 
+        <Card
           ref={ctaAnimation.ref}
-          className={`relative overflow-hidden border border-border/30 bg-white/80 p-6 sm:p-8 md:p-10 lg:p-12 backdrop-blur-xl max-w-4xl mx-auto rounded-xl shadow-lg transition-all duration-700 hover:shadow-xl hover:-translate-y-1 ${
-            ctaAnimation.isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-95"
-          }`}
+          className={`relative overflow-hidden border border-border/30 bg-white/80 p-6 sm:p-8 md:p-10 lg:p-12 backdrop-blur-xl max-w-4xl mx-auto rounded-xl shadow-lg transition-all duration-700 hover:shadow-xl hover:-translate-y-1 ${ctaAnimation.isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-95"
+            }`}
         >
           {/* Background Decoration - Blurred Circles */}
           <div className="pointer-events-none absolute inset-0 z-0">
@@ -54,7 +53,7 @@ export function CtaSection() {
                 onClick={() => setContactModalOpen(true)}
                 className="h-12 min-w-[180px] bg-foreground text-background hover:bg-foreground/90 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 rounded-lg font-medium text-base"
               >
-                Join the waiting list
+                Request access
               </Button>
             </div>
           </div>

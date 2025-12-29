@@ -8,12 +8,12 @@ export function PricingSection() {
   const plans = [
     {
       name: "Basic",
-      price: "$79",
+      price: "$49",
       period: "/mo",
       badge: null,
       features: [
-        { icon: Image, text: "600 image generations" },
-        { icon: MessageSquare, text: "2,000 chat outputs" },
+        { icon: Image, text: "350 virtual try-ons" },
+        { icon: MessageSquare, text: "1,200 chat outputs" },
         { icon: Maximize2, text: "2K image resolution" },
       ],
       description: "Perfect for small shops with a limited catalog get started with photoreal try-ons and smart AI recommendations.",
@@ -21,25 +21,25 @@ export function PricingSection() {
     },
     {
       name: "Pro",
-      price: "$149",
+      price: "$129",
       period: "/mo",
       badge: "Most Popular",
       features: [
-        { icon: Image, text: "1,200 image generations" },
-        { icon: MessageSquare, text: "4,000 chat outputs" },
+        { icon: Image, text: "1,000 virtual try-ons" },
+        { icon: MessageSquare, text: "3,500 chat outputs" },
         { icon: Maximize2, text: "4K image resolution" },
       ],
       description: "Ideal for growing stores with high traffic and large product ranges scale your business with advanced virtual try-on and AI features.",
       featured: true,
     },
     {
-      name: "Elite",
-      price: "$299",
+      name: "Max",
+      price: "$249",
       period: "/mo",
       badge: null,
       features: [
-        { icon: Image, text: "2,500 image generations" },
-        { icon: MessageSquare, text: "10,000 chat outputs" },
+        { icon: Image, text: "2,100 virtual try-ons" },
+        { icon: MessageSquare, text: "8,500 chat outputs" },
         { icon: Maximize2, text: "4K image resolution" },
       ],
       description: "Built for mature brands with diverse catalogs and high sales volumes unlock premium virtual try-on and robust AI solutions for peak performance.",
@@ -48,9 +48,9 @@ export function PricingSection() {
   ]
 
   const commonFeatures = [
-    "Attach unlimited brand policies & guidelines",
+    "Automatic policy & FAQ sync, no manual setup required.",
     "Unlimited product catalogue support",
-    "Automatic ticket creation for customer complaints",
+    "AI trained on your store & brand content, not generic replies.",
     "Custom integration tech support",
   ]
 
@@ -61,11 +61,10 @@ export function PricingSection() {
     <section id="pricing" className="relative pt-10 pb-10 md:pt-14 md:pb-14 lg:pt-16 lg:pb-16">
       <div className="container mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div 
+        <div
           ref={headerAnimation.ref}
-          className={`mb-12 md:mb-16 text-center transition-all duration-700 ${
-            headerAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+          className={`mb-12 md:mb-16 text-center transition-all duration-700 ${headerAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
         >
           <h2 className="mb-4 text-3xl font-semibold text-foreground sm:text-4xl lg:text-5xl tracking-tight">
             Plans That Fit Your Brand and Your Budget.
@@ -76,21 +75,19 @@ export function PricingSection() {
         </div>
 
         {/* Pricing Cards */}
-        <div 
+        <div
           ref={cardsAnimation.ref}
-          className={`mb-12 md:mb-16 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-5 lg:gap-6 transition-all duration-700 ${
-            cardsAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+          className={`mb-12 md:mb-16 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-5 lg:gap-6 transition-all duration-700 ${cardsAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
         >
           {plans.map((plan, index) => {
             return (
               <Card
                 key={plan.name}
-                className={`relative flex flex-col overflow-hidden border border-border/30 bg-white/80 backdrop-blur-xl transition-all hover:shadow-lg hover:-translate-y-1 rounded-xl ${
-                  plan.featured
-                    ? "border-primary/50 shadow-lg ring-1 ring-primary/20"
-                    : "hover:border-primary/40"
-                }`}
+                className={`relative flex flex-col overflow-hidden border border-border/30 bg-white/80 backdrop-blur-xl transition-all hover:shadow-lg hover:-translate-y-1 rounded-xl ${plan.featured
+                  ? "border-primary/50 shadow-lg ring-1 ring-primary/20"
+                  : "hover:border-primary/40"
+                  }`}
                 role="article"
                 aria-label={`${plan.name} pricing plan`}
               >
@@ -126,11 +123,10 @@ export function PricingSection() {
                       return (
                         <div
                           key={featureIndex}
-                          className={`flex items-start gap-3 ${
-                            featureIndex < plan.features.length - 1
-                              ? "border-b border-border/30 pb-4"
-                              : ""
-                          }`}
+                          className={`flex items-start gap-3 ${featureIndex < plan.features.length - 1
+                            ? "border-b border-border/30 pb-4"
+                            : ""
+                            }`}
                         >
                           <IconComponent className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
                           <span className="text-sm font-medium text-foreground">

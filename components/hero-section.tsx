@@ -55,13 +55,13 @@ const imageFileMap: Record<string, string> = {
 const getImagePath = (category: string, type: "before" | "after" | "user"): string => {
   const key = `${category}_${type}`
   const fileName = imageFileMap[key]
-  
+
   if (!fileName) {
     // Fallback if mapping is missing
     const categoryName = category.charAt(0).toUpperCase() + category.slice(1)
     return `/Product_images/${categoryName} ${type}.png`
   }
-  
+
   // Return path with proper encoding - Next.js Image will handle spaces in URLs
   return `/Product_images/${fileName}`
 }
@@ -88,14 +88,14 @@ export function HeroSection() {
   useEffect(() => {
     // Preload critical images immediately (above-the-fold)
     preloadCriticalImages()
-    
+
     // Preload all other images in batches (non-blocking)
     preloadAllImages()
-    
+
     // Also preload hero section images specifically for immediate use
     const preloadHeroImages = () => {
       const imagePromises: Promise<void>[] = []
-      
+
       productCategories.forEach((category) => {
         const types: ("before" | "after" | "user")[] = ["before", "after", "user"]
         types.forEach((type) => {
@@ -109,19 +109,19 @@ export function HeroSection() {
           imagePromises.push(promise)
         })
       })
-      
+
       Promise.all(imagePromises).then(() => {
         setImagesPreloaded(true)
       })
     }
-    
+
     preloadHeroImages()
   }, [])
 
   // Rotate through categories (only if auto-rotate is enabled)
   useEffect(() => {
     if (!autoRotate) return
-    
+
     const interval = setInterval(() => {
       setSelectedCategory((prev) => (prev + 1) % productCategories.length)
     }, 3000)
@@ -132,7 +132,7 @@ export function HeroSection() {
   const handleCategorySelect = (index: number) => {
     setSelectedCategory(index)
     setAutoRotate(false) // Pause auto-rotation when user manually selects
-    
+
     // Resume auto-rotation after 10 seconds of inactivity
     setTimeout(() => {
       setAutoRotate(true)
@@ -183,7 +183,7 @@ export function HeroSection() {
               Studio-quality virtual try-on experiences so customers instantly picture themselves in your products plus an intelligent assistant that guides, recommends, and boosts sales.
             </p>
           </div>
-          
+
           {/* CTA Button */}
           <div>
             <Button
@@ -191,7 +191,7 @@ export function HeroSection() {
               onClick={() => setContactModalOpen(true)}
               className="h-14 min-w-[200px] bg-[#FF6B35] hover:bg-[#FF6B35]/90 text-white shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 active:translate-y-0 rounded-xl font-semibold text-base px-8"
             >
-              Join the waiting list
+              Request access
             </Button>
           </div>
         </div>
@@ -225,16 +225,14 @@ export function HeroSection() {
                         <button
                           key={category.id}
                           onClick={() => handleCategorySelect(index)}
-                          className={`group/cat flex flex-col items-center gap-1.5 sm:gap-2 rounded-lg border p-2 sm:p-2.5 transition-all duration-300 ease-out ${
-                            isSelected
+                          className={`group/cat flex flex-col items-center gap-1.5 sm:gap-2 rounded-lg border p-2 sm:p-2.5 transition-all duration-300 ease-out ${isSelected
                               ? "border-primary bg-primary/10 shadow-md shadow-primary/20 scale-105"
                               : "border-border/50 bg-card/30 hover:border-primary/50 hover:bg-card/50 hover:scale-105 hover:-translate-y-0.5"
-                          }`}
+                            }`}
                         >
                           <div
-                            className={`rounded-full p-1.5 sm:p-1.5 transition-colors duration-300 ${
-                              isSelected ? "bg-primary/20" : "bg-muted/50 group-hover/cat:bg-muted"
-                            }`}
+                            className={`rounded-full p-1.5 sm:p-1.5 transition-colors duration-300 ${isSelected ? "bg-primary/20" : "bg-muted/50 group-hover/cat:bg-muted"
+                              }`}
                           >
                             <Icon className={`h-4 w-4 sm:h-3.5 sm:w-3.5 transition-colors duration-300 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />
                           </div>
@@ -254,13 +252,12 @@ export function HeroSection() {
                           const isSelected = index === selectedCategory
                           const errorKey = `${category.id}_before`
                           const hasError = imageErrors[errorKey]
-                          
+
                           return (
                             <div
                               key={`before_${category.id}`}
-                              className={`absolute inset-0 transition-opacity duration-300 ${
-                                isSelected ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                              }`}
+                              className={`absolute inset-0 transition-opacity duration-300 ${isSelected ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                                }`}
                             >
                               {hasError ? (
                                 <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 to-chart-2/10">
@@ -300,13 +297,12 @@ export function HeroSection() {
                           const isSelected = index === selectedCategory
                           const errorKey = `${category.id}_after`
                           const hasError = imageErrors[errorKey]
-                          
+
                           return (
                             <div
                               key={`after_${category.id}`}
-                              className={`absolute inset-0 transition-opacity duration-300 ${
-                                isSelected ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                              }`}
+                              className={`absolute inset-0 transition-opacity duration-300 ${isSelected ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                                }`}
                             >
                               {hasError ? (
                                 <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 to-chart-2/10">
@@ -342,7 +338,7 @@ export function HeroSection() {
 
                     </div>
                   </div>
-                  
+
                   {/* Badges and User's Photo below images */}
                   <div className="flex flex-col sm:grid sm:grid-cols-3 gap-2 sm:gap-0 mt-2 items-center">
                     <div className="flex justify-center order-1 sm:order-1">
@@ -357,13 +353,12 @@ export function HeroSection() {
                             const isSelected = index === selectedCategory
                             const errorKey = `${category.id}_user`
                             const hasError = imageErrors[errorKey]
-                            
+
                             return (
                               <div
                                 key={`user_${category.id}`}
-                                className={`absolute inset-0 transition-opacity duration-300 ${
-                                  isSelected ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                                }`}
+                                className={`absolute inset-0 transition-opacity duration-300 ${isSelected ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                                  }`}
                               >
                                 {hasError ? (
                                   <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-muted to-muted/50">
@@ -409,7 +404,7 @@ export function HeroSection() {
                   </div>
                 </div>
 
-                
+
               </div>
             </Card>
           </div>
@@ -424,145 +419,145 @@ export function HeroSection() {
             </div>
 
             <div className="group relative overflow-hidden border border-border/30 bg-white/80 backdrop-blur-xl transition-all hover:border-primary/40 hover:shadow-lg rounded-xl flex flex-col p-5 sm:p-6 md:p-7 h-full">
-                {/* Chat Header */}
-                <div className="mb-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3 border-b border-border/50 pb-2">
-                  <div className="flex items-center gap-3">
-                    <Avatar className="h-8 w-8">
-                      <div className="flex h-full w-full items-center justify-center bg-background">
-                        <img 
-                          src="/Stylr_icon.png" 
-                          alt="Stylr" 
-                          width={32} 
-                          height={32}
-                          className="h-full w-full object-contain"
-                        />
-                      </div>
-                    </Avatar>
-                    <div className="flex items-center gap-2">
-                      <h3 className="text-sm font-semibold text-foreground font-sora">Stylr</h3>
-                      <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
+              {/* Chat Header */}
+              <div className="mb-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3 border-b border-border/50 pb-2">
+                <div className="flex items-center gap-3">
+                  <Avatar className="h-8 w-8">
+                    <div className="flex h-full w-full items-center justify-center bg-background">
+                      <img
+                        src="/Stylr_icon.png"
+                        alt="Stylr"
+                        width={32}
+                        height={32}
+                        className="h-full w-full object-contain"
+                      />
                     </div>
-                  </div>
-                  <div className="flex gap-1.5 flex-wrap">
-                    <Badge variant="secondary" className="text-[9px]">
-                      Context-Aware
-                    </Badge>
-                    <Badge variant="secondary" className="text-[9px]">
-                      Catalog-Trained
-                    </Badge>
+                  </Avatar>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-sm font-semibold text-foreground font-sora">Stylr</h3>
+                    <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
                   </div>
                 </div>
+                <div className="flex gap-1.5 flex-wrap">
+                  <Badge variant="secondary" className="text-[9px]">
+                    Context-Aware
+                  </Badge>
+                  <Badge variant="secondary" className="text-[9px]">
+                    Catalog-Trained
+                  </Badge>
+                </div>
+              </div>
 
-                {/* Chat Messages */}
-                <div className="flex-1 space-y-1.5 overflow-y-auto py-1">
-                  {/* User Message */}
-                  {showMessages.includes(0) && (
-                    <div className="flex justify-end animate-in fade-in slide-in-from-right-4">
-                      <div className="max-w-[85%] rounded-2xl rounded-tr-sm border border-border/50 bg-secondary/50 px-2.5 py-1.5">
-                        <p className="text-xs text-foreground">
-                          I need an outfit for my interview, budget around $200, prefer blue
-                        </p>
-                      </div>
+              {/* Chat Messages */}
+              <div className="flex-1 space-y-1.5 overflow-y-auto py-1">
+                {/* User Message */}
+                {showMessages.includes(0) && (
+                  <div className="flex justify-end animate-in fade-in slide-in-from-right-4">
+                    <div className="max-w-[85%] rounded-2xl rounded-tr-sm border border-border/50 bg-secondary/50 px-2.5 py-1.5">
+                      <p className="text-xs text-foreground">
+                        I need an outfit for my interview, budget around $200, prefer blue
+                      </p>
                     </div>
-                  )}
+                  </div>
+                )}
 
-                  {/* Bot Response */}
-                  {showMessages.includes(1) && (
-                    <div className="flex justify-start animate-in fade-in slide-in-from-left-4">
-                      <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-primary/30 bg-primary/10 px-2.5 py-1.5">
-                        <p className="text-xs text-foreground">Perfect! Here's a complete interview outfit:</p>
-                      </div>
+                {/* Bot Response */}
+                {showMessages.includes(1) && (
+                  <div className="flex justify-start animate-in fade-in slide-in-from-left-4">
+                    <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-primary/30 bg-primary/10 px-2.5 py-1.5">
+                      <p className="text-xs text-foreground">Perfect! Here's a complete interview outfit:</p>
                     </div>
-                  )}
+                  </div>
+                )}
 
-                  {showMessages.includes(2) && (
-                    <div className="animate-in fade-in slide-in-from-left-4">
-                      <div className="rounded-xl border border-border/50 bg-card/30 p-3 pb-4">
-                        {/* Product Cards Grid - Responsive layout */}
-                        <div className="grid grid-cols-2 sm:flex sm:gap-2.5 sm:justify-start sm:items-start gap-2">
-                          {[
-                            { name: "Navy Blazer", price: "$89", image: "/Product_images/navy blazer.jpg" },
-                            { name: "Blue Shirt", price: "$32", image: "/Product_images/blue shirt.jpg" },
-                            { name: "Grey Trousers", price: "$45", image: "/Product_images/grey apnts.jpg" },
-                            { name: "Black Shoes", price: "$34", image: "/Product_images/shoes.jpg" },
-                          ].map((product, i) => (
-                            <div
-                              key={i}
-                              className="w-full sm:w-20 rounded-lg border border-border/50 bg-card/80 pt-1.5 px-1.5 pb-2.5 shadow-md hover:shadow-lg transition-all hover:scale-105 flex flex-col flex-shrink-0"
-                            >
-                              <div className="mb-1.5 aspect-square rounded-md relative overflow-hidden bg-gradient-to-br from-muted/50 to-muted/20 flex-shrink-0">
-                                <Image
-                                  src={product.image}
-                                  alt={product.name}
-                                  fill
-                                  sizes="(max-width: 640px) 50vw, 80px"
-                                  className="object-cover rounded-md"
-                                  loading="lazy"
-                                  quality={80}
-                                />
-                              </div>
-                              <p className="mb-1 truncate text-[9px] sm:text-[9px] font-medium text-foreground flex-shrink-0 text-center">{product.name}</p>
-                              <div className="flex items-center justify-between flex-shrink-0">
-                                <span className="text-[9px] font-semibold text-primary">{product.price}</span>
-                                <div className="rounded-full bg-primary/20 p-0.5">
-                                  <Check className="h-1.5 w-1.5 text-primary" />
-                                </div>
-                              </div>
+                {showMessages.includes(2) && (
+                  <div className="animate-in fade-in slide-in-from-left-4">
+                    <div className="rounded-xl border border-border/50 bg-card/30 p-3 pb-4">
+                      {/* Product Cards Grid - Responsive layout */}
+                      <div className="grid grid-cols-2 sm:flex sm:gap-2.5 sm:justify-start sm:items-start gap-2">
+                        {[
+                          { name: "Navy Blazer", price: "$89", image: "/Product_images/navy blazer.jpg" },
+                          { name: "Blue Shirt", price: "$32", image: "/Product_images/blue shirt.jpg" },
+                          { name: "Grey Trousers", price: "$45", image: "/Product_images/grey apnts.jpg" },
+                          { name: "Black Shoes", price: "$34", image: "/Product_images/shoes.jpg" },
+                        ].map((product, i) => (
+                          <div
+                            key={i}
+                            className="w-full sm:w-20 rounded-lg border border-border/50 bg-card/80 pt-1.5 px-1.5 pb-2.5 shadow-md hover:shadow-lg transition-all hover:scale-105 flex flex-col flex-shrink-0"
+                          >
+                            <div className="mb-1.5 aspect-square rounded-md relative overflow-hidden bg-gradient-to-br from-muted/50 to-muted/20 flex-shrink-0">
+                              <Image
+                                src={product.image}
+                                alt={product.name}
+                                fill
+                                sizes="(max-width: 640px) 50vw, 80px"
+                                className="object-cover rounded-md"
+                                loading="lazy"
+                                quality={80}
+                              />
                             </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Summary Panel */}
-                  {showMessages.includes(3) && (
-                    <div className="flex justify-start animate-in fade-in slide-in-from-left-4 mt-2">
-                      <div className="max-w-[90%] rounded-2xl rounded-tl-sm border border-primary/30 bg-primary/10 px-3 py-2">
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
-                          {/* Left side - Budget and Colors */}
-                          <div className="flex-1 space-y-1.5">
-                            <div className="flex items-center justify-between text-xs">
-                              <span className="text-muted-foreground">Total Budget</span>
-                              <span className="font-semibold text-primary">$200 / $200</span>
-                            </div>
-                            <Progress value={100} className="h-1.5" />
-                            <div className="flex items-center gap-1.5 text-[10px]">
-                              <span className="text-muted-foreground">Colors:</span>
-                              <div className="flex gap-1">
-                                <div className="h-3 w-3 rounded-full bg-[#FF6B35] ring-1 ring-border" />
-                                <div className="h-3 w-3 rounded-full bg-gray-500 ring-1 ring-border" />
-                                <div className="h-3 w-3 rounded-full bg-slate-800 ring-1 ring-border" />
+                            <p className="mb-1 truncate text-[9px] sm:text-[9px] font-medium text-foreground flex-shrink-0 text-center">{product.name}</p>
+                            <div className="flex items-center justify-between flex-shrink-0">
+                              <span className="text-[9px] font-semibold text-primary">{product.price}</span>
+                              <div className="rounded-full bg-primary/20 p-0.5">
+                                <Check className="h-1.5 w-1.5 text-primary" />
                               </div>
                             </div>
                           </div>
-                          {/* Right side - Professional */}
-                          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground flex-shrink-0 sm:self-start">
-                            <Briefcase className="h-3 w-3" />
-                            <span>Professional</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Summary Panel */}
+                {showMessages.includes(3) && (
+                  <div className="flex justify-start animate-in fade-in slide-in-from-left-4 mt-2">
+                    <div className="max-w-[90%] rounded-2xl rounded-tl-sm border border-primary/30 bg-primary/10 px-3 py-2">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                        {/* Left side - Budget and Colors */}
+                        <div className="flex-1 space-y-1.5">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="text-muted-foreground">Total Budget</span>
+                            <span className="font-semibold text-primary">$200 / $200</span>
                           </div>
+                          <Progress value={100} className="h-1.5" />
+                          <div className="flex items-center gap-1.5 text-[10px]">
+                            <span className="text-muted-foreground">Colors:</span>
+                            <div className="flex gap-1">
+                              <div className="h-3 w-3 rounded-full bg-[#FF6B35] ring-1 ring-border" />
+                              <div className="h-3 w-3 rounded-full bg-gray-500 ring-1 ring-border" />
+                              <div className="h-3 w-3 rounded-full bg-slate-800 ring-1 ring-border" />
+                            </div>
+                          </div>
+                        </div>
+                        {/* Right side - Professional */}
+                        <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground flex-shrink-0 sm:self-start">
+                          <Briefcase className="h-3 w-3" />
+                          <span>Professional</span>
                         </div>
                       </div>
                     </div>
-                  )}
-                </div>
-
-                {/* Input Bar */}
-                <div className="mt-2 border-t border-border/50 pt-2">
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      placeholder="Ask about products, styles, or fit..."
-                      className="flex-1 rounded-lg border border-border/50 bg-card/30 px-2.5 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                    />
-                    <Button
-                      size="icon"
-                      className="h-8 w-8 shrink-0 bg-primary text-primary-foreground hover:bg-primary/90"
-                    >
-                      <Send className="h-3.5 w-3.5" />
-                    </Button>
                   </div>
+                )}
+              </div>
+
+              {/* Input Bar */}
+              <div className="mt-2 border-t border-border/50 pt-2">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    placeholder="Ask about products, styles, or fit..."
+                    className="flex-1 rounded-lg border border-border/50 bg-card/30 px-2.5 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                  <Button
+                    size="icon"
+                    className="h-8 w-8 shrink-0 bg-primary text-primary-foreground hover:bg-primary/90"
+                  >
+                    <Send className="h-3.5 w-3.5" />
+                  </Button>
                 </div>
+              </div>
             </div>
           </div>
         </div>

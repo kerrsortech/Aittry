@@ -56,22 +56,30 @@ export function ComparisonSection() {
     <section id="why-us" className="relative pt-10 pb-10 md:pt-14 md:pb-14 lg:pt-16 lg:pb-16">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div 
+        <div
           ref={headerAnimation.ref}
-          className={`mb-12 md:mb-16 text-center transition-all duration-700 ${
-            headerAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+          className={`mb-12 md:mb-16 text-center transition-all duration-700 ${headerAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
         >
           <h2 className="mb-4 text-3xl font-semibold text-foreground sm:text-4xl lg:text-5xl tracking-tight">Why Choose Us?</h2>
           <p className="text-lg sm:text-xl text-foreground/70">Real differences that impact your bottom line</p>
         </div>
 
+
+        {/* Trust Line */}
+        <div
+          className="mb-8 text-center"
+        >
+          <p className="text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r from-primary to-chart-2 inline-block">
+            Proven in production: 1,000,000+ text and image requests processed across real shopping sessions.
+          </p>
+        </div>
+
         {/* Comparison Table */}
-        <div 
+        <div
           ref={tableAnimation.ref}
-          className={`overflow-hidden rounded-xl border border-border/30 bg-white/80 backdrop-blur-xl max-w-5xl mx-auto shadow-sm transition-all duration-700 ${
-            tableAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+          className={`overflow-hidden rounded-xl border border-border/30 bg-white/80 backdrop-blur-xl max-w-5xl mx-auto shadow-sm transition-all duration-700 ${tableAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
         >
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
@@ -86,9 +94,8 @@ export function ComparisonSection() {
                 {comparisons.map((item, index) => (
                   <tr
                     key={index}
-                    className={`border-b border-border/30 transition-colors hover:bg-muted/10 ${
-                      index === comparisons.length - 1 ? "border-b-0" : ""
-                    }`}
+                    className={`border-b border-border/30 transition-colors hover:bg-muted/10 ${index === comparisons.length - 1 ? "border-b-0" : ""
+                      }`}
                   >
                     {/* Attribute Column */}
                     <td className="px-4 py-4 align-top text-xs sm:text-sm font-medium text-foreground sm:px-6 sm:py-5">{item.attribute}</td>

@@ -46,8 +46,8 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
       const data = await response.json()
 
       if (!response.ok) {
-        const errorMessage = data.details 
-          ? `${data.error}: ${data.details}` 
+        const errorMessage = data.details
+          ? `${data.error}: ${data.details}`
           : data.error || "Failed to send message"
         throw new Error(errorMessage)
       }
@@ -80,7 +80,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Join the Waiting List</DialogTitle>
+          <DialogTitle>Request Access</DialogTitle>
           <DialogDescription>
             Register your details below and we'll reach out to book a quick demo and share tailored recommendations based on your needs.
           </DialogDescription>
@@ -94,7 +94,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
         {submitted ? (
           <Card className="border-primary/50 bg-primary/10 p-6 text-center">
             <p className="text-sm font-medium text-primary">
-              Thank you for filling up the waiting list. We are really excited to have you on board. We'll get back to you shortly.
+              Thank you for requesting access. We are really excited to have you on board. We'll get back to you shortly.
             </p>
           </Card>
         ) : (
@@ -214,7 +214,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
                 Cancel
               </Button>
               <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Submitting..." : "Join Waiting List"}
+                {isSubmitting ? "Submitting..." : "Request Access"}
               </Button>
             </DialogFooter>
           </form>

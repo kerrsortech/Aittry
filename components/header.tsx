@@ -44,19 +44,18 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled ? "border-b border-border/30 bg-white/80 backdrop-blur-xl shadow-sm" : "bg-transparent"
-      }`}
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${isScrolled ? "border-b border-border/30 bg-white/80 backdrop-blur-xl shadow-sm" : "bg-transparent"
+        }`}
     >
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2.5 transition-opacity hover:opacity-80" aria-label="Stylr Home">
             <div className="flex h-8 w-8 items-center justify-center" aria-hidden="true">
-              <img 
-                src="/Stylr_icon.png" 
-                alt="Stylr Logo" 
-                width={32} 
+              <img
+                src="/Stylr_icon.png"
+                alt="Stylr Logo"
+                width={32}
                 height={32}
                 className="h-8 w-8 object-contain"
               />
@@ -79,12 +78,12 @@ export function Header() {
 
           {/* CTA Button */}
           <div className="hidden items-center gap-3 md:flex">
-            <Button 
-              size="default" 
+            <Button
+              size="default"
               className="min-w-[160px] bg-foreground text-background hover:bg-foreground/90 rounded-lg font-medium shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
               onClick={() => setContactModalOpen(true)}
             >
-              Join the waiting list
+              Request access
             </Button>
             {/* <Button 
               size="sm" 
@@ -122,15 +121,15 @@ export function Header() {
               ))}
             </nav>
             <div className="mt-4 flex flex-col gap-2 px-4">
-              <Button 
-                size="default" 
+              <Button
+                size="default"
                 className="w-full bg-foreground text-background hover:bg-foreground/90 rounded-lg font-medium"
                 onClick={() => {
                   setContactModalOpen(true)
                   setIsMobileMenuOpen(false)
                 }}
               >
-                Join the waiting list
+                Request access
               </Button>
               {/* <Button 
                 size="sm" 

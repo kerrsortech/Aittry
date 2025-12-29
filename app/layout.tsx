@@ -44,9 +44,9 @@ export const metadata: Metadata = {
     description: "Transform your online store with studio-quality virtual try-on and an AI shopping assistant. Reduce returns by 30%, boost conversions by 30%.",
     images: [
       {
-        url: "/Stylr_icon.png",
-        width: 216,
-        height: 215,
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
         alt: "Stylr - Virtual Try-On Platform",
       },
     ],
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Stylr - AI-Powered Virtual Try-On & Shopping Assistant",
     description: "Transform your online store with studio-quality virtual try-on and an AI shopping assistant.",
-    images: ["/Stylr_icon.png"],
+    images: ["/og-image.png"],
     creator: "@stylr",
   },
   alternates: {
