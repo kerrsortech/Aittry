@@ -152,6 +152,209 @@ export const blogPosts: BlogPost[] = [
     ],
   },
   {
+    slug: "best-virtual-try-on-software-ecommerce",
+    title:
+      "Best Virtual Try-On Software for Ecommerce (2026): Feature Checklist + Evaluation Scorecard",
+    summary:
+      "A practical scorecard to evaluate virtual try-on vendors: realism, speed, onboarding, Shopify integration, analytics, privacy, and red flags to avoid.",
+    date: "2026-02-10",
+    readTime: "9 min read",
+    tags: ["Virtual Try-On", "Ecommerce", "Vendor Evaluation", "Shopify"],
+    author: {
+      name: "Stylr Team",
+      role: "Growth",
+    },
+    featured: false,
+    content: [
+      {
+        type: "paragraph",
+        text:
+          "Virtual try-on is one of those categories where a demo can look impressive and still fail on a real product page. The winning platforms are the ones that stay fast on mobile, keep scale consistent, and don’t create a content-ops nightmare.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "If you’re launching on Shopify, start with placement + performance. See: /blog/virtual-try-on-shopify",
+      },
+      { type: "heading", text: "TL;DR" },
+      {
+        type: "list",
+        items: [
+          "Evaluate vendors on believability + speed + onboarding, not flashy outputs.",
+          "Demand clarity on Shopify integration and analytics events.",
+          "Run a short pilot with defined success metrics (conversion rate, returns, AOV).",
+        ],
+      },
+      { type: "heading", text: "What “virtual try-on software” should include" },
+      {
+        type: "list",
+        items: [
+          "A customer-facing try-on UI that fits your PDP flow.",
+          "A generation/rendering pipeline that looks believable across categories.",
+          "Catalog ingestion + variant mapping that doesn’t break at scale.",
+          "Measurement hooks (events + analytics) to prove ROI.",
+        ],
+      },
+      { type: "heading", text: "The 10 criteria that predict business impact" },
+      {
+        type: "list",
+        items: [
+          "Realism (lighting + material behavior).",
+          "Consistent scale (no floating artifacts across products).",
+          "Speed/latency (fast enough for shopping, especially mobile).",
+          "Mobile PDP performance (no layout shift, no heavy scripts).",
+          "Catalog onboarding time (hours/days vs weeks).",
+          "Variant correctness (color/size mapping is reliable).",
+          "Multi-category support (eyewear, apparel, shoes, accessories).",
+          "Analytics instrumentation (try-on started/completed, add-to-cart after try-on).",
+          "Privacy/data handling (clear policies, retention options).",
+          "Rollout support (pilot → scale plan, not “good luck”).",
+        ],
+      },
+      { type: "heading", text: "Copy/paste evaluation scorecard (weighted)" },
+      {
+        type: "list",
+        items: [
+          "Realism — weight 3",
+          "Scale consistency — weight 3",
+          "Speed — weight 3",
+          "Shopify integration maturity — weight 3",
+          "Onboarding ops (catalog + variants) — weight 3",
+          "Analytics/events — weight 2",
+          "Multi-category support — weight 2",
+          "Brand controls — weight 1",
+          "Privacy controls — weight 1",
+          "Support/SLAs — weight 1",
+        ],
+      },
+      { type: "heading", text: "Pass/fail questions" },
+      {
+        type: "list",
+        items: [
+          "Can we launch a pilot category in <30 days?",
+          "Can we measure try-on → add-to-cart → purchase lift?",
+          "Does it stay fast on mobile PDP?",
+        ],
+      },
+      { type: "heading", text: "A 2-week vendor test plan" },
+      {
+        type: "list",
+        items: [
+          "Choose 1 category with meaningful traffic (eyewear or top-selling apparel).",
+          "Define success: conversion lift, add-to-cart lift, returns reduction (if measurable).",
+          "QA on mobile devices and real customer photos.",
+          "Run a controlled rollout (A/B if possible; otherwise phased exposure).",
+        ],
+      },
+      { type: "heading", text: "Red flags to watch for" },
+      {
+        type: "list",
+        items: [
+          "Great demos, unclear answers on measurement/events.",
+          "Heavy manual editing required for each SKU.",
+          "Try-on lives on a separate page (low adoption).",
+          "Accuracy claims without a clear evaluation method.",
+        ],
+      },
+      { type: "heading", text: "Next step" },
+      {
+        type: "paragraph",
+        text:
+          "If you’re evaluating vendors, start with Shopify placement + measurement design so you can validate impact quickly. Request access and share your store URL + category to pilot—we’ll recommend the fastest rollout path and what to measure first.",
+      },
+    ],
+  },
+  {
+    slug: "virtual-try-on-roi",
+    title: "Virtual Try-On ROI: How to Measure Conversion Lift, Returns Reduction, and AOV",
+    summary:
+      "A practical measurement plan and simple ROI model for virtual try-on: what to track, how to run a rollout, and how to quantify business impact.",
+    date: "2026-02-13",
+    readTime: "8 min read",
+    tags: ["Virtual Try-On", "ROI", "Analytics", "Ecommerce"],
+    author: {
+      name: "Stylr Team",
+      role: "Growth",
+    },
+    featured: false,
+    content: [
+      {
+        type: "paragraph",
+        text:
+          "Most brands evaluate try-on with vibes: “users liked it.” That’s not enough to justify rollout. ROI is measurable—if you instrument the right events and run a controlled rollout.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "If you’re implementing on Shopify, use this as your baseline: /blog/virtual-try-on-shopify",
+      },
+      { type: "heading", text: "TL;DR" },
+      {
+        type: "list",
+        items: [
+          "ROI comes from conversion lift and returns reduction (AOV is a bonus).",
+          "Don’t launch and pray: define events and run a controlled rollout.",
+          "Start with a pilot category, then scale.",
+        ],
+      },
+      { type: "heading", text: "The 3 ROI levers" },
+      {
+        type: "list",
+        items: [
+          "Conversion lift: try-on reduces uncertainty and increases add-to-cart + checkout completion.",
+          "Returns reduction: fewer “not as expected” outcomes when shoppers see themselves in the product.",
+          "AOV uplift: higher confidence enables bundles and reduces abandoned carts.",
+        ],
+      },
+      { type: "heading", text: "What to measure (events)" },
+      {
+        type: "list",
+        items: [
+          "Try-on started",
+          "Try-on completed",
+          "Add-to-cart after try-on",
+          "Purchase after try-on",
+          "Returns rate + return reason codes (if available)",
+        ],
+      },
+      { type: "heading", text: "Measurement design (choose one)" },
+      {
+        type: "list",
+        items: [
+          "A/B test: split traffic and compare conversion + returns.",
+          "Phased rollout: launch one category/collection first, then expand.",
+          "Holdout: keep a portion of traffic without try-on for a defined period.",
+        ],
+      },
+      { type: "heading", text: "A simple ROI model (inputs)" },
+      {
+        type: "list",
+        items: [
+          "Monthly PDP sessions eligible for try-on",
+          "Baseline conversion rate",
+          "Expected conversion lift (start conservative)",
+          "Return rate + average order value",
+          "Tool cost (plan) + onboarding time",
+        ],
+      },
+      { type: "heading", text: "30 / 60 / 90 day rollout plan" },
+      {
+        type: "list",
+        items: [
+          "30 days: pilot + QA + instrumentation.",
+          "60 days: expand categories + iterate PDP placement + improve photo guidance.",
+          "90 days: optimize, decide scaling, and quantify returns impact.",
+        ],
+      },
+      { type: "heading", text: "Next step" },
+      {
+        type: "paragraph",
+        text:
+          "If you share your store URL, category, and monthly traffic range, we’ll provide a simple ROI model and a rollout plan. Request access to get started.",
+      },
+    ],
+  },
+  {
     slug: "building-trust-in-virtual-try-on",
     title: "Building Trust in Virtual Try-On",
     summary:
