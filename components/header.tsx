@@ -39,6 +39,9 @@ export function Header() {
         behavior: "smooth"
       })
       setIsMobileMenuOpen(false)
+    } else if (href.startsWith("#")) {
+      window.location.href = `/${href}`
+      setIsMobileMenuOpen(false)
     }
   }
 

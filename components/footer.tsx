@@ -1,19 +1,23 @@
 "use client"
 
+import Link from "next/link"
 import { MapPin } from "lucide-react"
 
 export function Footer() {
   const navItems = [
-    { label: "Features", href: "#features" },
-    { label: "Integration", href: "#integration" },
-    { label: "Why Us", href: "#why-us" },
-    { label: "Pricing", href: "#pricing" },
+    { label: "Features", href: "#features", type: "scroll" },
+    { label: "Integration", href: "#integration", type: "scroll" },
+    { label: "Why Us", href: "#why-us", type: "scroll" },
+    { label: "Pricing", href: "#pricing", type: "scroll" },
+    { label: "Blog", href: "/blog", type: "link" },
   ]
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href)
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" })
+    } else if (href.startsWith("#")) {
+      window.location.href = `/${href}`
     }
   }
 
@@ -61,15 +65,25 @@ export function Footer() {
           {/* Right Side: Navigation Links */}
           <div className="flex justify-start md:justify-end">
             <nav className="flex flex-col gap-2">
-              {navItems.map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => scrollToSection(item.href)}
-                  className="text-left text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {item.label}
-                </button>
-              ))}
+              {navItems.map((item) =>
+                item.type === "scroll" ? (
+                  <button
+                    key={item.label}
+                    onClick={() => scrollToSection(item.href)}
+                    className="text-left text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {item.label}
+                  </button>
+                ) : (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="text-left text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {item.label}
+                  </Link>
+                ),
+              )}
             </nav>
           </div>
         </div>
