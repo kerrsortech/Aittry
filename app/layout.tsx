@@ -3,10 +3,10 @@ import type { Metadata } from "next"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
-import { Sora } from "next/font/google"
+import { Manrope } from "next/font/google"
 import "./globals.css"
 
-const sora = Sora({
+const manrope = Manrope({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
   variable: "--font-sora",
@@ -14,7 +14,7 @@ const sora = Sora({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://stylr.ai'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://stylr.tech'),
   title: {
     default: "Stylr - AI-Powered Virtual Try-On & Shopping Assistant",
     template: "%s | Stylr"
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://stylr.ai',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://stylr.tech',
     siteName: "Stylr",
     title: "Stylr - AI-Powered Virtual Try-On & Shopping Assistant",
     description: "Transform your online store with studio-quality virtual try-on and an AI shopping assistant. Reduce returns by 30%, boost conversions by 30%.",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     creator: "@stylr",
   },
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://stylr.ai',
+    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://stylr.tech',
   },
   category: "E-commerce Technology",
   icons: {
@@ -81,8 +81,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Stylr",
-    "url": process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai",
-    "logo": `${process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai"}/Stylr_icon.png`,
+    "url": process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.tech",
+    "logo": `${process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.tech"}/Stylr_icon.png`,
     "contactPoint": {
       "@type": "ContactPoint",
       "email": "hello@stylr.tech",
@@ -124,7 +124,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${sora.variable} font-sans antialiased`}>
+      <body className={`${manrope.variable} font-sans antialiased`}>
         <Script
           id="organization-schema"
           type="application/ld+json"

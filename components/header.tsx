@@ -63,7 +63,7 @@ export function Header() {
                 className="h-8 w-8 object-contain"
               />
             </div>
-            <span className="text-2xl font-medium text-foreground tracking-tight font-sora">Stylr</span>
+            <span className="text-2xl font-bold text-foreground tracking-tight font-sora">Stylr</span>
           </a>
 
           {/* Desktop Navigation */}

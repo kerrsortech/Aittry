@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   description:
     "Product insights, AI commerce ideas, and virtual try-on learnings from the Stylr team.",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai"}/blog`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.tech"}/blog`,
   },
   openGraph: {
     type: "website",
-    url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai"}/blog`,
+    url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.tech"}/blog`,
     title: "Stylr Blog",
     description:
       "Product insights, AI commerce ideas, and virtual try-on learnings from the Stylr team.",

@@ -90,7 +90,7 @@ const renderBlock = (block: BlogContentBlock, index: number) => {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
   const post = blogPosts.find((item) => item.slug === slug)
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai"
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.tech"
   const canonicalUrl = `${baseUrl}/blog/${slug}`
 
   if (!post) {

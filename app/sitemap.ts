@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { blogPosts } from '@/content/blogs/posts'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://stylr.ai'
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://stylr.tech'
     const now = new Date()
 
     const posts = blogPosts.map((post) => ({

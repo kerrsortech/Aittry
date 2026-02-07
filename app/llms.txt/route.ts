@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 
 export function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai"
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.tech"
   const body = [
     "# Stylr",
     "",

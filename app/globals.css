@@ -1,6 +1,3 @@
-/* Import Sora font - primary font for entire website */
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap');
-
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -80,11 +77,11 @@
 }
 
 @theme inline {
-  --font-sans: "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-sora: "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sora: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
   
-  /* Sora is now the default font for the entire site */
+  /* Manrope is now the default font for the entire site */
   --font-family-sans: var(--font-sans);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -219,7 +216,7 @@
 }
 
 @layer utilities {
-  /* Sora font utility for company name */
+  /* Manrope font utility for company name */
   .font-sora {
     font-family: var(--font-sora), sans-serif;
   }
