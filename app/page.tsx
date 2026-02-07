@@ -25,6 +25,7 @@ export default function Home() {
         <div className="petal-shape w-[60px] h-[60px] top-[25%] right-[15%]" style={{ animationDelay: "5s" }} />
         <div className="petal-shape w-[70px] h-[70px] top-[20%] right-[25%]" style={{ animationDelay: "8s" }} />
       </div>
+      <div className="nav-hero-glow" aria-hidden="true" />
 
       <a
         href="#main-content"

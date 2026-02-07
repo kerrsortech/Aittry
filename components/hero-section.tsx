@@ -429,7 +429,7 @@ export function HeroSection() {
                         alt="Stylr"
                         width={32}
                         height={32}
-                        className="h-full w-full object-contain"
+                        className="h-full w-full object-contain dark:invert dark:brightness-110"
                       />
                     </div>
                   </Avatar>

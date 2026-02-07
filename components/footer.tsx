@@ -29,18 +29,18 @@ export function Footer() {
           {/* Left Side: Logo and Company Info */}
           <div className="flex flex-col gap-4">
             {/* Logo */}
-            <div className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2 w-fit transition-opacity hover:opacity-80" aria-label="Stylr Home">
               <div className="flex h-8 w-8 items-center justify-center">
                 <img 
                   src="/Stylr_icon.png" 
                   alt="Stylr Logo" 
                   width={32} 
                   height={32}
-                  className="h-8 w-8 object-contain"
+                  className="h-8 w-8 object-contain dark:invert dark:brightness-110"
                 />
               </div>
               <span className="text-3xl font-semibold text-foreground font-sora">Stylr</span>
-            </div>
+            </Link>
             
             {/* Locations */}
             <div className="flex flex-col gap-2 text-sm text-muted-foreground">
