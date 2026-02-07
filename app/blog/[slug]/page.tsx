@@ -21,21 +21,35 @@ const renderBlock = (block: BlogContentBlock, index: number) => {
   switch (block.type) {
     case "heading":
       return (
-        <h2 key={index} className="text-2xl font-semibold text-foreground">
+        <h2
+          key={index}
+          className="border-l-2 border-primary/40 pl-3 text-2xl font-semibold tracking-tight text-foreground"
+        >
           {block.text}
         </h2>
       )
+    case "subheading":
+      return (
+        <h3 key={index} className="text-lg font-semibold text-foreground">
+          {block.text}
+        </h3>
+      )
     case "paragraph":
       return (
-        <p key={index} className="text-base leading-relaxed text-muted-foreground">
+        <p key={index} className="text-base leading-7 text-muted-foreground">
           {block.text}
         </p>
       )
     case "list":
       return (
-        <ul key={index} className="space-y-2 text-base text-muted-foreground list-disc pl-5">
+        <ul
+          key={index}
+          className="space-y-2 rounded-xl border border-border/40 bg-white/70 px-5 py-4 text-base text-muted-foreground"
+        >
           {block.items.map((item, itemIndex) => (
-            <li key={`${index}-${itemIndex}`}>{item}</li>
+            <li key={`${index}-${itemIndex}`} className="list-disc pl-1 marker:text-primary/70">
+              {item}
+            </li>
           ))}
         </ul>
       )
@@ -76,15 +90,33 @@ const renderBlock = (block: BlogContentBlock, index: number) => {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
   const post = blogPosts.find((item) => item.slug === slug)
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai"
+  const canonicalUrl = `${baseUrl}/blog/${slug}`
+
   if (!post) {
     return {
       title: "Blog",
     }
   }
+
   return {
     title: post.title,
     description: post.summary,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      type: "article",
+      url: canonicalUrl,
+      title: post.title,
+      description: post.summary,
+      siteName: "Stylr",
+    },
   }
+}
+
+export function generateStaticParams() {
+  return blogPosts.map((post) => ({ slug: post.slug }))
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
@@ -155,7 +187,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         <section className="pb-20">
           <div className="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <article className="space-y-6">
+            <article className="space-y-7">
               {post.content.map((block, index) => renderBlock(block, index))}
             </article>
           </div>

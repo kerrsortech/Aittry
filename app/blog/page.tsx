@@ -5,11 +5,23 @@ import { Footer } from "@/components/footer"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { blogPosts } from "@/content/blogs/posts"
+import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: "Blog",
   description:
     "Product insights, AI commerce ideas, and virtual try-on learnings from the Stylr team.",
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai"}/blog`,
+  },
+  openGraph: {
+    type: "website",
+    url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://stylr.ai"}/blog`,
+    title: "Stylr Blog",
+    description:
+      "Product insights, AI commerce ideas, and virtual try-on learnings from the Stylr team.",
+    siteName: "Stylr",
+  },
 }
 
 const formatDate = (date: string) =>
@@ -21,6 +33,7 @@ const formatDate = (date: string) =>
 
 export default function BlogPage() {
   const posts = [...blogPosts].sort((a, b) => b.date.localeCompare(a.date))
+  const hasSinglePost = posts.length === 1
 
   return (
     <>
@@ -67,17 +80,22 @@ export default function BlogPage() {
               </Badge>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2">
+            <div
+              className={cn(
+                "grid gap-4",
+                hasSinglePost ? "mx-auto max-w-3xl md:grid-cols-1" : "md:grid-cols-2",
+              )}
+            >
               {posts.map((post) => (
                 <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
-                  <Card className="relative overflow-hidden border border-border/40 bg-white/80 p-6 backdrop-blur-sm transition-all hover:border-primary/40 hover:shadow-lg hover-lift">
-                    <div className="flex items-center justify-between gap-4 text-xs text-muted-foreground">
+                  <Card className="relative overflow-hidden border border-border/40 bg-white/80 p-4 md:p-5 backdrop-blur-sm transition-all hover:border-primary/40 hover:shadow-lg hover-lift">
+                    <div className="flex items-center justify-between gap-3 text-[11px] text-muted-foreground">
                       <div className="flex flex-wrap items-center gap-2">
-                        <Badge variant="secondary" className="bg-foreground/5 text-foreground/70">
+                        <Badge variant="secondary" className="bg-foreground/5 px-2 py-0.5 text-[10px] text-foreground/70">
                           Blog
                         </Badge>
                         {post.featured && (
-                          <Badge variant="outline" className="border-primary/40 text-primary">
+                          <Badge variant="outline" className="border-primary/40 px-2 py-0.5 text-[10px] text-primary">
                             Featured
                           </Badge>
                         )}
@@ -87,25 +105,25 @@ export default function BlogPage() {
                       </span>
                     </div>
 
-                    <h3 className="mt-4 text-xl font-semibold text-foreground">
+                    <h3 className="mt-3 text-lg font-semibold leading-snug text-foreground">
                       {post.title}
                     </h3>
-                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                    <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
                       {post.summary}
                     </p>
 
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {post.tags.map((tag) => (
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {post.tags.slice(0, 4).map((tag) => (
                         <span
                           key={`${post.slug}-${tag}`}
-                          className="rounded-full border border-border/40 bg-white/70 px-2.5 py-1 text-xs text-muted-foreground"
+                          className="rounded-full border border-border/40 bg-white/70 px-2 py-0.5 text-[11px] text-muted-foreground"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
 
-                    <div className="mt-6 flex items-center justify-between text-xs text-muted-foreground">
+                    <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
                       <span>
                         {post.author.name}
                         {post.author.role ? ` · ${post.author.role}` : ""}
